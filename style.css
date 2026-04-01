@@ -55,7 +55,7 @@ ul { list-style: none; padding: 0; }
 }
 
 /* The Tooltip Box */
-.pixel-links li::after {
+.pixel-links a::after {
     content: attr(data-tooltip); /* بيسحب الكلام من الـ HTML */
     position: absolute;
     bottom: -40px; /* مكانه تحت اللينك */
@@ -80,7 +80,7 @@ ul { list-style: none; padding: 0; }
 }
 
 /* Arrow (Optional: The small triangle pointing up) */
-.pixel-links li::before {
+.pixel-links a::before {
     content: '';
     position: absolute;
     bottom: -10px;
@@ -95,8 +95,8 @@ ul { list-style: none; padding: 0; }
 }
 
 /* Hover State: Reveal the box */
-.pixel-links li:hover::after,
-.pixel-links li:hover::before {
+.pixel-links a:hover::after,
+.pixel-links a:hover::before {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0); /* بيرجع لمكانه بحركة انسيابية */
