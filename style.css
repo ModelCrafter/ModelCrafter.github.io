@@ -58,6 +58,7 @@ ul { list-style: none; padding: 0; }
     font-size: 0.8rem;
     position: relative;
     display: inline-block;
+    color: #00ff41;
 }
 
 /* The Tooltip Box */
@@ -121,8 +122,7 @@ ul { list-style: none; padding: 0; }
 
 /* Simple Hover effect for the link itself */
 .pixel-links a:hover {
-    color: #ff00ff !important;
-    text-shadow: 2px 2px 0px #000;
+    color: #00ff41;
 }
 
 /* --- Main --- */
