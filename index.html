@@ -1,85 +1,69 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ModelCrafter Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
-        .navbar { background-color: #1e293b !important; border-bottom: 1px solid #334155; }
-        .hero-section { padding: 80px 0; background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%); }
-        .nav-link { font-weight: 500; margin-left: 20px; color: #94a3b8 !important; }
-        .nav-link:hover { color: #38bdf8 !important; }
-        .section-box { 
-            background: #1e293b; border: 1px solid #334155; padding: 30px; 
-            border-radius: 15px; transition: 0.3s; cursor: pointer; text-decoration: none; display: block;
-        }
-        .section-box:hover { border-color: #38bdf8; transform: translateY(-5px); }
-        h2, h3 { color: #f8fafc; }
-        .icon-box { font-size: 2rem; margin-bottom: 15px; color: #38bdf8; }
-    </style>
+    <title>ModelCrafter's Pixel Arcade | Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">ModelCrafter</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="writeups.html">Writeups</a></li>
-                    <li class="nav-item"><a class="nav-link" href="experiments.html">Experiments</a></li>
-                    <li class="nav-item"><a class="nav-link" href="datasets.html">Datasets</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="pixel-screen">
+        
+        <nav class="pixel-nav">
+            <h1 class="pixel-brand">MODEL_CRAFTER_v1.0</h1>
+            <ul class="pixel-links">
+                <li><a href="projects.html">[PROJ]</a></li>
+                <li><a href="writeups.html">[WRIT]</a></li>
+                <li><a href="experiments.html">[EXPS]</a></li>
+                <li><a href="datasets.html">[DATA]</a></li>
+            </ul>
+        </nav>
 
-    <header class="hero-section text-center">
-        <div class="container">
-            <h1 class="display-3 fw-bold mb-3">ModelCrafter</h1>
-            <p class="lead text-secondary">Explore my projects, experiments, and technical writings in one place.</p>
-        </div>
-    </header>
+        <main class="pixel-content">
+            
+            <section class="hero-section">
+                <div class="glitch-wrapper">
+                    <h2 class="hero-title glitch" data-text="GAME START">GAME START</h2>
+                </div>
+                <p class="hero-subtitle">SYSTEM_STATUS: ONLINE. Leveling up with Code & AI.</p>
+            }
+                <a href="#about" class="pixel-btn">PRESS START TO CONTINUE</a>
+            </section>
 
-    <section class="container my-5">
-        <div class="row g-4 text-center">
-            <div class="col-md-6 col-lg-3">
-                <a href="projects.html" class="section-box">
-                    <div class="icon-box">📂</div>
-                    <h3>Projects</h3>
-                    <p class="text-muted small">Complete projects and applications.</p>
-                </a>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <a href="writeups.html" class="section-box">
-                    <div class="icon-box">✍️</div>
-                    <h3>Writeups</h3>
-                    <p class="text-muted small">Technical articles and detailed tutorials.</p>
-                </a>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <a href="experiments.html" class="section-box">
-                    <div class="icon-box">🧪</div>
-                    <h3>Experiments</h3>
-                    <p class="text-muted small">Experiments and ideas in development.</p>
-                </a>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <a href="datasets.html" class="section-box">
-                    <div class="icon-box">📊</div>
-                    <h3>Datasets</h3>
-                    <p class="text-muted small">Datasets I collected or processed.</p>
-                </a>
-            </div>
-        </div>
-    </section>
+            <section id="about" class="about-section">
+                <div class="row">
+                    <div class="col-text">
+                        <h3>PLAYER PROFILE</h3>
+                        <p>Welcome to my domain. I am ModelCrafter, an AI Architect crafting digital worlds. I specialize in turning complex data into playable solutions.</p>
+                        
+                        <div class="stats-box">
+                            <p>HP: 100/100 | MP: 99/99</p>
+                            <p>STR: [★★★★☆] INT: [★★★★★]</p>
+                            <p>DEX: [★★★★☆] CHA: [★★★★★]</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-character">
+                        <div class="character-wrapper">
+                            <div class="pixel-char-placeholder">
+                                <span class="cap">^</span>
+                                👤
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        </main>
+    </div>
+
+    <footer class="pixel-footer">
+        <p>© 2026 ModelCrafter. All bytes reserved.</p>
+    </footer>
+
 </body>
 </html>
