@@ -67,7 +67,7 @@ ul { list-style: none; padding: 0; }
     position: absolute;
     bottom: -40px;
     left: 50%;
-    transform: translateX(-50%) translateY(10px);
+    margin-left: -30px;
     
     background: #fff;
     color: #000;
@@ -80,7 +80,6 @@ ul { list-style: none; padding: 0; }
     
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s ease-out;
     pointer-events: none;
     z-index: 100;
 }
@@ -91,13 +90,12 @@ ul { list-style: none; padding: 0; }
     position: absolute;
     bottom: -10px;
     left: 50%;
-    transform: translateX(-50%);
+    margin-left: -5px;
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent #fff transparent;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s;
     z-index: 101;
 }
 
@@ -106,7 +104,6 @@ ul { list-style: none; padding: 0; }
 .pixel-links a:hover::before {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
 }
 
 /* Simple Hover effect for the link itself */
