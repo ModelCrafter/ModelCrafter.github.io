@@ -119,8 +119,8 @@ ul { list-style: none; padding: 0; }
 .pixel-content { padding: 40px 0; }
 
 /* --- Hero Section --- */
-.hero-section { text-center: center; }
-.hero-title { font-size: 2.5rem; color: #fff; text-shadow: 4px 4px 0px #ff00ff; margin-bottom: 10px; }
+.hero-section { text-align: center; }
+.hero-title { font-size: 2.5rem; color: #fff; text-shadow: 2px 2px 0px #ff00ff; margin-bottom: 10px; }
 .hero-subtitle { font-size: 0.7rem; color: #aaa; margin-bottom: 30px; }
 
 /* --- About & Character --- */
