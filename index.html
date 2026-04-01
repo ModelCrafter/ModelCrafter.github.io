@@ -3,102 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ModelCrafter | Portfolio</title>
+    <title>ModelCrafter Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .hero-section { background: linear-gradient(135deg, #212529 0%, #343a40 100%); color: white; padding: 100px 0; }
-        .card { border: none; transition: transform 0.3s; }
-        .card:hover { transform: translateY(-10px); }
-        footer { background-color: #212529; color: white; padding: 20px 0; margin-top: 50px; }
+        body { background-color: #0f172a; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; }
+        .navbar { background-color: #1e293b !important; border-bottom: 1px solid #334155; }
+        .hero-section { padding: 80px 0; background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%); }
+        .nav-link { font-weight: 500; margin-left: 20px; color: #94a3b8 !important; }
+        .nav-link:hover { color: #38bdf8 !important; }
+        .section-box { 
+            background: #1e293b; border: 1px solid #334155; padding: 30px; 
+            border-radius: 15px; transition: 0.3s; cursor: pointer; text-decoration: none; display: block;
+        }
+        .section-box:hover { border-color: #38bdf8; transform: translateY(-5px); }
+        h2, h3 { color: #f8fafc; }
+        .icon-box { font-size: 2rem; margin-bottom: 15px; color: #38bdf8; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">ModelCrafter</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="#projects">مشاريعي</a>
-                <a class="nav-link" href="#contact">تواصل معي</a>
+            <a class="navbar-brand fw-bold" href="index.html">ModelCrafter</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="writeups.html">Writeups</a></li>
+                    <li class="nav-item"><a class="nav-link" href="experiments.html">Experiments</a></li>
+                    <li class="nav-item"><a class="nav-link" href="datasets.html">Datasets</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
     <header class="hero-section text-center">
         <div class="container">
-            <h1 class="display-4 fw-bold">أهلاً بك في عالم ModelCrafter</h1>
-            <p class="lead">مطوّر برمجيات ومهندس ذكاء اصطناعي شغوف ببناء الحلول المبتكرة.</p>
-            <a href="#projects" class="btn btn-primary btn-lg mt-3">شاهد أعمالي</a>
+            <h1 class="display-3 fw-bold mb-3">ModelCrafter</h1>
+            <p class="lead text-secondary">Explore my projects, experiments, and technical writings in one place.</p>
         </div>
     </header>
 
-    <section id="projects" class="container my-5">
-        <h2 class="text-center mb-5">أبرز المشاريع</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">مشاريع التصنيف</h5>
-                        <p class="card-text">مشاريع تصنيف في التعلم الآلي والتعلم العميق لجميع المستويات - للمبتدئين والمحترفين.</p>
-                        <a href="https://github.com/ModelCrafter/Classification-projects" class="btn btn-outline-dark btn-sm">التفاصيل</a>
-                    </div>
-                </div>
+    <section class="container my-5">
+        <div class="row g-4 text-center">
+            <div class="col-md-6 col-lg-3">
+                <a href="projects.html" class="section-box">
+                    <div class="icon-box">📂</div>
+                    <h3>Projects</h3>
+                    <p class="text-muted small">Complete projects and applications.</p>
+                </a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">توصية المحاصيل</h5>
-                        <p class="card-text">نموذج تصنيف للتنبؤ بأفضل المحاصيل المناسبة بناءً على ظروف التربة والمناخ.</p>
-                        <a href="https://github.com/ModelCrafter/Classification-projects/tree/main/Crop_recommendation" class="btn btn-outline-dark btn-sm">التفاصيل</a>
-                    </div>
-                </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="writeups.html" class="section-box">
+                    <div class="icon-box">✍️</div>
+                    <h3>Writeups</h3>
+                    <p class="text-muted small">Technical articles and detailed tutorials.</p>
+                </a>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">تصنيف الزجاج</h5>
-                        <p class="card-text">تصنيف أنواع الزجاج المختلفة باستخدام خوارزميات التعلم الآلي.</p>
-                        <a href="https://github.com/ModelCrafter/Classification-projects/tree/main/Glass_classification" class="btn btn-outline-dark btn-sm">التفاصيل</a>
-                    </div>
-                </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="experiments.html" class="section-box">
+                    <div class="icon-box">🧪</div>
+                    <h3>Experiments</h3>
+                    <p class="text-muted small">Experiments and ideas in development.</p>
+                </a>
             </div>
-        </div>
-        <div class="row g-4 mt-3">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">تصنيف MNIST</h5>
-                        <p class="card-text">تصنيف الأرقام المكتوبة بخط اليد باستخدام التعلم الآلي التقليدي.</p>
-                        <a href="https://github.com/ModelCrafter/Classification-projects/tree/main/Mnist_classification(ML)" class="btn btn-outline-dark btn-sm">التفاصيل</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">مرشح البريد المزعج</h5>
-                        <p class="card-text">نموذج لتصنيف والتمييز بين البريد الإلكتروني المشروع والمزعج.</p>
-                        <a href="https://github.com/ModelCrafter/Classification-projects/tree/main/Simple_spam_fliter" class="btn btn-outline-dark btn-sm">التفاصيل</a>
-                    </div>
-                </div>
+            <div class="col-md-6 col-lg-3">
+                <a href="datasets.html" class="section-box">
+                    <div class="icon-box">📊</div>
+                    <h3>Datasets</h3>
+                    <p class="text-muted small">Datasets I collected or processed.</p>
+                </a>
             </div>
         </div>
     </section>
-
-    <section id="contact" class="container my-5 text-center">
-        <div class="bg-light p-5 rounded shadow-sm">
-            <h2>لنعمل معاً</h2>
-            <p>إذا كان لديك مشروع طموح أو فكرة مبتكرة، يسعدني التواصل معك.</p>
-            <a href="mailto:your-email@example.com" class="btn btn-dark">ارسل بريد إلكتروني</a>
-        </div>
-    </section>
-
-    <footer class="text-center">
-        <div class="container">
-            <p>© 2026 ModelCrafter - جميع الحقوق محفوظة</p>
-        </div>
-    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
