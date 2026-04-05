@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,29 +8,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header class="top-nav">
-        <div class="nav-links">
-            <a href="#init" class="active">> INIT</a>
-            <a href="#projects">> PROJECTS</a>
-            <a href="#datasets">> DATASETS</a>
-            <a href="#signal">> SIGNAL</a>
-        </div>
+    <header class="navbar">
+        <nav class="nav-container">
+            <button class="nav-btn" data-nav="signal">SIGNAL</button>
+            <button class="nav-btn" data-nav="projects">PROJECTS</button>
+            <button class="nav-btn" data-nav="datasets">DATASETS</button>
+            <button class="nav-btn" data-nav="init">INIT</button>
+        </nav>
     </header>
 
-    <div class="central-identity">
-        <h1 class="name">Youssef Khaled</h1>
-        <h2 class="title">modelcrafter</h2>
-        <div class="init-sequence">
-            <span class="prompt">[</span>
-            <span class="cmd">SYSTEM.INIT</span>
-            <span class="prompt">]</span>
-            <span class="cursor">_</span>
+    <div class="hero-center">
+        <h1 class="hero-title">YOUSSEF KHALED</h1>
+        <h2 class="hero-subtitle">AI ARCHITECT & MODELCRAFTER</h2>
+        <div class="hero-status">
+            <span class="status-bracket">[</span>
+            <span class="status-text">SYSTEM.READY</span>
+            <span class="status-bracket">]</span>
+            <span class="status-arrow">&gt;</span>
+            <span class="status-init">INITIALIZING PORTFOLIO...</span>
         </div>
     </div>
 
-    <main id="galaxy-container">
-        </main>
+    <main id="galaxy-container"></main>
 
     <script src="script.js"></script>
 </body>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal | Youssef</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: radial-gradient(circle, #1a1f3a, #0a0e27); color: #fff; font-family: 'VT323'; overflow-x: hidden; min-height: 100vh; padding-top: 80px; }
+        .navbar { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(10, 14, 39, 0.85); border-bottom: 2px solid #00ffff; display: flex; justify-content: center; z-index: 1000; }
+        .nav-container { display: flex; gap: 4rem; }
+        .nav-btn { background: transparent; border: 2px solid #00ffff; color: #00ffff; padding: 0.8rem 1.5rem; font-size: 1.3rem; font-family: 'VT323'; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .nav-btn:hover { transform: scale(1.1); box-shadow: 0 0 20px #00ffff; }
+        #galaxy { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .star-bg { position: absolute; background: #fff; border-radius: 50%; opacity: 0.4; animation: twinkle 3s infinite; }
+        .container { position: relative; z-index: 100; max-width: 600px; margin: 60px auto; padding: 40px; text-align: center; }
+        .container h1 { font-size: 2.5rem; color: #00ffff; margin-bottom: 30px; text-shadow: 0 0 20px #00ffff; }
+        .links { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 30px; }
+        .link-item { padding: 15px; border: 2px solid #00ffff; background: rgba(0, 255, 255, 0.1); cursor: pointer; transition: 0.3s; text-decoration: none; color: #fff; font-size: 1.3rem; display: block; }
+        .link-item:hover { background: rgba(0, 255, 255, 0.2); box-shadow: 0 0 20px #00ffff; }
+        .back { display: inline-block; margin-top: 20px; padding: 10px 20px; border: 2px solid #00ffff; color: #00ffff; text-decoration: none; cursor: pointer; transition: 0.3s; }
+        .back:hover { box-shadow: 0 0 20px #00ffff; }
+        @keyframes twinkle { 0% { opacity: 0.2; } 100% { opacity: 0.8; } }
+    </style>
+</head>
+<body>
+    <div id="galaxy"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="nav-btn" onclick="go('signal')">SIGNAL</button>
+            <button class="nav-btn" onclick="go('projects')">PROJECTS</button>
+            <button class="nav-btn" onclick="go('datasets')">DATASETS</button>
+            <button class="nav-btn" onclick="go('init')">INIT</button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>> SIGNAL RELAY</h1>
+        <div class="links">
+            <a href="https://wa.me/201001234567" class="link-item" target="_blank">📱 [ WHATSAPP ]</a>
+            <a href="https://linkedin.com/in/youssefkhaled" class="link-item" target="_blank">💼 [ LINKEDIN ]</a>
+            <a href="https://github.com/ModelCrafter" class="link-item" target="_blank">🐙 [ GITHUB ]</a>
+            <a href="https://twitter.com" class="link-item" target="_blank">🐦 [ TWITTER ]</a>
+            <a href="mailto:youssef@example.com" class="link-item" target="_blank">✉️ [ EMAIL ]</a>
+        </div>
+        <a href="index.html" class="back">< BACK</a>
+    </div>
+    <script>
+        function go(page) { window.location.href = page + '.html'; }
+        const galaxy = document.getElementById('galaxy');
+        for (let i = 0; i < 250; i++) {
+            const star = document.createElement('div');
+            star.className = 'star-bg';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            galaxy.appendChild(star);
+        }
+    </script>
+</body>
+</html>
