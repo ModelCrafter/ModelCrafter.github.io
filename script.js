@@ -19,13 +19,49 @@ const datasets = [
     { id: 5, name: "Chemical Data", size: "6GB", color: "#ffcc66" }
 ];
 
+// الرسائل الاحترافية والفصحى
+const astronautMessages = [
+    "I'm here",
+    "I'm free to work",
+    "أنا هنا",
+    "أنا متاح للعمل",
+    "ready to explore",
+    "جاهز للاستكشاف",
+    "سعيد بلقائك",
+    "في انتظارك"
+];
+
+// منطقة محظورة (حول Hero Section)
+const forbiddenZone = {
+    minX: 35,
+    maxX: 65,
+    minY: 35,
+    maxY: 55
+};
+
+// حدود آمنة للشموس والكواكب
+const safeBounds = {
+    minX: 5,
+    maxX: 95,
+    minY: 10,
+    maxY: 95,
+    padding: 8 // مسافة من الحافة
+};
+
+function isInForbiddenZone(x, y) {
+    return (y > forbiddenZone.minY && y < forbiddenZone.maxY && 
+            x > forbiddenZone.minX && x < forbiddenZone.maxX);
+}
+
 function getRandomPositionFull() {
-    // توزيع في الشاشة كاملة مع تجنب الـ hero section
+    // توزيع آمن مع تجنب منطقة Hero والحواف
     let x, y;
+    let attempts = 0;
     do {
-        x = Math.random() * 95 + 2.5;
-        y = Math.random() * 95 + 2.5;
-    } while (y > 35 && y < 55 && x > 35 && x < 65); // تجنب الـ hero
+        x = Math.random() * (safeBounds.maxX - safeBounds.minX) + safeBounds.minX;
+        y = Math.random() * (safeBounds.maxY - safeBounds.minY) + safeBounds.minY;
+        attempts++;
+    } while (isInForbiddenZone(x, y) && attempts < 20);
     
     return { x, y };
 }
@@ -63,8 +99,8 @@ function createAsteroids() {
 
     asteroidPaths.forEach((path, index) => {
         const asteroid = document.createElement('div');
-        const size = Math.random() * 6 + 2; // حجم عشوائي 2-8 px
-        const delay = index * 2 + Math.random() * 3; // تأخير عشوائي للبدء
+        const size = Math.random() * 6 + 2;
+        const delay = index * 2 + Math.random() * 3;
         
         asteroid.className = 'asteroid';
         asteroid.style.width = size + 'px';
@@ -74,12 +110,7 @@ function createAsteroids() {
         asteroid.style.background = '#b4b4c8';
         asteroid.style.animationDuration = path.duration + 's';
         asteroid.style.animationDelay = delay + 's';
-        asteroid.style.setProperty('--start-x', path.startX + '%');
-        asteroid.style.setProperty('--start-y', path.startY + '%');
-        asteroid.style.setProperty('--end-x', path.endX + '%');
-        asteroid.style.setProperty('--end-y', path.endY + '%');
         
-        // إضافة animation keyframes ديناميكية
         const keyframes = `
             @keyframes asteroidPath${index} {
                 0% {
@@ -93,13 +124,11 @@ function createAsteroids() {
             }
         `;
         
-        // إنشاء style tag للـ keyframes
         const style = document.createElement('style');
         style.innerHTML = keyframes;
         document.head.appendChild(style);
         
         asteroid.style.animation = `asteroidPath${index} ${path.duration}s linear infinite`;
-        
         galaxy.appendChild(asteroid);
     });
 }
@@ -155,15 +184,94 @@ function createPlanet(dataset) {
     galaxy.appendChild(body);
 }
 
+function createAstronaut() {
+    const astronaut = document.createElement('div');
+    astronaut.className = 'astronaut';
+    astronaut.innerHTML = '👨‍🚀';
+    
+    // موضع عشوائي بره المنطقة المحظورة
+    let x, y;
+    do {
+        x = Math.random() * 80 + 10;
+        y = Math.random() * 70 + 15;
+    } while (isInForbiddenZone(x, y));
+    
+    astronaut.style.left = x + '%';
+    astronaut.style.top = y + '%';
+    astronaut.style.transform = 'translate(-50%, -50%)';
+    
+    // الحركة العشوائية (drift في الفضاء)
+    let vx = (Math.random() - 0.5) * 0.3;
+    let vy = (Math.random() - 0.5) * 0.3;
+    
+    function animateAstronaut() {
+        let currentX = parseFloat(astronaut.style.left);
+        let currentY = parseFloat(astronaut.style.top);
+        
+        currentX += vx;
+        currentY += vy;
+        
+        // ارتداد من الحواف
+        if (currentX < 5 || currentX > 95) vx = -vx;
+        if (currentY < 5 || currentY > 95) vy = -vy;
+        
+        // منع الخروج الفعلي
+        currentX = Math.max(5, Math.min(95, currentX));
+        currentY = Math.max(5, Math.min(95, currentY));
+        
+        astronaut.style.left = currentX + '%';
+        astronaut.style.top = currentY + '%';
+        
+        requestAnimationFrame(animateAstronaut);
+    }
+    
+    animateAstronaut();
+    
+    // الرسائل العشوائية
+    let messageTimeout;
+    
+    function showRandomMessage() {
+        const randomMsg = astronautMessages[Math.floor(Math.random() * astronautMessages.length)];
+        const message = document.createElement('div');
+        message.className = 'floating-message';
+        message.textContent = randomMsg;
+        
+        const msgX = parseFloat(astronaut.style.left);
+        const msgY = parseFloat(astronaut.style.top);
+        
+        message.style.left = msgX + '%';
+        message.style.top = msgY + '%';
+        message.style.transform = 'translate(-50%, -50%)';
+        
+        galaxy.appendChild(message);
+        
+        setTimeout(() => message.remove(), 3000);
+        
+        messageTimeout = setTimeout(showRandomMessage, 5000 + Math.random() * 5000);
+    }
+    
+    // ابدأ الرسائل العشوائية
+    showRandomMessage();
+    
+    // النقر للذهاب إلى init
+    astronaut.addEventListener('click', function() {
+        clearTimeout(messageTimeout);
+        window.location.href = 'init.html';
+    });
+    
+    galaxy.appendChild(astronaut);
+}
+
 function init() {
     createBgStars();
-    createAsteroids(); // إضافة الأسترويدات
+    createAsteroids();
     projects.forEach(function(project) {
         createSun(project);
     });
     datasets.forEach(function(dataset) {
         createPlanet(dataset);
     });
+    createAstronaut();
 }
 
 navBtns.forEach(function(btn) {

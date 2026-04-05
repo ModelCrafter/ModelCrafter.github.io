@@ -192,11 +192,11 @@ body {
 .sun-core::before {
     content: '';
     position: absolute;
-    top: -8px;
-    left: -8px;
-    width: 40px;
-    height: 40px;
-    border: 2px solid rgba(255, 136, 0, 0.6);
+    top: -6px;
+    left: -6px;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(255, 136, 0, 0.6);
     border-radius: 50%;
     animation: orbitRotate 3s linear infinite;
 }
@@ -204,10 +204,10 @@ body {
 .sun-core::after {
     content: '';
     position: absolute;
-    top: -15px;
-    left: -15px;
-    width: 54px;
-    height: 54px;
+    top: -11px;
+    left: -11px;
+    width: 46px;
+    height: 46px;
     border: 1px dashed rgba(255, 136, 0, 0.3);
     border-radius: 50%;
     animation: orbitRotate 5s linear infinite reverse;
@@ -345,5 +345,52 @@ body {
     }
     100% {
         opacity: 0;
+    }
+}
+
+/* ASTRONAUT */
+.astronaut {
+    position: absolute;
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 50;
+    filter: drop-shadow(0 0 15px rgba(100, 150, 255, 0.6));
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.astronaut:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 25px rgba(100, 150, 255, 0.9));
+}
+
+/* FLOATING MESSAGES */
+.floating-message {
+    position: absolute;
+    font-size: 1.1rem;
+    color: #a8c5ff;
+    text-shadow: 0 0 10px rgba(100, 150, 255, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    font-weight: normal;
+    letter-spacing: 2px;
+    animation: floatMessage 3s ease-in-out forwards;
+    z-index: 20;
+}
+
+@keyframes floatMessage {
+    0% {
+        opacity: 0;
+        transform: translate(0, 20px);
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(0, -80px);
     }
 }
