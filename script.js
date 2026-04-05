@@ -1,5 +1,5 @@
 const galaxy = document.getElementById('galaxy-container');
-const bgStarCount = 300;
+const bgStarCount = 350;
 const navBtns = document.querySelectorAll('.nav-btn');
 
 const projects = [
@@ -11,39 +11,42 @@ const projects = [
 ];
 
 const datasets = [
-    { id: 1, name: "Market Trends", size: "4GB", color: "#0088ff" },
-    { id: 2, name: "Audio Features", size: "8GB", color: "#00ff99" },
-    { id: 3, name: "Pixel Dataset", size: "2GB", color: "#ff00ff" },
-    { id: 4, name: "Language Corpus", size: "15GB", color: "#00ffff" },
-    { id: 5, name: "Chemical Data", size: "6GB", color: "#ffff00" }
+    { id: 1, name: "Market Trends", size: "4GB", color: "#6688ff" },
+    { id: 2, name: "Audio Features", size: "8GB", color: "#66ddaa" },
+    { id: 3, name: "Pixel Dataset", size: "2GB", color: "#dd66ff" },
+    { id: 4, name: "Language Corpus", size: "15GB", color: "#66ccff" },
+    { id: 5, name: "Chemical Data", size: "6GB", color: "#ffcc66" }
 ];
 
-function getRandomPositionSafe() {
-    // توزيع ذكي بحيث لا يخرج من الحدود
-    return {
-        x: Math.random() * 75 + 10,  // بين 10% و 85%
-        y: Math.random() * 70 + 15   // بين 15% و 85%
-    };
+function getRandomPositionFull() {
+    // توزيع في الشاشة كاملة مع تجنب الـ hero section
+    let x, y;
+    do {
+        x = Math.random() * 95 + 2.5;
+        y = Math.random() * 95 + 2.5;
+    } while (y > 35 && y < 55 && x > 35 && x < 65); // تجنب الـ hero
+    
+    return { x, y };
 }
 
 function createBgStars() {
     for (let i = 0; i < bgStarCount; i++) {
         const star = document.createElement('div');
         star.className = 'star-bg';
-        const pos = getRandomPositionSafe();
-        const size = Math.random() * 2 + 0.5;
+        const pos = { x: Math.random() * 100, y: Math.random() * 100 };
+        const size = Math.random() * 1.5 + 0.3;
         star.style.width = size + 'px';
         star.style.height = size + 'px';
         star.style.left = pos.x + '%';
         star.style.top = pos.y + '%';
-        star.style.animationDelay = (Math.random() * 2) + 's';
+        star.style.animationDelay = (Math.random() * 2.5) + 's';
         galaxy.appendChild(star);
     }
 }
 
 function createSun(project) {
     const body = document.createElement('div');
-    const pos = getRandomPositionSafe();
+    const pos = getRandomPositionFull();
     body.className = 'celestial-body sun';
     body.style.left = pos.x + '%';
     body.style.top = pos.y + '%';
@@ -54,7 +57,7 @@ function createSun(project) {
 
     const tooltip = document.createElement('div');
     tooltip.className = 'tooltip';
-    tooltip.innerHTML = '☀️ PROJECT_0' + project.id + '<br>' + project.title;
+    tooltip.innerHTML = '☀️ SUN_0' + project.id + '<br>' + project.title;
 
     body.appendChild(core);
     body.appendChild(tooltip);
@@ -68,7 +71,7 @@ function createSun(project) {
 
 function createPlanet(dataset) {
     const body = document.createElement('div');
-    const pos = getRandomPositionSafe();
+    const pos = getRandomPositionFull();
     body.className = 'celestial-body planet';
     body.style.left = pos.x + '%';
     body.style.top = pos.y + '%';
@@ -78,6 +81,7 @@ function createPlanet(dataset) {
     core.className = 'planet-core';
     core.style.background = dataset.color;
     core.style.color = dataset.color;
+    core.style.boxShadow = `inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 15px ${dataset.color}`;
 
     const tooltip = document.createElement('div');
     tooltip.className = 'tooltip';
