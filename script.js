@@ -19,33 +19,31 @@ const datasets = [
     { id: 5, name: "Chemical Data", size: "6GB", color: "#ffcc66" }
 ];
 
-// الرسائل الاحترافية والفصحى
+// الرسائل الاحترافية (إنجليزي فقط)
 const astronautMessages = [
-    "I'm here",
-    "I'm free to work",
-    "أنا هنا",
-    "أنا متاح للعمل",
-    "ready to explore",
-    "جاهز للاستكشاف",
-    "سعيد بلقائك",
-    "في انتظارك"
+    "I'm here to create",
+    "Ready to push boundaries",
+    "Let's build something great",
+    "Passionate about AI and ML",
+    "Transforming ideas into reality",
+    "Always learning, always growing"
 ];
 
-// منطقة محظورة (حول Hero Section)
+// منطقة محظورة محسّنة (حول Hero Section) - أوسع شوية
 const forbiddenZone = {
-    minX: 35,
-    maxX: 65,
-    minY: 35,
-    maxY: 55
+    minX: 30,
+    maxX: 70,
+    minY: 30,
+    maxY: 60
 };
 
 // حدود آمنة للشموس والكواكب
 const safeBounds = {
-    minX: 5,
-    maxX: 95,
-    minY: 10,
-    maxY: 95,
-    padding: 8 // مسافة من الحافة
+    minX: 8,
+    maxX: 92,
+    minY: 12,
+    maxY: 92,
+    padding: 12 // مسافة أكبر من الحافة
 };
 
 function isInForbiddenZone(x, y) {
