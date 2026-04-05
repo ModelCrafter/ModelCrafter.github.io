@@ -185,7 +185,24 @@ function createPlanet(dataset) {
 function createAstronaut() {
     const astronaut = document.createElement('div');
     astronaut.className = 'astronaut';
-    astronaut.innerHTML = '👨‍🚀';
+    
+    // SVG للـ Geometric Abstract Design
+    astronaut.innerHTML = `
+        <svg width="50" height="60" viewBox="0 0 80 100" style="display: block;">
+            <!-- Head hex -->
+            <polygon points="40,8 50,14 50,26 40,32 30,26 30,14" fill="currentColor" opacity="0.85"/>
+            <!-- Body triangles -->
+            <polygon points="40,35 28,50 52,50" fill="currentColor" opacity="0.8"/>
+            <polygon points="28,50 52,50 56,70 24,70" fill="currentColor" opacity="0.7"/>
+            <!-- Left arm -->
+            <polygon points="28,50 8,55 12,65" fill="currentColor" opacity="0.75"/>
+            <!-- Right arm -->
+            <polygon points="52,50 72,55 68,65" fill="currentColor" opacity="0.75"/>
+            <!-- Legs triangles -->
+            <polygon points="30,70 36,90 28,88" fill="currentColor" opacity="0.8"/>
+            <polygon points="50,70 44,90 52,88" fill="currentColor" opacity="0.8"/>
+        </svg>
+    `;
     
     // موضع عشوائي بره المنطقة المحظورة
     let x, y;
@@ -197,6 +214,7 @@ function createAstronaut() {
     astronaut.style.left = x + '%';
     astronaut.style.top = y + '%';
     astronaut.style.transform = 'translate(-50%, -50%)';
+    astronaut.style.color = '#a8c5ff';
     
     // الحركة العشوائية (drift في الفضاء)
     let vx = (Math.random() - 0.5) * 0.3;
@@ -243,7 +261,7 @@ function createAstronaut() {
         
         galaxy.appendChild(message);
         
-        setTimeout(() => message.remove(), 3000);
+        setTimeout(() => message.remove(), 3500);
         
         messageTimeout = setTimeout(showRandomMessage, 5000 + Math.random() * 5000);
     }
