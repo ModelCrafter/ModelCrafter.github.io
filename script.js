@@ -4,11 +4,11 @@ const asteroidCount = 8;
 const navBtns = document.querySelectorAll('.nav-btn');
 
 const projects = [
-    { id: 1, title: "Chemical Encoder", file: "project1.html" },
-    { id: 2, title: "Blender LLM", file: "project2.html" },
-    { id: 3, title: "BirdCLEF Audio Model", file: "project3.html" },
-    { id: 4, title: "Ancient Language FM", file: "project4.html" },
-    { id: 5, title: "Pixel Art VAE", file: "project5.html" }
+    { id: 1, title: "Chemical Encoder", file: "intro.html" },
+    { id: 2, title: "Blender LLM", file: "intro.html" },
+    { id: 3, title: "BirdCLEF Audio Model", file: "intro.html" },
+    { id: 4, title: "Ancient Language FM", file: "intro.html" },
+    { id: 5, title: "Pixel Art VAE", file: "intro.html" }
 ];
 
 const datasets = [
@@ -216,9 +216,9 @@ function createAstronaut() {
     astronaut.style.transform = 'translate(-50%, -50%)';
     astronaut.style.color = '#a8c5ff';
     
-    // الحركة العشوائية (drift في الفضاء)
-    let vx = (Math.random() - 0.5) * 0.3;
-    let vy = (Math.random() - 0.5) * 0.3;
+    // الحركة العشوائية (drift في الفضاء) - سرعة أسرع قليلاً
+    let vx = (Math.random() - 0.5) * 0.36;
+    let vy = (Math.random() - 0.5) * 0.36;
     
     function animateAstronaut() {
         let currentX = parseFloat(astronaut.style.left);
@@ -243,7 +243,7 @@ function createAstronaut() {
     
     animateAstronaut();
     
-    // الرسائل العشوائية
+    // الرسائل العشوائية - تطلع من الأسترونوت مباشرة
     let messageTimeout;
     
     function showRandomMessage() {
@@ -256,7 +256,7 @@ function createAstronaut() {
         const msgY = parseFloat(astronaut.style.top);
         
         message.style.left = msgX + '%';
-        message.style.top = msgY + '%';
+        message.style.top = (msgY - 6) + '%';
         message.style.transform = 'translate(-50%, -50%)';
         
         galaxy.appendChild(message);
