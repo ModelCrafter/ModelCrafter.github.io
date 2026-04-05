@@ -1,203 +1,127 @@
-/* style.css */
+:root {
+    --void-color: #050505;
+    --text-color: #FFFFFF;
+    --glow-color: rgba(255, 255, 255, 0.8);
+}
 
-/* --- Core Pixel Reset --- */
-*, *::before, *::after {
+* {
     box-sizing: border-box;
-    image-rendering: pixelated; /* Crucial for pixel art */
-    image-rendering: crisp-edges;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background-color: #0d021f; /* Dark Cosmic Purple */
-    color: #00ff41; /* CRT Green */
-    font-family: 'Press Start 2P', cursive;
-    margin: 0;
-    line-height: 1.6;
-    overflow-x: hidden;
-}
-
-a { text-decoration: none; color: inherit; transition: color 0.2s; }
-a:hover { color: #fff; }
-
-ul { list-style: none; padding: 0; }
-
-/* --- Container (Game Screen) --- */
-.pixel-screen {
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #1a0533; /* Slightly lighter body */
-    border: 10px solid #fff; /* Thick White Retro Border */
-    border-radius: 8px; /* Classic Arcade Cabinet feel */
-    box-shadow: 0 0 50px rgba(0, 255, 65, 0.5); /* Glow */
-    padding: 20px;
-    overflow: visible;
-    position: relative;
-}
-
-/* --- Nav --- */
-.pixel-nav {
+    background: radial-gradient(circle at center, #1a1a2e 0%, var(--void-color) 100%);
+    color: var(--text-color);
+    font-family: 'VT323', monospace;
+    overflow: hidden; /* عشان نمنع السكرول بره المجرة */
+    height: 100vh;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 4px dashed #fff;
-    padding-bottom: 15px;
-    overflow: visible;
 }
 
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    padding: 2rem;
+    background: rgba(5, 5, 5, 0.85);
+    border-right: 1px dashed #333;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+}
 
+.sidebar h1 {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 15px var(--glow-color);
+    letter-spacing: 2px;
+}
 
-.pixel-brand { font-size: 1rem; color: #fff; }
+.sidebar ul {
+    list-style: none;
+}
 
-.pixel-links { 
-    display: flex; 
-    gap: 15px;
-    overflow: visible;
+.sidebar ul li {
+    margin-bottom: 1.5rem;
+}
+
+.sidebar ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: text-shadow 0.3s;
+}
+
+.sidebar ul li a:hover {
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+/* Galaxy Container */
+#galaxy-container {
+    flex-grow: 1;
     position: relative;
 }
-.pixel-links a { 
-    font-size: 0.8rem;
-    position: relative;
-    display: inline-block;
-    color: #00ff41;
-}
 
-/* البوكس الأبيض */
-.pixel-links a::after {
-    content: attr(data-tooltip);
+/* Base Star Class */
+.star {
     position: absolute;
-    top: 140%; 
-    left: 50%;
-    transform: translateX(-50%);
-    
-    background: #fff;
-    color: #000;
-    padding: 6px 10px;
-    font-size: 0.55rem;
-    font-family: 'Press Start 2P', cursive;
-    white-space: nowrap;
-    border: 3px solid #000;
-    box-shadow: 4px 4px 0px #ff00ff;
-    
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: none;
-    z-index: 999;
-}
-
-/* السهم الصغير (المثلث) */
-.pixel-links a::before {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    
-    border-width: 8px;
-    border-style: solid;
-    border-color: transparent transparent #fff transparent;
-    
-    opacity: 0;
-    visibility: hidden;
-    transition: none;
-    z-index: 1000;
-}
-
-/* حالة الـ Hover: ظهور لحظي وثابت */
-.pixel-links a:hover::after,
-.pixel-links a:hover::before {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* تأثير بسيط على اللينك نفسه عند الوقوف عليه */
-.pixel-links a:hover {
-    color: #fff;
-    background: #ff00ff;
-    padding: 2px 4px;
-}
-
-/* --- Main --- */
-.pixel-content { padding: 40px 0; }
-
-/* --- Hero Section --- */
-.hero-section { text-align: center; }
-.hero-title { 
-    font-size: 2.5rem; 
-    color: #fff; 
-    text-shadow: 2px 2px 0px #ff00ff; 
-    margin-bottom: 10px;
-    animation: pulse-glow 2s ease-in-out infinite;
-}
-
-@keyframes pulse-glow {
-    0%, 100% { text-shadow: 2px 2px 0px #ff00ff; }
-    50% { text-shadow: 2px 2px 0px #ff00ff, 0 0 10px #ff00ff; }
-}
-
-/* --- About & Character --- */
-.about-section { display: flex; margin-top: 50px; }
-.row { display: flex; width: 100%; gap: 40px; }
-.col-text { flex: 2; }
-.col-character { flex: 1; display: flex; justify-content: center; align-items: center; }
-
-h3 { border-bottom: 4px solid #ff00ff; padding-bottom: 10px; margin-bottom: 20px; }
-p { font-size: 0.7rem; color: #ddd; }
-
-/* STATS BOX */
-.stats-box {
-    background: #000;
-    border: 4px solid #fff;
-    padding: 15px;
-    font-size: 0.6rem;
-    margin-top: 20px;
-    color: #ff00ff;
-}
-
-/* Character Section */
-.character-wrapper {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    border: 6px solid #fff;
-    background-color: #000;
-}
-
-/* Simple Placeholder for Character (Temporary) */
-.pixel-char-placeholder {
-    font-size: 3rem;
-    position: absolute;
-    top: 50%; left: 50%;
+    border-radius: 50%;
+    background-color: var(--text-color);
     transform: translate(-50%, -50%);
-    text-align: center;
+    cursor: crosshair;
 }
-.cap { color: #ff00ff; display: block; font-size: 2rem; margin-bottom: -10px;}
 
-/* --- Pixel Button --- */
-.pixel-btn {
-    display: inline-block;
-    background: #ff00ff; /* Magenta */
-    color: #000;
-    border: 4px solid #fff;
-    padding: 15px 30px;
-    margin-top: 20px;
+/* Small Background Stars */
+.star-bg {
+    width: 3px;
+    height: 3px;
+    opacity: 0.6;
+    animation: twinkle 3s infinite alternate;
+}
+
+/* Large Project Stars (Planets) */
+.star-project {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 15px 4px var(--glow-color);
     cursor: pointer;
-    font-size: 0.8rem;
-    transition: 0.2s;
-}
-.pixel-btn:hover { background: #fff; transform: scale(1.05); }
-
-/* --- Glitch Effect (Hero Title) --- */
-.glitch {
-    position: relative;
-    color: white;
+    animation: pulse 2.5s infinite;
+    z-index: 10;
+    transition: transform 0.3s ease;
 }
 
-/* --- Footer --- */
-.pixel-footer {
-    text-align: center;
-    padding: 20px 0;
-    font-size: 0.6rem;
-    color: #666;
+.star-project:hover {
+    transform: translate(-50%, -50%) scale(1.6);
+    box-shadow: 0 0 25px 8px var(--glow-color);
 }
 
+/* Tooltips */
+.tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--text-color);
+    padding: 8px 12px;
+    font-size: 1.2rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(4px);
+    transform: translateY(-150%);
+    white-space: nowrap;
+    z-index: 20;
+}
+
+.star:hover .tooltip {
+    opacity: 1;
+}
+
+/* Keyframes */
+@keyframes twinkle {
+    0% { opacity: 0.1; }
+    100% { opacity: 0.9; }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px 2px var(--glow-color); }
+    50% { box-shadow: 0 0 20px 6px var(--glow-color); }
+    100% { box-shadow: 0 0 10px 2px var(--glow-color); }
+}
