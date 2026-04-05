@@ -1,7 +1,9 @@
 :root {
-    --void-color: #050505;
+    --void-color: #020204; /* أسود أعمق قليلاً مريح للعين */
     --text-color: #FFFFFF;
-    --glow-color: rgba(255, 255, 255, 0.8);
+    --accent-gold: #FFD700; /* الذهب السايبير للقب */
+    --glow-soft: rgba(255, 255, 255, 0.4);
+    --nav-bg: rgba(2, 2, 4, 0.7); /* شفاف للتوب بار */
 }
 
 * {
@@ -11,117 +13,179 @@
 }
 
 body {
-    background: radial-gradient(circle at center, #1a1a2e 0%, var(--void-color) 100%);
+    background: radial-gradient(circle at center, #101020 0%, var(--void-color) 100%);
     color: var(--text-color);
     font-family: 'VT323', monospace;
-    overflow: hidden; /* عشان نمنع السكرول بره المجرة */
+    overflow: hidden;
     height: 100vh;
+    width: 100vw;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px; /* للعمق البصري مستقبلًا */
 }
 
-/* Sidebar Styling */
-.sidebar {
-    width: 250px;
-    padding: 2rem;
-    background: rgba(5, 5, 5, 0.85);
-    border-right: 1px dashed #333;
-    z-index: 100;
+/* --- Top Navigation --- */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px); /* تأثير زجاجي */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center; /* تجميع العناصر في النص */
+    align-items: center;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    opacity: 1;
+    text-shadow: 0 0 10px var(--glow-soft);
+}
+
+/* --- Central Identity --- */
+.central-identity {
+    position: absolute;
+    text-align: center;
+    z-index: 100; /* فوق الكواكب */
+    pointer-events: none; /* عشان نقدر ندوس على الكواكب وراها */
+}
+
+.central-identity .name {
+    font-size: 4rem;
+    font-weight: normal;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+}
+
+.central-identity .title {
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+    font-style: italic; /* مائل كما طلبت */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+/* Init Sequence Creative Touch */
+.init-sequence {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.init-sequence .cmd {
+    color: #00ff41; /* لون أخضر ماتريكس كلاسيك */
+}
+
+.init-sequence .cursor {
+    animation: blink 1s infinite;
+}
+
+/* --- Galaxy Container --- */
+#galaxy-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* --- Stars (Background) --- */
+.star-bg {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.3;
+}
+
+/* --- Planets (Projects) --- */
+.planet-system {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10;
+    /* تكبير الـ Hit Area لتسهيل الوقوف عليها */
+    padding: 30px; 
+}
+
+.planet-core {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* تأثير الدمج والنعومة حول الكوكب */
+.planet-core::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250%; height: 250%;
+    border-radius: 50%;
+    background: inherit; /* ياخد نفس لون الكوكب */
+    filter: blur(8px); /* الدمج البصري */
+    opacity: 0.25;
+    z-index: -1;
+}
+
+.planet-system:hover .planet-core {
+    transform: scale(1.8);
+}
+
+/* أنيميشن النبض للكواكب */
+.planet-core {
+    animation: planetPulse 4s infinite alternate ease-in-out;
+}
+
+/* --- Tooltips --- */
+.tooltip {
+    position: absolute;
+    bottom: 130%; /* فوق الـ padding الجديد */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 6px 12px;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
     backdrop-filter: blur(5px);
 }
 
-.sidebar h1 {
-    font-size: 2.2rem;
-    margin-bottom: 2rem;
-    text-shadow: 0 0 15px var(--glow-color);
-    letter-spacing: 2px;
-}
-
-.sidebar ul {
-    list-style: none;
-}
-
-.sidebar ul li {
-    margin-bottom: 1.5rem;
-}
-
-.sidebar ul li a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-size: 1.5rem;
-    transition: text-shadow 0.3s;
-}
-
-.sidebar ul li a:hover {
-    text-shadow: 0 0 10px var(--glow-color);
-}
-
-/* Galaxy Container */
-#galaxy-container {
-    flex-grow: 1;
-    position: relative;
-}
-
-/* Base Star Class */
-.star {
-    position: absolute;
-    border-radius: 50%;
-    background-color: var(--text-color);
-    transform: translate(-50%, -50%);
-    cursor: crosshair;
-}
-
-/* Small Background Stars */
-.star-bg {
-    width: 3px;
-    height: 3px;
-    opacity: 0.6;
-    animation: twinkle 3s infinite alternate;
-}
-
-/* Large Project Stars (Planets) */
-.star-project {
-    width: 14px;
-    height: 14px;
-    box-shadow: 0 0 15px 4px var(--glow-color);
-    cursor: pointer;
-    animation: pulse 2.5s infinite;
-    z-index: 10;
-    transition: transform 0.3s ease;
-}
-
-.star-project:hover {
-    transform: translate(-50%, -50%) scale(1.6);
-    box-shadow: 0 0 25px 8px var(--glow-color);
-}
-
-/* Tooltips */
-.tooltip {
-    position: absolute;
-    background: rgba(0, 0, 0, 0.9);
-    border: 1px solid var(--text-color);
-    padding: 8px 12px;
-    font-size: 1.2rem;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    backdrop-filter: blur(4px);
-    transform: translateY(-150%);
-    white-space: nowrap;
-    z-index: 20;
-}
-
-.star:hover .tooltip {
+.planet-system:hover .tooltip {
     opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
-/* Keyframes */
-@keyframes twinkle {
-    0% { opacity: 0.1; }
-    100% { opacity: 0.9; }
+/* --- Animations --- */
+@keyframes blink {
+    50% { opacity: 0; }
 }
 
-@keyframes pulse {
-    0% { box-shadow: 0 0 10px 2px var(--glow-color); }
-    50% { box-shadow: 0 0 20px 6px var(--glow-color); }
-    100% { box-shadow: 0 0 10px 2px var(--glow-color); }
+@keyframes planetPulse {
+    0% { box-shadow: 0 0 10px rgba(255,255,255,0.1); }
+    100% { box-shadow: 0 0 20px rgba(255,255,255,0.3); }
 }
