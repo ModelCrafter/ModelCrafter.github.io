@@ -238,6 +238,10 @@
                     <h3 class="dataset-name" style="color: ${dataset.color}; text-shadow: 0 0 15px ${dataset.color};">${dataset.name}</h3>
                     <p class="dataset-size" style="color: ${dataset.color}; text-shadow: 0 0 10px ${dataset.color};">${dataset.size}</p>
                 `;
+                card.addEventListener('click', function() {
+                    window.location.href = dataset.link;
+                });
+                
                 datasetsContainer.appendChild(card);
             });
         }
