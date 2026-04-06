@@ -3,7 +3,6 @@ const bgStarCount = 350;
 const asteroidCount = 8;
 const navBtns = document.querySelectorAll('.nav-btn');
 
-// تحويل البيانات من data.js للصيغة اللي احنا محتاجينها
 const projects = projectsData.map(p => ({
     id: p.id,
     title: p.title,
