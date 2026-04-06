@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datasets | Youssef Khaled</title>
+    <title>Projects | Youssef Khaled</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -128,7 +128,7 @@
             margin: 2rem 0 3rem;
         }
 
-        .datasets-grid {
+        .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
@@ -137,7 +137,7 @@
             padding: 0 20px;
         }
 
-        .dataset-card {
+        .project-card {
             background: rgba(15, 15, 35, 0.6);
             border: 1px solid rgba(100, 150, 255, 0.3);
             border-radius: 4px;
@@ -147,29 +147,32 @@
             backdrop-filter: blur(10px);
         }
 
-        .dataset-card:hover {
+        .project-card:hover {
             border-color: rgba(100, 150, 255, 0.8);
             box-shadow: 0 0 20px rgba(100, 150, 255, 0.3);
             transform: translateY(-5px);
         }
 
-        .dataset-id {
+        .project-id {
             font-size: 0.9rem;
+            color: #ffaa66;
+            text-shadow: 0 0 5px rgba(255, 170, 102, 0.4);
             letter-spacing: 1px;
             margin-bottom: 8px;
-            text-shadow: 0 0 5px;
         }
 
-        .dataset-name {
+        .project-title {
             font-size: 1.5rem;
-            text-shadow: 0 0 15px;
+            color: #e0e0e8;
+            text-shadow: 0 0 15px rgba(100, 150, 255, 0.3);
             letter-spacing: 2px;
             margin-bottom: 12px;
         }
 
-        .dataset-size {
+        .project-description {
             font-size: 1rem;
-            text-shadow: 0 0 10px;
+            color: #a8c5ff;
+            text-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
             line-height: 1.6;
         }
     </style>
@@ -187,14 +190,14 @@
     </header>
 
     <div class="content">
-        <h1 class="page-title">DATASETS</h1>
-        <div class="datasets-grid" id="datasetsContainer"></div>
+        <h1 class="page-title">PROJECTS</h1>
+        <div class="projects-grid" id="projectsContainer"></div>
     </div>
 
     <script src="data.js"></script>
     <script>
         const spaceContainer = document.getElementById('space-container');
-        const datasetsContainer = document.getElementById('datasetsContainer');
+        const projectsContainer = document.getElementById('projectsContainer');
         const bgStarCount = 200;
         const navBtns = document.querySelectorAll('.nav-btn');
 
@@ -228,17 +231,17 @@
             }
         }
 
-        function renderDatasets() {
-            datasetsContainer.innerHTML = '';
-            datasetsData.forEach(dataset => {
+        function renderProjects() {
+            projectsContainer.innerHTML = '';
+            projectsData.forEach(project => {
                 const card = document.createElement('div');
-                card.className = 'dataset-card';
+                card.className = 'project-card';
                 card.innerHTML = `
-                    <div class="dataset-id" style="color: ${dataset.color}; text-shadow: 0 0 5px ${dataset.color};">DATA_0${dataset.id}</div>
-                    <h3 class="dataset-name" style="color: ${dataset.color}; text-shadow: 0 0 15px ${dataset.color};">${dataset.name}</h3>
-                    <p class="dataset-size" style="color: ${dataset.color}; text-shadow: 0 0 10px ${dataset.color};">${dataset.size}</p>
+                    <div class="project-id">PROJECT_0${project.id}</div>
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-description">${project.description}</p>
                 `;
-                datasetsContainer.appendChild(card);
+                projectsContainer.appendChild(card);
             });
         }
 
@@ -259,7 +262,7 @@
 
         createBgStars();
         createAsteroids();
-        renderDatasets();
+        renderProjects();
     </script>
 </body>
 </html>
