@@ -12,28 +12,28 @@ const projectsData = [
         title: "Blender LLM", 
         description: "Large language model optimized for creative tasks",
         details: "Fine-tuned language model specifically designed for creative writing, code generation, and artistic applications.",
-        link: "projects/project1.html"  // نفس الصفحة بالفترة الحالية
+        link: "projects/project2.html"  // نفس الصفحة بالفترة الحالية
     },
     { 
         id: 3, 
         title: "BirdCLEF Audio Model", 
         description: "Bird species classification from audio data",
         details: "Acoustic classification system trained to identify bird species from audio recordings using convolutional neural networks.",
-        link: "projects/project1.html"  // نفس الصفحة بالفترة الحالية
+        link: "projects/project3.html"  // نفس الصفحة بالفترة الحالية
     },
     { 
         id: 4, 
         title: "Ancient Language FM", 
         description: "Feature extraction for historical language processing",
         details: "Specialized model for processing and analyzing ancient language texts using modern NLP techniques.",
-        link: "projects/project1.html"  // نفس الصفحة بالفترة الحالية
+        link: "projects/project4.html"  // نفس الصفحة بالفترة الحالية
     },
     { 
         id: 5, 
         title: "Pixel Art VAE", 
         description: "Variational autoencoder for pixel art generation",
         details: "Generative model trained on pixel art datasets to create and understand artistic patterns and styles.",
-        link: "projects/project1.html"  // نفس الصفحة بالفترة الحالية
+        link: "projects/project5.html"  // نفس الصفحة بالفترة الحالية
     }
 ];
 
@@ -52,7 +52,7 @@ const datasetsData = [
         size: "8GB", 
         color: "#66ddaa",
         details: "Preprocessed audio feature vectors extracted from thousands of audio samples using advanced signal processing.",
-        link: "datasets/dataset1.html"  // نفس الصفحة بالفترة الحالية
+        link: "datasets/dataset2.html"  // نفس الصفحة بالفترة الحالية
     },
     { 
         id: 3, 
@@ -60,7 +60,7 @@ const datasetsData = [
         size: "2GB", 
         color: "#dd66ff",
         details: "Curated collection of pixel art and low-resolution images for generative model training.",
-        link: "datasets/dataset1.html"  // نفس الصفحة بالفترة الحالية
+        link: "datasets/dataset3.html"  // نفس الصفحة بالفترة الحالية
     },
     { 
         id: 4, 
@@ -68,7 +68,7 @@ const datasetsData = [
         size: "15GB", 
         color: "#66ccff",
         details: "Large multilingual text corpus including historical documents, modern texts, and semantic annotations.",
-        link: "datasets/dataset1.html"  // نفس الصفحة بالفترة الحالية
+        link: "datasets/dataset4.html"  // نفس الصفحة بالفترة الحالية
     },
     { 
         id: 5, 
@@ -76,6 +76,6 @@ const datasetsData = [
         size: "6GB", 
         color: "#ffcc66",
         details: "Chemical compound library with molecular structures, properties, and experimental results.",
-        link: "datasets/dataset1.html"  // نفس الصفحة بالفترة الحالية
+        link: "datasets/dataset5.html"  // نفس الصفحة بالفترة الحالية
     }
 ];
