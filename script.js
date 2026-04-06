@@ -3,21 +3,19 @@ const bgStarCount = 350;
 const asteroidCount = 8;
 const navBtns = document.querySelectorAll('.nav-btn');
 
-const projects = [
-    { id: 1, title: "Chemical Encoder", file: "intro.html" },
-    { id: 2, title: "Blender LLM", file: "intro.html" },
-    { id: 3, title: "BirdCLEF Audio Model", file: "intro.html" },
-    { id: 4, title: "Ancient Language FM", file: "intro.html" },
-    { id: 5, title: "Pixel Art VAE", file: "intro.html" }
-];
+// تحويل البيانات من data.js للصيغة اللي احنا محتاجينها
+const projects = projectsData.map(p => ({
+    id: p.id,
+    title: p.title,
+    file: p.link  // استخدام link من data.js
+}));
 
-const datasets = [
-    { id: 1, name: "Market Trends", size: "4GB", color: "#6688ff" },
-    { id: 2, name: "Audio Features", size: "8GB", color: "#66ddaa" },
-    { id: 3, name: "Pixel Dataset", size: "2GB", color: "#dd66ff" },
-    { id: 4, name: "Language Corpus", size: "15GB", color: "#66ccff" },
-    { id: 5, name: "Chemical Data", size: "6GB", color: "#ffcc66" }
-];
+const datasets = datasetsData.map(d => ({
+    id: d.id,
+    name: d.name,
+    size: d.size,
+    color: d.color
+}));
 
 // الرسائل الاحترافية (إنجليزي فقط)
 const astronautMessages = [
