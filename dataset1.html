@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chemical Encoder | Youssef Khaled</title>
+    <title>Market Trends | Youssef Khaled</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -115,7 +115,7 @@
             padding-bottom: 50px;
         }
 
-        .project-header {
+        .dataset-header {
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px 40px;
@@ -124,15 +124,15 @@
             margin-bottom: 40px;
         }
 
-        .project-id {
+        .dataset-id {
             font-size: 0.9rem;
-            color: #ffaa66;
-            text-shadow: 0 0 5px rgba(255, 170, 102, 0.4);
+            color: #6688ff;
+            text-shadow: 0 0 5px rgba(102, 136, 255, 0.4);
             letter-spacing: 1px;
             margin-bottom: 12px;
         }
 
-        .project-title {
+        .dataset-title {
             font-size: 2.5rem;
             color: #e0e0e8;
             text-shadow: 0 0 30px rgba(100, 150, 255, 0.4);
@@ -140,7 +140,7 @@
             margin-bottom: 12px;
         }
 
-        .project-meta {
+        .dataset-meta {
             font-size: 1rem;
             color: #b8c8e8;
             text-shadow: 0 0 15px rgba(100, 150, 255, 0.2);
@@ -199,14 +199,22 @@
             font-size: 0.9rem;
         }
 
-        .readme-content ul, .readme-content ol {
-            margin-left: 20px;
-            margin-bottom: 15px;
+        .readme-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
         }
 
-        .readme-content li {
-            margin-bottom: 8px;
+        .readme-content th, .readme-content td {
+            border: 1px solid rgba(100, 150, 255, 0.3);
+            padding: 12px;
+            text-align: left;
             color: #a8c5ff;
+        }
+
+        .readme-content th {
+            background: rgba(100, 150, 255, 0.1);
+            color: #e0e0e8;
         }
 
         .back-btn {
@@ -239,10 +247,10 @@
     </header>
 
     <div class="content">
-        <div class="project-header">
-            <div class="project-id">PROJECT_01</div>
-            <h1 class="project-title">Chemical Encoder</h1>
-            <p class="project-meta">Advanced chemical compound encoding using neural networks</p>
+        <div class="dataset-header">
+            <div class="dataset-id">DATA_01</div>
+            <h1 class="dataset-title">Market Trends</h1>
+            <p class="dataset-meta">Comprehensive financial market data (4GB)</p>
         </div>
 
         <div class="readme-container">
@@ -250,7 +258,7 @@
         </div>
 
         <div style="max-width: 900px; margin: 0 auto; padding: 0 20px; text-align: center;">
-            <a href="../projects.html" class="back-btn">← Back to Projects</a>
+            <a href="../datasets.html" class="back-btn">← Back to Datasets</a>
         </div>
     </div>
 
@@ -288,40 +296,56 @@
             }
         }
 
-        // Markdown-like content (يمكن استبدالها ب markdown parser)
+        // Markdown-like content
         const readmeHTML = `
-            <h2>Overview</h2>
-            <p>The Chemical Encoder is a sophisticated machine learning model designed to transform chemical compound representations into meaningful embeddings using deep neural networks.</p>
+            <h2>Dataset Overview</h2>
+            <p>The Market Trends dataset contains comprehensive financial market data spanning multiple years with various financial indicators and trading information.</p>
+
+            <h2>Dataset Statistics</h2>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Total Records</td>
+                    <td>2.5M+</td>
+                </tr>
+                <tr>
+                    <td>Time Period</td>
+                    <td>2015-2024</td>
+                </tr>
+                <tr>
+                    <td>File Size</td>
+                    <td>4GB (compressed)</td>
+                </tr>
+            </table>
 
             <h2>Features</h2>
             <ul>
-                <li>Advanced molecular structure understanding</li>
-                <li>Deep learning-based compound encoding</li>
-                <li>High-dimensional embedding space</li>
-                <li>Transfer learning capabilities</li>
+                <li>Daily OHLCV (Open, High, Low, Close, Volume) data</li>
+                <li>Technical indicators (SMA, EMA, RSI, MACD)</li>
+                <li>Market sentiment scores</li>
+                <li>Trading volume analysis</li>
+                <li>Cross-market correlations</li>
             </ul>
 
-            <h2>Technical Stack</h2>
-            <p>Built with <code>PyTorch</code>, <code>RDKit</code>, and <code>NumPy</code> for maximum performance.</p>
+            <h2>Data Format</h2>
+            <pre><code>{
+  "timestamp": "2024-01-15T10:30:00Z",
+  "open": 152.45,
+  "high": 154.20,
+  "low": 151.80,
+  "close": 153.65,
+  "volume": 45320000,
+  "indicators": {...}
+}</code></pre>
 
-            <h2>Architecture</h2>
-            <pre>Input → Molecular Graph → GNN Encoder → Dense Layers → Embedding Output</pre>
+            <h2>Usage</h2>
+            <p>Perfect for machine learning models predicting market movements, algorithmic trading strategies, and financial analysis.</p>
 
-            <h2>Usage Example</h2>
-            <pre><code>from chemical_encoder import ChemicalEncoder
-
-encoder = ChemicalEncoder(embedding_dim=256)
-compound = "CCO"  # Ethanol SMILES
-embedding = encoder.encode(compound)</code></pre>
-
-            <h2>Performance</h2>
-            <p>Achieves 94.2% accuracy on chemical property prediction tasks with optimized inference time.</p>
-
-            <h2>Research Papers</h2>
-            <ul>
-                <li>Graph Neural Networks for Molecular Generation (2023)</li>
-                <li>Deep Learning in Computational Chemistry (2022)</li>
-            </ul>
+            <h2>Data Quality</h2>
+            <p>All data has been cleaned, validated, and preprocessed. Missing values are interpolated using appropriate methods.</p>
         `;
 
         document.getElementById('readmeContent').innerHTML = readmeHTML;

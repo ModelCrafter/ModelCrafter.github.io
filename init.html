@@ -1,65 +1,222 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Init | Youssef</title>
+    <title>Init | Youssef Khaled</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: radial-gradient(circle, #1a1f3a, #0a0e27); color: #fff; font-family: 'VT323'; overflow-x: hidden; min-height: 100vh; padding-top: 80px; }
-        .navbar { position: fixed; top: 0; width: 100%; height: 80px; background: rgba(10, 14, 39, 0.85); border-bottom: 2px solid #ff006e; display: flex; justify-content: center; z-index: 1000; }
-        .nav-container { display: flex; gap: 4rem; }
-        .nav-btn { background: transparent; border: 2px solid #ff006e; color: #ff006e; padding: 0.8rem 1.5rem; font-size: 1.3rem; font-family: 'VT323'; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-        .nav-btn:hover { transform: scale(1.1); box-shadow: 0 0 20px #ff006e; }
-        #galaxy { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .star-bg { position: absolute; background: #fff; border-radius: 50%; opacity: 0.4; animation: twinkle 3s infinite; }
-        .container { position: relative; z-index: 100; max-width: 600px; margin: 60px auto; padding: 40px; }
-        .line { margin-bottom: 15px; font-size: 1.2rem; line-height: 1.8; }
-        .cmd { color: #ff006e; }
-        .back { display: inline-block; margin-top: 30px; padding: 10px 20px; border: 2px solid #ff006e; color: #ff006e; text-decoration: none; cursor: pointer; transition: 0.3s; }
-        .back:hover { box-shadow: 0 0 20px #ff006e; }
-        @keyframes twinkle { 0% { opacity: 0.2; } 100% { opacity: 0.8; } }
+        :root {
+            --void-color: #0a0a1a;
+            --text-color: #e0e0e8;
+            --glow-soft: rgba(100, 150, 255, 0.4);
+            --nav-bg: rgba(10, 10, 30, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #000000;
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #space-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .star-bg {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.6;
+            box-shadow: 0 0 6px rgba(200, 200, 255, 0.4);
+            animation: twinkle 2.5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+        }
+
+        .asteroid {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            box-shadow: 0 0 8px rgba(180, 180, 200, 0.4);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(100, 150, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.15);
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.5);
+            color: #a8c5ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
+            text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(150, 180, 255, 0.8);
+            color: #d0e0ff;
+            box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
+            text-shadow: 0 0 8px rgba(100, 150, 255, 0.6);
+        }
+
+        /* CONTENT */
+        .content {
+            position: relative;
+            z-index: 10;
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 3rem;
+            color: #e0e0e8;
+            text-shadow: 0 0 30px rgba(100, 150, 255, 0.4);
+            letter-spacing: 6px;
+            margin: 2rem 0 3rem;
+        }
+
+        .init-info {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .init-info p {
+            font-size: 1.3rem;
+            color: #b8c8e8;
+            text-shadow: 0 0 15px rgba(100, 150, 255, 0.2);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    <div id="galaxy"></div>
-    <nav class="navbar">
-        <div class="nav-container">
-            <button class="nav-btn" onclick="go('signal')">SIGNAL</button>
-            <button class="nav-btn" onclick="go('projects')">PROJECTS</button>
-            <button class="nav-btn" onclick="go('datasets')">DATASETS</button>
-            <button class="nav-btn" onclick="go('init')">INIT</button>
+    <div id="space-container"></div>
+
+    <header class="navbar">
+        <nav class="nav-container">
+            <button class="nav-btn" data-nav="signal">SIGNAL</button>
+            <button class="nav-btn" data-nav="projects">PROJECTS</button>
+            <button class="nav-btn" data-nav="datasets">DATASETS</button>
+            <button class="nav-btn" data-nav="init">INIT</button>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1 class="page-title">INIT</h1>
+        <div class="init-info">
+            <p>System initialization complete.</p>
+            <p>Ready to explore the cosmos of machine learning.</p>
+            <p>Navigate through projects, datasets, and signals to discover.</p>
         </div>
-    </nav>
-    <div class="container">
-        <div class="line"><span class="cmd">> </span>SYSTEM INITIALIZATION SEQUENCE</div>
-        <div class="line"><span class="cmd">> </span>Identity: Youssef Khaled</div>
-        <div class="line"><span class="cmd">> </span>Role: AI Architect & ML Engineer</div>
-        <div class="line"><span class="cmd">> </span>Status: Active and Ready</div>
-        <div class="line"><span class="cmd">> </span></div>
-        <div class="line"><span class="cmd">> </span>Core Competencies:</div>
-        <div class="line"><span class="cmd">>   </span>• Machine Learning & Deep Learning</div>
-        <div class="line"><span class="cmd">>   </span>• Neural Networks & Transformers</div>
-        <div class="line"><span class="cmd">>   </span>• Data Engineering & Processing</div>
-        <div class="line"><span class="cmd">>   </span>• Computer Vision & NLP</div>
-        <div class="line"><span class="cmd">> </span></div>
-        <div class="line"><span class="cmd">> </span>Current Mission: Building amazing AI models</div>
-        <a href="index.html" class="back">< BACK</a>
     </div>
+
     <script>
-        function go(page) { window.location.href = page + '.html'; }
-        const galaxy = document.getElementById('galaxy');
-        for (let i = 0; i < 250; i++) {
-            const star = document.createElement('div');
-            star.className = 'star-bg';
-            star.style.width = Math.random() * 3 + 'px';
-            star.style.height = star.style.width;
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 3 + 's';
-            galaxy.appendChild(star);
+        const spaceContainer = document.getElementById('space-container');
+        const bgStarCount = 200;
+        const navBtns = document.querySelectorAll('.nav-btn');
+
+        function createBgStars() {
+            for (let i = 0; i < bgStarCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-bg';
+                const pos = { x: Math.random() * 100, y: Math.random() * 100 };
+                const size = Math.random() * 1.5 + 0.3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = pos.x + '%';
+                star.style.top = pos.y + '%';
+                star.style.animationDelay = (Math.random() * 2.5) + 's';
+                spaceContainer.appendChild(star);
+            }
         }
+
+        function createAsteroids() {
+            const asteroidCount = 6;
+            for (let i = 0; i < asteroidCount; i++) {
+                const asteroid = document.createElement('div');
+                asteroid.className = 'asteroid';
+                const size = Math.random() * 6 + 2;
+                asteroid.style.width = size + 'px';
+                asteroid.style.height = size + 'px';
+                asteroid.style.left = Math.random() * 100 + '%';
+                asteroid.style.top = Math.random() * 100 + '%';
+                asteroid.style.background = '#b4b4c8';
+                spaceContainer.appendChild(asteroid);
+            }
+        }
+
+        navBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const nav = btn.getAttribute('data-nav');
+                const pages = {
+                    'signal': 'signal.html',
+                    'projects': 'projects.html',
+                    'datasets': 'datasets.html',
+                    'init': 'init.html'
+                };
+                if (pages[nav]) {
+                    window.location.href = pages[nav];
+                }
+            });
+        });
+
+        createBgStars();
+        createAsteroids();
     </script>
 </body>
 </html>
