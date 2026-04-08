@@ -72,20 +72,15 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 80px;
             background: var(--nav-bg);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(100, 150, 255, 0.3);
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
+            padding: 15px 20px;
             z-index: 999;
             box-shadow: 0 0 20px rgba(100, 150, 255, 0.15);
-        }
-
-        .nav-container {
-            display: flex;
-            gap: 4rem;
         }
 
         .nav-btn {
@@ -93,7 +88,7 @@
             border: 1px solid rgba(150, 180, 255, 0.5);
             color: #a8c5ff;
             padding: 0.7rem 1.4rem;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-family: 'VT323', monospace;
             cursor: pointer;
             transition: all 0.4s ease;
@@ -142,18 +137,71 @@
             line-height: 1.8;
             margin-bottom: 20px;
         }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+                margin: 1.5rem 0 2rem;
+            }
+
+            .init-info p {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+
+            .content {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 8px 10px;
+            }
+
+            .nav-btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.65rem;
+                letter-spacing: 0.5px;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+            }
+
+            .init-info {
+                padding: 0 15px;
+            }
+
+            .init-info p {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
+
+            .content {
+                padding-top: 70px;
+            }
+        }
     </style>
 </head>
 <body>
     <div id="space-container"></div>
 
     <header class="navbar">
-        <nav class="nav-container">
-            <button class="nav-btn" data-nav="signal">SIGNAL</button>
-            <button class="nav-btn" data-nav="projects">PROJECTS</button>
-            <button class="nav-btn" data-nav="datasets">DATASETS</button>
-            <button class="nav-btn" data-nav="init">INIT</button>
-        </nav>
+        <button class="nav-btn" onclick="window.location.href='index.html'">← BACK</button>
     </header>
 
     <div class="content">
@@ -168,7 +216,6 @@
     <script>
         const spaceContainer = document.getElementById('space-container');
         const bgStarCount = 200;
-        const navBtns = document.querySelectorAll('.nav-btn');
 
         function createBgStars() {
             for (let i = 0; i < bgStarCount; i++) {
@@ -199,21 +246,6 @@
                 spaceContainer.appendChild(asteroid);
             }
         }
-
-        navBtns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                const nav = btn.getAttribute('data-nav');
-                const pages = {
-                    'signal': 'signal.html',
-                    'projects': 'projects.html',
-                    'datasets': 'datasets.html',
-                    'init': 'init.html'
-                };
-                if (pages[nav]) {
-                    window.location.href = pages[nav];
-                }
-            });
-        });
 
         createBgStars();
         createAsteroids();
