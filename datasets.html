@@ -172,6 +172,101 @@
             text-shadow: 0 0 10px;
             line-height: 1.6;
         }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-container {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .navbar {
+                height: auto;
+                padding: 10px 0;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .datasets-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                padding: 0 15px;
+            }
+
+            .dataset-card {
+                padding: 16px;
+            }
+
+            .dataset-id {
+                font-size: 0.8rem;
+            }
+
+            .dataset-name {
+                font-size: 1.2rem;
+            }
+
+            .dataset-size {
+                font-size: 0.9rem;
+            }
+
+            .content {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.65rem;
+                letter-spacing: 0.5px;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+                margin: 1.5rem 0 2rem;
+            }
+
+            .datasets-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 0 10px;
+            }
+
+            .dataset-card {
+                padding: 12px;
+            }
+
+            .dataset-id {
+                font-size: 0.75rem;
+            }
+
+            .dataset-name {
+                font-size: 1rem;
+            }
+
+            .dataset-size {
+                font-size: 0.85rem;
+            }
+
+            .content {
+                padding-top: 70px;
+                padding-bottom: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -233,6 +328,7 @@
             datasetsData.forEach(dataset => {
                 const card = document.createElement('div');
                 card.className = 'dataset-card';
+                card.style.cursor = 'pointer';
                 card.innerHTML = `
                     <div class="dataset-id" style="color: ${dataset.color}; text-shadow: 0 0 5px ${dataset.color};">DATA_0${dataset.id}</div>
                     <h3 class="dataset-name" style="color: ${dataset.color}; text-shadow: 0 0 15px ${dataset.color};">${dataset.name}</h3>
@@ -241,7 +337,6 @@
                 card.addEventListener('click', function() {
                     window.location.href = dataset.link;
                 });
-                
                 datasetsContainer.appendChild(card);
             });
         }

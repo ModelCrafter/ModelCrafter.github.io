@@ -175,6 +175,101 @@
             text-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
             line-height: 1.6;
         }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-container {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .nav-btn {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .navbar {
+                height: auto;
+                padding: 10px 0;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                padding: 0 15px;
+            }
+
+            .project-card {
+                padding: 16px;
+            }
+
+            .project-id {
+                font-size: 0.8rem;
+            }
+
+            .project-title {
+                font-size: 1.2rem;
+            }
+
+            .project-description {
+                font-size: 0.9rem;
+            }
+
+            .content {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.65rem;
+                letter-spacing: 0.5px;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+                letter-spacing: 2px;
+                margin: 1.5rem 0 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 0 10px;
+            }
+
+            .project-card {
+                padding: 12px;
+            }
+
+            .project-id {
+                font-size: 0.75rem;
+            }
+
+            .project-title {
+                font-size: 1rem;
+            }
+
+            .project-description {
+                font-size: 0.85rem;
+            }
+
+            .content {
+                padding-top: 70px;
+                padding-bottom: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -236,6 +331,7 @@
             projectsData.forEach(project => {
                 const card = document.createElement('div');
                 card.className = 'project-card';
+                card.style.cursor = 'pointer';
                 card.innerHTML = `
                     <div class="project-id">PROJECT_0${project.id}</div>
                     <h3 class="project-title">${project.title}</h3>
@@ -246,7 +342,6 @@
                 });
                 projectsContainer.appendChild(card);
             });
-
         }
 
         navBtns.forEach(function(btn) {
