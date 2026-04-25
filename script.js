@@ -6,17 +6,17 @@ const navBtns = document.querySelectorAll('.nav-btn');
 const projects = projectsData.map(p => ({
     id: p.id,
     title: p.title,
-    file: p.link  // استخدام link من data.js
+    file: p.link
 }));
 
 const datasets = datasetsData.map(d => ({
     id: d.id,
     name: d.name,
     size: d.size,
-    color: d.color
+    color: d.color,
+    link: d.link
 }));
 
-// الرسائل الاحترافية (إنجليزي فقط)
 const astronautMessages = [
     "I'm here to create",
     "Ready to push boundaries",
@@ -26,7 +26,6 @@ const astronautMessages = [
     "Always learning, always growing"
 ];
 
-// منطقة محظورة محسّنة (حول Hero Section) - أوسع شوية
 const forbiddenZone = {
     minX: 30,
     maxX: 70,
@@ -34,13 +33,12 @@ const forbiddenZone = {
     maxY: 60
 };
 
-// حدود آمنة للشموس والكواكب
 const safeBounds = {
     minX: 8,
     maxX: 92,
     minY: 12,
     maxY: 92,
-    padding: 12 // مسافة أكبر من الحافة
+    padding: 12
 };
 
 function isInForbiddenZone(x, y) {
@@ -49,7 +47,6 @@ function isInForbiddenZone(x, y) {
 }
 
 function getRandomPositionFull() {
-    // توزيع آمن مع تجنب منطقة Hero والحواف
     let x, y;
     let attempts = 0;
     do {
@@ -77,17 +74,13 @@ function createBgStars() {
 }
 
 function createAsteroids() {
-    // أسترويدات تطير عشوائياً
     const asteroidPaths = [
-        // من اليسار إلى اليمين
         { startX: -5, startY: 20, endX: 105, endY: 25, duration: 8 + Math.random() * 4 },
         { startX: -5, startY: 45, endX: 105, endY: 40, duration: 10 + Math.random() * 3 },
         { startX: -5, startY: 70, endX: 105, endY: 75, duration: 9 + Math.random() * 4 },
-        // من الأعلى إلى الأسفل
         { startX: 30, startY: -5, endX: 35, endY: 105, duration: 11 + Math.random() * 3 },
         { startX: 60, startY: -5, endX: 55, endY: 105, duration: 9 + Math.random() * 4 },
         { startX: 85, startY: -5, endX: 80, endY: 105, duration: 10 + Math.random() * 3 },
-        // مسارات قطرية
         { startX: -5, startY: -5, endX: 105, endY: 105, duration: 12 + Math.random() * 4 },
         { startX: 105, startY: -5, endX: -5, endY: 105, duration: 13 + Math.random() * 3 }
     ];
@@ -108,14 +101,8 @@ function createAsteroids() {
         
         const keyframes = `
             @keyframes asteroidPath${index} {
-                0% {
-                    left: ${path.startX}%;
-                    top: ${path.startY}%;
-                }
-                100% {
-                    left: ${path.endX}%;
-                    top: ${path.endY}%;
-                }
+                0% { left: ${path.startX}%; top: ${path.startY}%; }
+                100% { left: ${path.endX}%; top: ${path.endY}%; }
             }
         `;
         
@@ -176,6 +163,11 @@ function createPlanet(dataset) {
     body.appendChild(core);
     body.appendChild(tooltip);
 
+    // ✅ FIX: الكواكب دلوقتي بتفتح الـ dataset الصح
+    body.addEventListener('click', function() {
+        window.location.href = dataset.link;
+    });
+
     galaxy.appendChild(body);
 }
 
@@ -183,25 +175,18 @@ function createAstronaut() {
     const astronaut = document.createElement('div');
     astronaut.className = 'astronaut';
     
-    // SVG للـ Geometric Abstract Design
     astronaut.innerHTML = `
         <svg width="50" height="60" viewBox="0 0 80 100" style="display: block;">
-            <!-- Head hex -->
             <polygon points="40,8 50,14 50,26 40,32 30,26 30,14" fill="currentColor" opacity="0.85"/>
-            <!-- Body triangles -->
             <polygon points="40,35 28,50 52,50" fill="currentColor" opacity="0.8"/>
             <polygon points="28,50 52,50 56,70 24,70" fill="currentColor" opacity="0.7"/>
-            <!-- Left arm -->
             <polygon points="28,50 8,55 12,65" fill="currentColor" opacity="0.75"/>
-            <!-- Right arm -->
             <polygon points="52,50 72,55 68,65" fill="currentColor" opacity="0.75"/>
-            <!-- Legs triangles -->
             <polygon points="30,70 36,90 28,88" fill="currentColor" opacity="0.8"/>
             <polygon points="50,70 44,90 52,88" fill="currentColor" opacity="0.8"/>
         </svg>
     `;
     
-    // موضع عشوائي بره المنطقة المحظورة
     let x, y;
     do {
         x = Math.random() * 80 + 10;
@@ -213,7 +198,6 @@ function createAstronaut() {
     astronaut.style.transform = 'translate(-50%, -50%)';
     astronaut.style.color = '#a8c5ff';
     
-    // الحركة العشوائية (drift في الفضاء) - سرعة أسرع قليلاً
     let vx = (Math.random() - 0.5) * 0.36;
     let vy = (Math.random() - 0.5) * 0.36;
     
@@ -224,11 +208,9 @@ function createAstronaut() {
         currentX += vx;
         currentY += vy;
         
-        // ارتداد من الحواف
         if (currentX < 5 || currentX > 95) vx = -vx;
         if (currentY < 5 || currentY > 95) vy = -vy;
         
-        // منع الخروج الفعلي
         currentX = Math.max(5, Math.min(95, currentX));
         currentY = Math.max(5, Math.min(95, currentY));
         
@@ -240,7 +222,6 @@ function createAstronaut() {
     
     animateAstronaut();
     
-    // الرسائل العشوائية - تطلع من الأسترونوت مباشرة
     let messageTimeout;
     
     function showRandomMessage() {
@@ -263,10 +244,8 @@ function createAstronaut() {
         messageTimeout = setTimeout(showRandomMessage, 5000 + Math.random() * 5000);
     }
     
-    // ابدأ الرسائل العشوائية
     showRandomMessage();
     
-    // النقر للذهاب إلى init
     astronaut.addEventListener('click', function() {
         clearTimeout(messageTimeout);
         window.location.href = 'init.html';
