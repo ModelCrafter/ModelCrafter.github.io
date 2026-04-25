@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Trends | Youssef Khaled</title>
+
+    <!-- =============================== -->
+    <!-- اكتب اسم الـ dataset هنا        -->
+    <title>PubChem Dataset | Youssef Khaled</title>
+    <!-- =============================== -->
+
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,20 +16,17 @@
             --text-color: #e0e0e8;
             --glow-soft: rgba(100, 150, 255, 0.4);
             --nav-bg: rgba(10, 10, 30, 0.95);
+
+            /* =============================== */
+            /* لون الـ dataset (من data.js)    */
+            /* مثال: #6688ff أو #66ddaa        */
+            --dataset-color: #6688ff;
+            /* =============================== */
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
 
         body {
             background: #000000;
@@ -37,10 +39,8 @@
 
         #space-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 1;
             overflow: hidden;
         }
@@ -69,8 +69,7 @@
         /* NAVBAR */
         .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             width: 100%;
             height: 80px;
             background: var(--nav-bg);
@@ -79,17 +78,42 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
+            padding: 0 20px;
             z-index: 999;
             box-shadow: 0 0 20px rgba(100, 150, 255, 0.15);
         }
+
+        .nav-home-btn {
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.7);
+            color: #d0e0ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 12px rgba(100, 150, 255, 0.3);
+            text-shadow: 0 0 8px rgba(100, 150, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        .nav-home-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(150, 180, 255, 1);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.5);
+        }
+
+        .nav-links { display: flex; gap: 1rem; }
 
         .nav-btn {
             background: transparent;
             border: 1px solid rgba(150, 180, 255, 0.5);
             color: #a8c5ff;
             padding: 0.7rem 1.4rem;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-family: 'VT323', monospace;
             cursor: pointer;
             transition: all 0.4s ease;
@@ -104,7 +128,6 @@
             border-color: rgba(150, 180, 255, 0.8);
             color: #d0e0ff;
             box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
-            text-shadow: 0 0 8px rgba(100, 150, 255, 0.6);
         }
 
         /* CONTENT */
@@ -117,18 +140,17 @@
 
         .dataset-header {
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 0 auto 40px;
             padding: 0 20px 40px;
             text-align: center;
             border-bottom: 1px solid rgba(100, 150, 255, 0.3);
-            margin-bottom: 40px;
         }
 
         .dataset-id {
-            font-size: 0.9rem;
-            color: #6688ff;
-            text-shadow: 0 0 5px rgba(102, 136, 255, 0.4);
-            letter-spacing: 1px;
+            font-size: 1rem;
+            color: var(--dataset-color);
+            text-shadow: 0 0 8px var(--dataset-color);
+            letter-spacing: 2px;
             margin-bottom: 12px;
         }
 
@@ -141,19 +163,19 @@
         }
 
         .dataset-meta {
-            font-size: 1rem;
-            color: #b8c8e8;
-            text-shadow: 0 0 15px rgba(100, 150, 255, 0.2);
+            font-size: 1.1rem;
+            color: var(--dataset-color);
+            text-shadow: 0 0 10px var(--dataset-color);
+            opacity: 0.8;
         }
 
         .readme-container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 40px;
             background: rgba(15, 15, 35, 0.4);
             border: 1px solid rgba(100, 150, 255, 0.2);
             border-radius: 4px;
-            padding: 40px;
             backdrop-filter: blur(10px);
         }
 
@@ -164,12 +186,15 @@
             margin-top: 30px;
             margin-bottom: 15px;
             letter-spacing: 2px;
+            border-left: 3px solid var(--dataset-color);
+            padding-left: 12px;
         }
+
+        .readme-content h2:first-child { margin-top: 0; }
 
         .readme-content h3 {
             font-size: 1.3rem;
             color: #b8c8e8;
-            text-shadow: 0 0 15px rgba(100, 150, 255, 0.2);
             margin-top: 20px;
             margin-bottom: 10px;
             letter-spacing: 1px;
@@ -178,9 +203,20 @@
         .readme-content p {
             font-size: 1rem;
             color: #a8c5ff;
-            text-shadow: 0 0 10px rgba(100, 150, 255, 0.1);
             line-height: 1.8;
             margin-bottom: 15px;
+        }
+
+        .readme-content ul, .readme-content ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .readme-content li {
+            font-size: 1rem;
+            color: #a8c5ff;
+            line-height: 1.8;
+            margin-bottom: 6px;
         }
 
         .readme-content code {
@@ -193,10 +229,11 @@
         .readme-content pre {
             background: rgba(100, 150, 255, 0.08);
             padding: 15px;
-            border-left: 3px solid rgba(100, 150, 255, 0.4);
+            border-left: 3px solid var(--dataset-color);
             margin: 15px 0;
             overflow-x: auto;
             font-size: 0.9rem;
+            color: #ffaa66;
         }
 
         .readme-content table {
@@ -225,6 +262,7 @@
             color: #a8c5ff;
             padding: 0.7rem 1.4rem;
             font-family: 'VT323', monospace;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.4s ease;
             text-transform: uppercase;
@@ -237,53 +275,147 @@
             color: #d0e0ff;
             box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
         }
+
+        @media (max-width: 768px) {
+            .navbar { height: auto; padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
+            .nav-home-btn { padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+            .nav-links { gap: 0.4rem; flex-wrap: wrap; }
+            .nav-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
+            .dataset-title { font-size: 1.8rem; }
+            .readme-container { padding: 20px; }
+            .content { padding-top: 90px; }
+        }
     </style>
 </head>
 <body>
     <div id="space-container"></div>
 
     <header class="navbar">
-        <button class="nav-btn" onclick="window.location.href='../index.html'">BACK</button>
+        <button class="nav-home-btn" onclick="window.location.href='../index.html'">← HOME</button>
+        <nav class="nav-links">
+            <button class="nav-btn" onclick="window.location.href='../projects.html'">PROJECTS</button>
+            <button class="nav-btn" onclick="window.location.href='../datasets.html'">DATASETS</button>
+            <button class="nav-btn" onclick="window.location.href='../signal.html'">SIGNAL</button>
+            <button class="nav-btn" onclick="window.location.href='../init.html'">INIT</button>
+        </nav>
     </header>
 
     <div class="content">
         <div class="dataset-header">
-            <div class="dataset-id">DATA_01</div>
-            <h1 class="dataset-title">Market Trends</h1>
-            <p class="dataset-meta">Comprehensive financial market data (4GB)</p>
+
+            <!-- اسم الـ dataset                 -->
+            <h1 class="dataset-title">PubChem Dataset</h1>
+
+            <!-- وصف قصير + الحجم              -->
+            <p class="dataset-meta">50 Million Chemical Compounds(181.48GB)</p>
+            <!-- =============================== -->
         </div>
 
         <div class="readme-container">
-            <div class="readme-content" id="readmeContent"></div>
+            <div class="readme-content">
+
+                <!-- ============================================================ -->
+                <!--  القسم ده اكتب فيه كل تفاصيل الـ dataset                    -->
+                <!--  في كل section امسح الكومنت واكتب محتواك                    -->
+                <!-- ============================================================ -->
+
+
+                <!-- SECTION 1: نبذة عامة -->
+                <h2>Dataset Overview</h2>
+                <p>
+                    The dataset is provided in SDF (Structure-Data File) format, which preserves the 3D spatial coordinates of each atom in the molecules — a very powerful feature for 3D chemical analysis.
+                    There are also numerous other features included, which will be detailed in this README, allowing users to explore the data fully.
+                    I intentionally kept the data in its raw SDF format and did not convert or clean it to CSV, so you can experience the full data cleaning and preprocessing process yourself, and see all available information, not just what I consider important.
+                    Dataset Size: Each SDF file contains approximately 500,000 compounds, making it a very large-scale dataset suitable for deep learning and chemical modeling.
+                </p>
+
+
+                <!-- SECTION 2: إحصائيات — عدل الأرقام في الجدول -->
+                <h2>Dataset Statistics</h2>
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Total Compounds</td>
+                        <td>50M Chemical Compounds</td>
+                    </tr>
+
+                    <tr>
+                        <td>File Size</td>
+                        <td>181.48GB</td>
+                    </tr>
+                    <tr>
+                        <td>Format</td>
+                        <td>SDF</td>
+                    </tr>
+                    
+                </table>
+
+
+                <!-- SECTION 3: الـ features/columns — عدل القائمة -->
+                <h2>Features</h2>
+                <ul>
+                    <li><strong>3D atomic coordinates:</strong> Each atom’s position in 3D space is recorded.</li>
+                    <li><strong>Rich molecular descriptors:</strong> Multiple chemical and structural features for analysis.</li>
+                </ul>
+
+
+
+                <!-- SECTION 5: طريقة الاستخدام -->
+                <h2>Inspiration</h2>
+                <p>
+                    This dataset opens the door to multiple exciting possibilities:
+
+                    <strong>Compound Behavior Analysis:</strong> Study how different compounds interact or behave based on their structural features.
+                    <strong>Chemical Translator Development:</strong> Build models that can interpret chemical structures or convert between representations.
+                    <strong>3D Molecular Structure Prediction (Challenging but Brilliant!):</strong> Predict the spatial 3D structure of compounds based on available features — a tough task with high potential for innovation.
+                    <!-- اكتب هنا إيه أفضل use cases للـ dataset ده -->
+                </p>
+
+
+
+                <h2>Data Quality && Data Source</h2>
+                <p>
+                    This dataset is sourced from <strong>PubChem</strong> and is not my own data. I have simply transferred it here for easier access and experimentation. The dataset is extremely rich, both in terms of the number of samples and the number of features, making it a valuable resource for various chemical and computational analyses.
+                    <!-- اكتب هنا أي ملاحظات على تنظيف الداتا أو preprocessing -->
+                </p>
+
+                <h2>More Details & Usage</h2>
+                <ul>
+                    <li><a href="https://www.kaggle.com/datasets/m0delcrafter/pubchem-50m" target="_blank"> PubChem Dataset</a></li>
+                </ul>
+
+
+            </div>
         </div>
 
         <div style="max-width: 900px; margin: 0 auto; padding: 0 20px; text-align: center;">
             <a href="../datasets.html" class="back-btn">← Back to Datasets</a>
         </div>
+
     </div>
 
     <script>
         const spaceContainer = document.getElementById('space-container');
-        const bgStarCount = 200;
 
         function createBgStars() {
-            for (let i = 0; i < bgStarCount; i++) {
+            for (let i = 0; i < 200; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-bg';
-                const pos = { x: Math.random() * 100, y: Math.random() * 100 };
                 const size = Math.random() * 1.5 + 0.3;
                 star.style.width = size + 'px';
                 star.style.height = size + 'px';
-                star.style.left = pos.x + '%';
-                star.style.top = pos.y + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = (Math.random() * 2.5) + 's';
                 spaceContainer.appendChild(star);
             }
         }
 
         function createAsteroids() {
-            const asteroidCount = 6;
-            for (let i = 0; i < asteroidCount; i++) {
+            for (let i = 0; i < 6; i++) {
                 const asteroid = document.createElement('div');
                 asteroid.className = 'asteroid';
                 const size = Math.random() * 6 + 2;
@@ -296,59 +428,6 @@
             }
         }
 
-        // Markdown-like content
-        const readmeHTML = `
-            <h2>Dataset Overview</h2>
-            <p>The Market Trends dataset contains comprehensive financial market data spanning multiple years with various financial indicators and trading information.</p>
-
-            <h2>Dataset Statistics</h2>
-            <table>
-                <tr>
-                    <th>Metric</th>
-                    <th>Value</th>
-                </tr>
-                <tr>
-                    <td>Total Records</td>
-                    <td>2.5M+</td>
-                </tr>
-                <tr>
-                    <td>Time Period</td>
-                    <td>2015-2024</td>
-                </tr>
-                <tr>
-                    <td>File Size</td>
-                    <td>4GB (compressed)</td>
-                </tr>
-            </table>
-
-            <h2>Features</h2>
-            <ul>
-                <li>Daily OHLCV (Open, High, Low, Close, Volume) data</li>
-                <li>Technical indicators (SMA, EMA, RSI, MACD)</li>
-                <li>Market sentiment scores</li>
-                <li>Trading volume analysis</li>
-                <li>Cross-market correlations</li>
-            </ul>
-
-            <h2>Data Format</h2>
-            <pre><code>{
-  "timestamp": "2024-01-15T10:30:00Z",
-  "open": 152.45,
-  "high": 154.20,
-  "low": 151.80,
-  "close": 153.65,
-  "volume": 45320000,
-  "indicators": {...}
-}</code></pre>
-
-            <h2>Usage</h2>
-            <p>Perfect for machine learning models predicting market movements, algorithmic trading strategies, and financial analysis.</p>
-
-            <h2>Data Quality</h2>
-            <p>All data has been cleaned, validated, and preprocessed. Missing values are interpolated using appropriate methods.</p>
-        `;
-
-        document.getElementById('readmeContent').innerHTML = readmeHTML;
         createBgStars();
         createAsteroids();
     </script>

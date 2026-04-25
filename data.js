@@ -40,25 +40,25 @@ const projectsData = [
 const datasetsData = [
     { 
         id: 1, 
-        name: "Market Trends", 
-        size: "4GB", 
+        name: "PubChem Dataset", 
+        size: "181.48GB", 
         color: "#6688ff",
-        details: "Comprehensive financial market data including stock prices, trading volumes, and trend indicators.",
+        details: "Comprehensive chemical compound data including molecular structures, properties, and experimental results.",
         link: "datasets/dataset1.html"
     },
     { 
         id: 2, 
-        name: "Audio Features", 
-        size: "8GB", 
+        name: "The Dream Dictionary", 
+        size: "3.5MB", 
         color: "#66ddaa",
         details: "Preprocessed audio feature vectors extracted from thousands of audio samples using advanced signal processing.",
         link: "datasets/dataset2.html"  // نفس الصفحة بالفترة الحالية
     },
     { 
         id: 3, 
-        name: "Pixel Dataset", 
-        size: "2GB", 
-        color: "#dd66ff",
+        name: "Arabian Diwan", 
+        size: "55MB", 
+        color: "#f7ea3fd8",
         details: "Curated collection of pixel art and low-resolution images for generative model training.",
         link: "datasets/dataset3.html"  // نفس الصفحة بالفترة الحالية
     },

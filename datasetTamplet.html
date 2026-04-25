@@ -6,7 +6,7 @@
 
     <!-- =============================== -->
     <!-- اكتب اسم الـ dataset هنا        -->
-    <title> Dream Dictionary | Youssef Khaled</title>
+    <title>DATASET NAME | Youssef Khaled</title>
     <!-- =============================== -->
 
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -303,12 +303,15 @@
     <div class="content">
 
         <div class="dataset-header">
+            <!-- =============================== -->
+            <!-- رقم الـ dataset مثال: DATA_01   -->
+            <div class="dataset-id">DATA_0X</div>
 
             <!-- اسم الـ dataset                 -->
-            <h1 class="dataset-title">The Dream Dictionary</h1>
+            <h1 class="dataset-title">PubChem Dataset</h1>
 
             <!-- وصف قصير + الحجم              -->
-            <p class="dataset-meta">Clarifying Dream Interpretations by the Great Scholars(3.5MB)</p>
+            <p class="dataset-meta">50 Million Chemical Compounds(181.48GB)</p>
             <!-- =============================== -->
         </div>
 
@@ -324,15 +327,6 @@
                 <!-- SECTION 1: نبذة عامة -->
                 <h2>Dataset Overview</h2>
                 <p>
-                    This project is a structured collection of dream interpretations from the three most prominent classical scholars:
-
-                    <strong>Ibn Sirin</strong>
-                    <strong>Ibn Shahin</strong>
-                    <strong>Al-Nabulsi</strong>
-                    
-                    Unlike modern interpretations that focus on specific dream cases, these scholars mainly provided the symbolic meaning of each element within dreams. Their works form the foundation of Islamic dream interpretation.
-
-                    Each scholar's interpretations were separated into individual CSV files to maintain clarity and cleanliness.
                     <!-- اكتب هنا وصف الـ dataset -->
                 </p>
 
@@ -341,16 +335,24 @@
                 <h2>Dataset Statistics</h2>
                 <table>
                     <tr>
-                        <td>Scholars</td>
-                        <td>3</td>
+                        <th>Metric</th>
+                        <th>Value</th>
                     </tr>
                     <tr>
-                        <td>Dataset Size</td>
-                        <td>3.5MB</td>
+                        <td>Total Records</td>
+                        <td><!-- عدد الـ records --></td>
+                    </tr>
+                    <tr>
+                        <td>Time Period</td>
+                        <td><!-- الفترة الزمنية لو موجودة --></td>
+                    </tr>
+                    <tr>
+                        <td>File Size</td>
+                        <td><!-- الحجم مثلاً 4GB --></td>
                     </tr>
                     <tr>
                         <td>Format</td>
-                        <td>CSV</td>
+                        <td><!-- CSV / JSON / Parquet / etc --></td>
                     </tr>
                     <!-- ضيف rows تانية لو محتاج -->
                 </table>
@@ -359,37 +361,53 @@
                 <!-- SECTION 3: الـ features/columns — عدل القائمة -->
                 <h2>Features</h2>
                 <ul>
-                    <li><strong>Section:</strong> This column contains the letters (alphabetically) or a major topic, under which related subtopics are organized.</li>
-                    <li><strong>Topic:</strong> This column contains the specific item whose meaning is to be explained.</li>
-                    <li><strong>Meaning:</strong> This column explains the topic column.</li>
-
+                    <li><!-- Feature 1 --></li>
+                    <li><!-- Feature 2 --></li>
+                    <li><!-- Feature 3 --></li>
                     <!-- ضيف أكتر لو محتاج -->
                 </ul>
 
 
+                <!-- SECTION 4: مثال على شكل الداتا — اكتب JSON أو CSV مثال -->
+                <h2>Data Sample</h2>
+                <pre><code>
+<!-- الصق هنا مثال على record واحد من الداتا -->
+                </code></pre>
+
+
                 <!-- SECTION 5: طريقة الاستخدام -->
                 <h2>Inspiration</h2>
-                <ul>
-                    <li><strong>Semantic Aggregation:</strong> Grouping similar dream symbols across different scholars.</li>
-                    <li><strong>Comparative Analysis:</strong> Studying how interpretations evolved between Ibn Sirin and Al-Nabulsi.</li>
-                    <li><strong>LLM Training:</strong> Fine-tuning models on classical Arabic dream interpretation.</li>
-                    <li><strong>Inference-based Search:</strong> Building a "Dream Engine" that understands context.</li>
-                </ul>
-
-                <!-- SECTION 6: جودة الداتا -->
-                <h2>Data Quality && Data Source</h2>
 
                 <p>
-                    The dataset was carefully compiled from <strong>tafsiralahlam.net</strong>, which aggregates and preserves the works of these scholars.
-                    Each scholar's interpretations were separated into individual CSV files to maintain clarity and cleanliness.
+                    <!-- اكتب هنا إيه أفضل use cases للـ dataset ده -->
+                </p>
 
+
+                <!-- SECTION 6: جودة الداتا -->
+                <h2>Data Quality</h2>
+                <p>
+                    <!-- اكتب هنا أي ملاحظات على تنظيف الداتا أو preprocessing -->
                 </p>
 
                 <h2>More Details & Usage</h2>
                 <ul>
-                    <li><a href="https://www.kaggle.com/datasets/m0delcrafter/the-dream-dictionary" target="_blank"> The Dream Dictionary Dataset</a></li>
+                    <li><a href="https://www.kaggle.com/datasets/m0delcrafter/" target="_blank"> PubChem Dataset</a></li>
+                </ul>
 
 
+                <!-- ============================================================ -->
+                <!-- لو عايز تضيف section جديدة نسخ الشكل ده:                    -->
+                <!--                                                              -->
+                <!-- <h2>SECTION TITLE</h2>                                       -->
+                <!-- <p>محتوى النص هنا</p>                                        -->
+                <!--                                                              -->
+                <!-- أو جدول:                                                     -->
+                <!-- <table><tr><th>Col1</th><th>Col2</th></tr>                   -->
+                <!-- <tr><td>val</td><td>val</td></tr></table>                    -->
+                <!--                                                              -->
+                <!-- أو قائمة:                                                    -->
+                <!-- <ul><li>item</li><li>item</li></ul>                          -->
+                <!-- ============================================================ -->
 
             </div>
         </div>

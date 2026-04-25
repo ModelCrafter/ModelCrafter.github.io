@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- =============================== -->
+    <!-- اكتب اسم الـ dataset هنا        -->
+    <title>Arabian Diwan | Youssef Khaled</title>
+    <!-- =============================== -->
+
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void-color: #0a0a1a;
+            --text-color: #e0e0e8;
+            --glow-soft: rgba(100, 150, 255, 0.4);
+            --nav-bg: rgba(10, 10, 30, 0.95);
+
+            /* =============================== */
+            /* لون الـ dataset (من data.js)    */
+            /* مثال: #6688ff أو #66ddaa        */
+            --dataset-color: #6688ff;
+            /* =============================== */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
+
+        body {
+            background: #000000;
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #space-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .star-bg {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.6;
+            box-shadow: 0 0 6px rgba(200, 200, 255, 0.4);
+            animation: twinkle 2.5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+        }
+
+        .asteroid {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            box-shadow: 0 0 8px rgba(180, 180, 200, 0.4);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 80px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(100, 150, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.15);
+        }
+
+        .nav-home-btn {
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.7);
+            color: #d0e0ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 12px rgba(100, 150, 255, 0.3);
+            text-shadow: 0 0 8px rgba(100, 150, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        .nav-home-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(150, 180, 255, 1);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.5);
+        }
+
+        .nav-links { display: flex; gap: 1rem; }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.5);
+            color: #a8c5ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
+            text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(150, 180, 255, 0.8);
+            color: #d0e0ff;
+            box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
+        }
+
+        /* CONTENT */
+        .content {
+            position: relative;
+            z-index: 10;
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+
+        .dataset-header {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            padding: 0 20px 40px;
+            text-align: center;
+            border-bottom: 1px solid rgba(100, 150, 255, 0.3);
+        }
+
+        .dataset-id {
+            font-size: 1rem;
+            color: var(--dataset-color);
+            text-shadow: 0 0 8px var(--dataset-color);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .dataset-title {
+            font-size: 2.5rem;
+            color: #e0e0e8;
+            text-shadow: 0 0 30px rgba(100, 150, 255, 0.4);
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        .dataset-meta {
+            font-size: 1.1rem;
+            color: var(--dataset-color);
+            text-shadow: 0 0 10px var(--dataset-color);
+            opacity: 0.8;
+        }
+
+        .readme-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(15, 15, 35, 0.4);
+            border: 1px solid rgba(100, 150, 255, 0.2);
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .readme-content h2 {
+            font-size: 1.8rem;
+            color: #e0e0e8;
+            text-shadow: 0 0 20px rgba(100, 150, 255, 0.3);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            border-left: 3px solid var(--dataset-color);
+            padding-left: 12px;
+        }
+
+        .readme-content h2:first-child { margin-top: 0; }
+
+        .readme-content h3 {
+            font-size: 1.3rem;
+            color: #b8c8e8;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .readme-content p {
+            font-size: 1rem;
+            color: #a8c5ff;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .readme-content ul, .readme-content ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .readme-content li {
+            font-size: 1rem;
+            color: #a8c5ff;
+            line-height: 1.8;
+            margin-bottom: 6px;
+        }
+
+        .readme-content code {
+            background: rgba(100, 150, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ffaa66;
+        }
+
+        .readme-content pre {
+            background: rgba(100, 150, 255, 0.08);
+            padding: 15px;
+            border-left: 3px solid var(--dataset-color);
+            margin: 15px 0;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            color: #ffaa66;
+        }
+
+        .readme-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .readme-content th, .readme-content td {
+            border: 1px solid rgba(100, 150, 255, 0.3);
+            padding: 12px;
+            text-align: left;
+            color: #a8c5ff;
+        }
+
+        .readme-content th {
+            background: rgba(100, 150, 255, 0.1);
+            color: #e0e0e8;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.5);
+            color: #a8c5ff;
+            padding: 0.7rem 1.4rem;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            border-color: rgba(150, 180, 255, 0.8);
+            color: #d0e0ff;
+            box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { height: auto; padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
+            .nav-home-btn { padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+            .nav-links { gap: 0.4rem; flex-wrap: wrap; }
+            .nav-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
+            .dataset-title { font-size: 1.8rem; }
+            .readme-container { padding: 20px; }
+            .content { padding-top: 90px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="space-container"></div>
+
+    <header class="navbar">
+        <button class="nav-home-btn" onclick="window.location.href='../index.html'">← HOME</button>
+        <nav class="nav-links">
+            <button class="nav-btn" onclick="window.location.href='../projects.html'">PROJECTS</button>
+            <button class="nav-btn" onclick="window.location.href='../datasets.html'">DATASETS</button>
+            <button class="nav-btn" onclick="window.location.href='../signal.html'">SIGNAL</button>
+            <button class="nav-btn" onclick="window.location.href='../init.html'">INIT</button>
+        </nav>
+    </header>
+
+    <div class="content">
+
+        <div class="dataset-header">
+
+            <!-- اسم الـ dataset                 -->
+            <h1 class="dataset-title">Arabian Diwan</h1>
+
+            <!-- وصف قصير + الحجم              -->
+            <p class="dataset-meta">A journey through Arabic odes and rhymes(55MB)</p>
+            <!-- =============================== -->
+        </div>
+
+        <div class="readme-container">
+            <div class="readme-content">
+
+                <!-- ============================================================ -->
+                <!--  القسم ده اكتب فيه كل تفاصيل الـ dataset                    -->
+                <!--  في كل section امسح الكومنت واكتب محتواك                    -->
+                <!-- ============================================================ -->
+
+
+                <!-- SECTION 1: نبذة عامة -->
+                <h2>Dataset Overview</h2>
+                <p>
+                    This dataset was carefully collected from ,<strong>Al-Diwan</strong>, one of the most famous and trusted websites for Arabic poetry. Unlike other websites that may include incorrect, misattributed, or plagiarized poems, Al-Diwan provides reliable content.
+
+                    The collection methodology was not just about gathering random lines and verses; instead, it was organized so that each element in the text column represents a hemistich (half-line). By combining every two consecutive hemistiches, a complete bayt (verse) is formed, which represents the core unit and structure of the poem. This was done to preserve the poetic fabric, rather than simply generating rhymed Modern Standard Arabic text.
+                </p>
+
+
+                <!-- SECTION 2: إحصائيات — عدل الأرقام في الجدول -->
+                <h2>Dataset Statistics</h2>
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td>Total Poems</td>
+                        <td><!-- عدد الـ records --></td>
+                    </tr>
+                    <tr>
+                        <td>Time Period</td>
+                        <td>From pre-Islamic times to the present</td>
+                    </tr>
+                    <tr>
+                        <td>File Size</td>
+                        <td>55MB</td>
+                    </tr>
+                    <tr>
+                        <td>Format</td>
+                        <td>JSON</td>
+                    </tr>
+                    <!-- ضيف rows تانية لو محتاج -->
+                </table>
+
+
+                <!-- SECTION 3: الـ features/columns — عدل القائمة -->
+                <h2>Features</h2>
+                <ul>
+                    <li><strong>title</strong>: The title of the poem, often the opening line.</li>
+                    <li><strong>poet</strong>: The poet (author).</li>
+                    <li><strong>url</strong>: Link to the poem on Al-Diwan.</li>
+                    <li><strong>sea</strong>: The poetic meter (baḥr) of the poem, which defines its form and rhythm.</li>
+                    <li><strong>qafiya</strong>: The final rhyme letter at the end of each verse.</li>
+                    <li><strong>category</strong>: The classification of the poem.</li>
+                    <li><strong>text</strong>: The poem’s text, where each element is a hemistich, and every two elements together form a verse (bayt).</li>
+
+                </ul>
+
+
+                <!-- SECTION 4: مثال على شكل الداتا — اكتب JSON أو CSV مثال -->
+                <h2>Data Sample</h2>
+                <div class="data-terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                    <span class="terminal-title">poetry_record.json</span>
+                    </div>
+                    <pre class="terminal-body"><code>{
+                    <span class="json-key">"title"</span>: <span class="json-val">"وإني لأُعطي الحق من لو ظلمته"</span>,
+                    <span class="json-key">"poet"</span>: <span class="json-val">"الأفوة الأودي"</span>,
+                    <span class="json-key">"url"</span>: <span class="json-val">"https://www.aldiwan.net/poem646.html"</span>,
+                    <span class="json-key">"sea"</span>: <span class="json-val">"الطويل"</span>,
+                    <span class="json-key">"era"</span>: <span class="json-val">"الجاهلي"</span>,
+                    <span class="json-key">"qafiya"</span>: <span class="json-val">"الباء (ب)"</span>,
+                    <span class="json-key">"category"</span>: <span class="json-val">"قصيره"</span>,
+                    <span class="json-key">"text"</span>: [
+                    <span class="json-val">"وَإِنّي لَأُعطي الحَقَّ مَن لَو ظَلَمتُهُ"</span>,
+                    <span class="json-val">"أَقَرَّ وَأَعطاني الَّذي أَنا طالِبُ"</span>,
+                    <span class="json-val">"وَآخُذُ حَقّي مِن رِجالٍ أَعِزَّةٍ"</span>,
+                    <span class="json-val">"وَإِن كَرُمَت أَعراقُهُم وَالمَناسِبُ"</span>
+]</code></pre>
+                </div>
+
+                <!-- SECTION 5: طريقة الاستخدام -->
+                <h2>Inspiration</h2>
+
+                <p>
+
+                Classifying Arabic poetic meters (al-buḥūr)
+                Automatic poem classification by theme (love, praise, satire, etc.)
+                Recommendation system based on poem themes, meters, or rhymes
+                Training the model on automatic diacritization (later it can be fine-tuned for syntax or morphology)
+                Style transfer between different poets or eras (e.g., rewriting a poem in the style of another poet)
+                Analyzing dominant meters and rhyme patterns within each meter
+                Exploring poets’ preferences in choosing meters and how each meter serves different types of poems
+                Tracking the most common rhymes across eras and poem categories
+                Analyzing poetic trends in each era
+                Identifying the most frequent keywords across different eras
+                Clustering similar poets across eras
+                Correlating poem length with chosen meter or rhyme
+
+                    <!-- اكتب هنا إيه أفضل use cases للـ dataset ده -->
+                </p>
+
+
+                <!-- SECTION 6: جودة الداتا -->
+                <h2>Data Quality && Data Source</h2>
+
+                <p>
+                 While collecting data from <strong>Al-Diwan</strong>, my primary focus was on data quality rather than sheer volume. I intentionally excluded rare meters—such as Al-Muqtadab, Al-Madid, and Al-Mudari‘—as their extreme scarcity and limited representation in classical literature would introduce significant noise or class imbalance. For downstream tasks like text generation or classification, these "long-tail" meters often lack enough samples to be statistically useful.
+                </p>
+
+                <p>
+                Furthermore, the dataset is fully diacritized (mushakkal), providing a high-fidelity resource for Classical Arabic poetry. While diacritics can be easily stripped for simpler NLP tasks, reconstructing them from scratch is a complex computational challenge. Maintaining them ensures both linguistic authenticity and maximum flexibility for advanced research in phonetics and prosody.
+                </p>
+
+                <h2>More Details & Usage</h2>
+                <ul>
+                    <li><a href="https://www.kaggle.com/datasets/m0delcrafter/arabian-diwan" target="_blank"> Arabian Diwan Dataset</a></li>
+                </ul>
+                <!-- ============================================================ -->
+                <!-- لو عايز تضيف section جديدة نسخ الشكل ده:                    -->
+                <!--                                                              -->
+                <!-- <h2>SECTION TITLE</h2>                                       -->
+                <!-- <p>محتوى النص هنا</p>                                        -->
+                <!--                                                              -->
+                <!-- أو جدول:                                                     -->
+                <!-- <table><tr><th>Col1</th><th>Col2</th></tr>                   -->
+                <!-- <tr><td>val</td><td>val</td></tr></table>                    -->
+                <!--                                                              -->
+                <!-- أو قائمة:                                                    -->
+                <!-- <ul><li>item</li><li>item</li></ul>                          -->
+                <!-- ============================================================ -->
+
+            </div>
+        </div>
+
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px; text-align: center;">
+            <a href="../datasets.html" class="back-btn">← Back to Datasets</a>
+        </div>
+
+    </div>
+
+    <script>
+        const spaceContainer = document.getElementById('space-container');
+
+        function createBgStars() {
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-bg';
+                const size = Math.random() * 1.5 + 0.3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = (Math.random() * 2.5) + 's';
+                spaceContainer.appendChild(star);
+            }
+        }
+
+        function createAsteroids() {
+            for (let i = 0; i < 6; i++) {
+                const asteroid = document.createElement('div');
+                asteroid.className = 'asteroid';
+                const size = Math.random() * 6 + 2;
+                asteroid.style.width = size + 'px';
+                asteroid.style.height = size + 'px';
+                asteroid.style.left = Math.random() * 100 + '%';
+                asteroid.style.top = Math.random() * 100 + '%';
+                asteroid.style.background = '#b4b4c8';
+                spaceContainer.appendChild(asteroid);
+            }
+        }
+
+        createBgStars();
+        createAsteroids();
+    </script>
+</body>
+</html>
