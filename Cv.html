@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV | Youssef Khaled</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void-color: #0a0a1a;
+            --text-color: #e0e0e8;
+            --glow-soft: rgba(100, 150, 255, 0.4);
+            --nav-bg: rgba(10, 10, 30, 0.95);
+            --accent: #6688ff;
+            --border: rgba(102, 136, 255, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
+
+        body {
+            background: #000000;
+            color: var(--text-color);
+            font-family: 'Share Tech Mono', monospace;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #space-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .star-bg {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.6;
+            box-shadow: 0 0 6px rgba(200, 200, 255, 0.4);
+            animation: twinkle 2.5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+        }
+
+        .asteroid {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            box-shadow: 0 0 8px rgba(180, 180, 200, 0.4);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 80px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(100, 150, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.15);
+        }
+
+        .nav-home-btn {
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.7);
+            color: #d0e0ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 12px rgba(100, 150, 255, 0.3);
+            text-shadow: 0 0 8px rgba(100, 150, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        .nav-home-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(150, 180, 255, 1);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.5);
+        }
+
+        .nav-links { display: flex; gap: 1rem; align-items: center; }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.5);
+            color: #a8c5ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
+            text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(150, 180, 255, 0.8);
+            color: #d0e0ff;
+            box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
+        }
+
+        .nav-dl-btn {
+            background: rgba(102, 136, 255, 0.1);
+            border: 1px solid rgba(102, 136, 255, 0.65);
+            color: #b0c8ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(100, 150, 255, 0.45);
+            box-shadow: 0 0 14px rgba(102, 136, 255, 0.2);
+            white-space: nowrap;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-dl-btn:hover {
+            transform: scale(1.08);
+            background: rgba(102, 136, 255, 0.18);
+            border-color: rgba(150, 180, 255, 1);
+            color: #fff;
+            box-shadow: 0 0 22px rgba(102, 136, 255, 0.5);
+        }
+
+        /* CONTENT */
+        .content {
+            position: relative;
+            z-index: 10;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        /* HEADER */
+        .cv-header {
+            max-width: 860px;
+            margin: 0 auto 40px;
+            padding: 0 20px 36px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cv-label {
+            font-family: 'VT323', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 5px;
+            color: var(--accent);
+            text-shadow: 0 0 8px var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .cv-name {
+            font-family: 'VT323', monospace;
+            font-size: 2.8rem;
+            color: #e0eeff;
+            letter-spacing: 4px;
+            text-shadow: 0 0 28px rgba(102, 136, 255, 0.5);
+        }
+
+        .cv-role {
+            font-size: 0.82rem;
+            color: var(--muted);
+            letter-spacing: 3px;
+            margin-top: 6px;
+            text-transform: uppercase;
+            color: #8899bb;
+        }
+
+        .cv-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: #55dd88;
+            letter-spacing: 2px;
+            font-family: 'VT323', monospace;
+        }
+
+        .cv-status::before {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #55dd88;
+            box-shadow: 0 0 8px #55dd88;
+            animation: pulse-green 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 6px #55dd88; }
+            50%       { box-shadow: 0 0 16px #55dd88, 0 0 30px rgba(85,221,136,.3); }
+        }
+
+        /* CV BODY */
+        .cv-body {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* SECTIONS */
+        .cv-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(102, 136, 255, 0.5);
+            letter-spacing: 3px;
+            border-left: 3px solid var(--accent);
+            padding-left: 12px;
+            margin-bottom: 16px;
+        }
+
+        .section-body {
+            background: rgba(15, 15, 40, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 20px 24px;
+            backdrop-filter: blur(8px);
+        }
+
+        /* ABOUT */
+        .about-text {
+            font-size: 0.88rem;
+            color: #8aabcc;
+            line-height: 1.9;
+        }
+
+        .about-text strong {
+            color: #d0e4ff;
+            font-weight: normal;
+        }
+
+        /* SKILLS */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .skills-list li {
+            background: rgba(102, 136, 255, 0.1);
+            border: 1px solid rgba(102, 136, 255, 0.25);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            color: #a8c5ff;
+            text-shadow: 0 0 6px rgba(102, 136, 255, 0.3);
+        }
+
+        /* EXPERIENCE / EDUCATION */
+        .entry {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(102, 136, 255, 0.1);
+        }
+
+        .entry:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .entry-title {
+            font-family: 'VT323', monospace;
+            font-size: 1.15rem;
+            color: #c8d8f8;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .entry-title::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .entry-meta {
+            font-size: 0.78rem;
+            color: #6688aa;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .entry-list {
+            padding-left: 20px;
+        }
+
+        .entry-list li {
+            font-size: 0.85rem;
+            color: #8aabcc;
+            line-height: 1.8;
+            margin-bottom: 4px;
+        }
+
+        .entry-list li::marker { color: var(--accent); }
+
+        .entry-text {
+            font-size: 0.85rem;
+            color: #8aabcc;
+            line-height: 1.8;
+        }
+
+        .entry-text code {
+            background: rgba(102, 136, 255, 0.1);
+            border: 1px solid rgba(102, 136, 255, 0.2);
+            padding: 1px 7px;
+            border-radius: 3px;
+            color: #ffcc88;
+            font-size: 0.82rem;
+        }
+
+        /* DATASETS */
+        .dataset-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(102, 136, 255, 0.1);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .dataset-link:last-child { border-bottom: none; }
+
+        .dataset-link:hover .dl-name { color: #fff; text-shadow: 0 0 8px var(--accent); }
+
+        .dl-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 6px var(--accent);
+            flex-shrink: 0;
+        }
+
+        .dl-name {
+            font-size: 0.86rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+            flex: 1;
+            transition: all 0.3s;
+        }
+
+        .dl-meta {
+            font-size: 0.78rem;
+            color: #557799;
+            letter-spacing: 1px;
+        }
+
+        /* CONTACT */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-label {
+            font-size: 0.7rem;
+            color: #557799;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .contact-value {
+            font-size: 0.86rem;
+            color: #a8c5ff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-value:hover { color: #fff; }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .navbar { height: auto; padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
+            .nav-home-btn { padding: 0.5rem 0.8rem; font-size: 0.85rem; }
+            .nav-links { gap: 0.4rem; flex-wrap: wrap; }
+            .nav-btn, .nav-dl-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
+            .cv-name { font-size: 2rem; }
+            .content { padding-top: 90px; }
+            .section-body { padding: 14px 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .nav-home-btn { padding: 0.4rem 0.6rem; font-size: 0.75rem; }
+            .nav-btn, .nav-dl-btn { padding: 0.4rem 0.55rem; font-size: 0.65rem; }
+            .cv-name { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="space-container"></div>
+
+<header class="navbar">
+    <button class="nav-home-btn" onclick="window.location.href='index.html'">← HOME</button>
+    <nav class="nav-links">
+        <button class="nav-btn" onclick="window.location.href='projects.html'">PROJECTS</button>
+        <button class="nav-btn" onclick="window.location.href='datasets.html'">DATASETS</button>
+        <button class="nav-btn" onclick="window.location.href='init.html'">INIT</button>
+        <a class="nav-dl-btn" href="#" onclick="window.print(); return false;">⬇ DOWNLOAD</a>
+    </nav>
+</header>
+
+<div class="content">
+
+    <div class="cv-header">
+        <div>
+            <div class="cv-label">CURRICULUM VITAE</div>
+            <div class="cv-name">YOUSSEF KHALED</div>
+            <div class="cv-role">Machine Learning Engineer · Cairo, Egypt</div>
+        </div>
+        <div class="cv-status">OPEN TO WORK</div>
+    </div>
+
+    <div class="cv-body">
+
+        <!-- ABOUT -->
+        <div class="cv-section">
+            <div class="section-title">ABOUT</div>
+            <div class="section-body">
+                <p class="about-text">
+                    A passionate Machine Learning Engineer specializing in deep learning, chemical informatics, and natural language processing.
+                    I build models that solve real-world problems — from encoding <strong>50 million chemical compounds</strong> to training language models on <strong>classical Arabic poetry</strong>.
+                    Currently focused on graph neural networks, LLM fine-tuning, and large-scale data pipelines.
+                </p>
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="cv-section">
+            <div class="section-title">SKILLS</div>
+            <div class="section-body">
+                <ul class="skills-list">
+                    <li>Python</li>
+                    <li>PyTorch</li>
+                    <li>TensorFlow</li>
+                    <li>RDKit</li>
+                    <li>Transformers</li>
+                    <li>NumPy</li>
+                    <li>Pandas</li>
+                    <li>Scikit-Learn</li>
+                    <li>Docker</li>
+                    <li>Git</li>
+                    <li>SQL</li>
+                    <li>Linux</li>
+                    <li>CUDA</li>
+                    <li>FastAPI</li>
+                    <li>C++</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="cv-section">
+            <div class="section-title">EXPERIENCE</div>
+            <div class="section-body">
+                <div class="entry">
+                    <div class="entry-title">ML Engineer — ACME AI Labs</div>
+                    <div class="entry-meta">2023 – PRESENT</div>
+                    <ul class="entry-list">
+                        <li>Designed and deployed a GNN-based molecular encoder achieving <strong style="color:#d0e4ff;">94.2% accuracy</strong> on property prediction benchmarks</li>
+                        <li>Built end-to-end data pipelines processing over <strong style="color:#d0e4ff;">181 GB</strong> of raw SDF chemical data</li>
+                        <li>Fine-tuned transformer models for domain-specific NLP tasks in Arabic and English</li>
+                    </ul>
+                </div>
+                <div class="entry">
+                    <div class="entry-title">Data Scientist — Placeholder Corp</div>
+                    <div class="entry-meta">2021 – 2023</div>
+                    <ul class="entry-list">
+                        <li>Developed bird species classification models from audio data using CNN architectures</li>
+                        <li>Maintained and extended internal ML tooling and experiment tracking infrastructure</li>
+                        <li>Collaborated with cross-functional teams to translate business problems into ML solutions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <div class="cv-section">
+            <div class="section-title">PROJECTS</div>
+            <div class="section-body">
+                <div class="entry">
+                    <div class="entry-title">Chemical Encoder</div>
+                    <div class="entry-meta">DEEP LEARNING · CHEMINFORMATICS</div>
+                    <p class="entry-text">Neural network encoding of SMILES representations into high-dimensional embeddings using Graph Neural Networks. Stack: <code>PyTorch</code> · <code>RDKit</code> · <code>NumPy</code></p>
+                </div>
+                <div class="entry">
+                    <div class="entry-title">Arabian Diwan NLP</div>
+                    <div class="entry-meta">NLP · CLASSICAL ARABIC</div>
+                    <p class="entry-text">Fine-tuned language models on a 55 MB corpus of classical Arabic poetry spanning pre-Islamic era to present. Full diacritization preserved.</p>
+                </div>
+                <div class="entry">
+                    <div class="entry-title">PubChem 50M Pipeline</div>
+                    <div class="entry-meta">DATA ENGINEERING · CHEMISTRY</div>
+                    <p class="entry-text">Scalable preprocessing pipeline for 50 million compounds in raw SDF format, including 3D coordinate extraction and feature engineering.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="cv-section">
+            <div class="section-title">EDUCATION</div>
+            <div class="section-body">
+                <div class="entry">
+                    <div class="entry-title">B.Sc. Computer Science</div>
+                    <div class="entry-meta">CAIRO UNIVERSITY · 2017 – 2021</div>
+                    <p class="entry-text">Graduation project: Protein structure prediction using deep learning.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATASETS -->
+        <div class="cv-section">
+            <div class="section-title">DATASETS & PUBLICATIONS</div>
+            <div class="section-body">
+                <a class="dataset-link" href="https://www.kaggle.com/datasets/m0delcrafter/the-dream-dictionary" target="_blank">
+                    <div class="dl-dot"></div>
+                    <div class="dl-name">The Dream Dictionary</div>
+                    <div class="dl-meta">3.5 MB · CSV</div>
+                </a>
+                <a class="dataset-link" href="https://www.kaggle.com/datasets/m0delcrafter/arabian-diwan" target="_blank">
+                    <div class="dl-dot"></div>
+                    <div class="dl-name">Arabian Diwan</div>
+                    <div class="dl-meta">55 MB · JSON</div>
+                </a>
+                <a class="dataset-link" href="https://www.kaggle.com/datasets/m0delcrafter/pubchem-50m" target="_blank">
+                    <div class="dl-dot"></div>
+                    <div class="dl-name">PubChem 50M</div>
+                    <div class="dl-meta">181 GB · SDF</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- CONTACT -->
+        <div class="cv-section">
+            <div class="section-title">CONTACT</div>
+            <div class="section-body">
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <span class="contact-label">EMAIL</span>
+                        <a class="contact-value" href="mailto:your@email.com">your@email.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">KAGGLE</span>
+                        <a class="contact-value" href="https://kaggle.com/m0delcrafter" target="_blank">kaggle.com/m0delcrafter</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">GITHUB</span>
+                        <a class="contact-value" href="https://github.com/yourusername" target="_blank">github.com/yourusername</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">LINKEDIN</span>
+                        <a class="contact-value" href="https://linkedin.com/in/yourusername" target="_blank">linkedin.com/in/yourusername</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const spaceContainer = document.getElementById('space-container');
+
+    function createBgStars() {
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star-bg';
+            const size = Math.random() * 1.5 + 0.3;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = (Math.random() * 2.5) + 's';
+            spaceContainer.appendChild(star);
+        }
+    }
+
+    function createAsteroids() {
+        for (let i = 0; i < 6; i++) {
+            const asteroid = document.createElement('div');
+            asteroid.className = 'asteroid';
+            const size = Math.random() * 6 + 2;
+            asteroid.style.width = size + 'px';
+            asteroid.style.height = size + 'px';
+            asteroid.style.left = Math.random() * 100 + '%';
+            asteroid.style.top = Math.random() * 100 + '%';
+            asteroid.style.background = '#b4b4c8';
+            spaceContainer.appendChild(asteroid);
+        }
+    }
+
+    createBgStars();
+    createAsteroids();
+</script>
+</body>
+</html>
