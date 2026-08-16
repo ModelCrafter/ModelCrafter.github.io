@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youssef Khaled</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void-color: #0a0a1a;
+            --text-color: #e0e0e8;
+            --glow-soft: rgba(100, 150, 255, 0.4);
+            --nav-bg: rgba(10, 10, 30, 0.95);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; }
+
+        body {
+            background: #000000;
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #space-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .star-bg {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.6;
+            box-shadow: 0 0 6px rgba(200, 200, 255, 0.4);
+            animation: twinkle 2.5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+        }
+
+        /* NAVBAR - نفس شكل باقي صفحات الموقع */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 80px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(100, 150, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 999;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.15);
+        }
+
+        .nav-home-btn {
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.7);
+            color: #d0e0ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 12px rgba(100, 150, 255, 0.3);
+            text-shadow: 0 0 8px rgba(100, 150, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        .nav-home-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(150, 180, 255, 1);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.5);
+        }
+
+        .nav-links { display: flex; gap: 1rem; }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid rgba(150, 180, 255, 0.5);
+            color: #a8c5ff;
+            padding: 0.7rem 1.4rem;
+            font-size: 1.2rem;
+            font-family: 'VT323', monospace;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
+            text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.08);
+            border-color: rgba(150, 180, 255, 0.8);
+            color: #d0e0ff;
+            box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
+        }
+
+        /* CONTENT */
+        .content {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page-header {
+            position: relative;
+            z-index: 30;
+            text-align: center;
+            padding: 1.6rem 20px 0.4rem;
+            pointer-events: none;
+        }
+
+        .page-title {
+            font-size: 2.6rem;
+            color: #e0e0e8;
+            text-shadow: 0 0 30px rgba(100, 150, 255, 0.4);
+            letter-spacing: 6px;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #8fa5d8;
+            text-shadow: 0 0 12px rgba(100, 150, 255, 0.2);
+            letter-spacing: 1px;
+            margin-top: 8px;
+        }
+
+        #capture-counter {
+            position: fixed;
+            top: 92px;
+            left: 20px;
+            font-size: 1rem;
+            color: #a8c5ff;
+            letter-spacing: 2px;
+            background: rgba(10, 10, 30, 0.6);
+            border: 1px solid rgba(100, 150, 255, 0.3);
+            padding: 6px 14px;
+            border-radius: 3px;
+            z-index: 40;
+            text-shadow: 0 0 8px rgba(100, 150, 255, 0.4);
+        }
+
+        #constellation-lines {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        .constellation-line {
+            stroke: rgba(160, 190, 255, 0.55);
+            stroke-width: 0.15;
+            vector-effect: non-scaling-stroke;
+        }
+
+        #comets-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 8;
+        }
+
+        .comet {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 20;
+            transition: left 1s cubic-bezier(0.22, 0.9, 0.32, 1), top 1s cubic-bezier(0.22, 0.9, 0.32, 1);
+        }
+
+        .comet-head {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff, var(--comet-color, #a8c5ff));
+            box-shadow: 0 0 10px var(--comet-color, #a8c5ff), 0 0 22px var(--comet-color, #a8c5ff);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .comet-tail {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 85px;
+            height: 2.5px;
+            background: linear-gradient(to right, var(--comet-color, #a8c5ff), transparent);
+            transform-origin: left center;
+            opacity: 0.65;
+        }
+
+        .comet-hint {
+            position: absolute;
+            bottom: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--comet-color, #a8c5ff);
+            text-shadow: 0 0 6px var(--comet-color, #a8c5ff);
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        .comet:hover .comet-hint { opacity: 0.9; }
+        .comet:hover .comet-head { width: 20px; height: 20px; }
+
+        .comet.captured { cursor: default; }
+        .comet.captured .comet-tail { display: none; }
+        .comet.captured .comet-hint { display: none; }
+        .comet.captured .comet-head {
+            animation: starPulse 2.6s ease-in-out infinite;
+        }
+
+        @keyframes starPulse {
+            0%, 100% { opacity: 0.75; box-shadow: 0 0 8px var(--comet-color, #a8c5ff), 0 0 16px var(--comet-color, #a8c5ff); }
+            50% { opacity: 1; box-shadow: 0 0 14px var(--comet-color, #a8c5ff), 0 0 28px var(--comet-color, #a8c5ff); }
+        }
+
+        .book-card {
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 200px;
+            background: rgba(10, 10, 30, 0.94);
+            border: 1px solid var(--comet-color, rgba(100, 150, 255, 0.5));
+            padding: 10px 14px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(100, 150, 255, 0.25);
+        }
+
+        /* بتظهر لما تحوّم/تدوس عليها، أو لفترة قصيرة أول ما تتلقط */
+        .comet.captured:hover .book-card,
+        .comet.captured.reveal .book-card {
+            opacity: 1;
+        }
+
+        .book-card-title {
+            color: #ffffff;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .book-card-author {
+            color: var(--comet-color, #a8c5ff);
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            opacity: 0.9;
+        }
+
+        .book-card-note {
+            color: #b8c8e8;
+            font-size: 0.8rem;
+        }
+
+        #captured-log {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 250px;
+            max-height: 170px;
+            overflow-y: auto;
+            background: rgba(10, 10, 30, 0.65);
+            border: 1px solid rgba(100, 150, 255, 0.25);
+            border-radius: 3px;
+            padding: 10px 12px;
+            font-size: 0.8rem;
+            list-style: none;
+            z-index: 40;
+            backdrop-filter: blur(6px);
+        }
+
+        #captured-log li {
+            color: #8fa5d8;
+            padding: 4px 0;
+            border-bottom: 1px dashed rgba(100, 150, 255, 0.15);
+        }
+
+        #captured-log li:last-child { border-bottom: none; }
+
+        .empty-log-hint { color: #5a6a8f; font-style: italic; }
+
+        /* MOBILE RESPONSIVE - نفس منطق باقي الصفحات */
+        @media (max-width: 768px) {
+            .navbar { height: auto; padding: 10px 12px; flex-wrap: wrap; gap: 8px; }
+            .nav-home-btn { padding: 0.5rem 0.8rem; font-size: 0.85rem; letter-spacing: 1px; }
+            .nav-links { gap: 0.4rem; flex-wrap: wrap; }
+            .nav-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; letter-spacing: 1px; }
+            .content { padding-top: 100px; }
+            .page-title { font-size: 1.8rem; letter-spacing: 3px; }
+            .page-subtitle { font-size: 0.9rem; }
+            #capture-counter { top: auto; bottom: 20px; left: 20px; font-size: 0.8rem; padding: 5px 10px; }
+            #captured-log { width: 170px; max-height: 120px; font-size: 0.72rem; bottom: 70px; }
+            .book-card { width: 160px; font-size: 0.75rem; padding: 8px 10px; }
+        }
+
+        @media (max-width: 480px) {
+            .page-title { font-size: 1.4rem; letter-spacing: 2px; }
+            #captured-log { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div id="space-container"></div>
+
+    <header class="navbar">
+        <button class="nav-home-btn" onclick="window.location.href='index.html'">← HOME</button>
+        <nav class="nav-links">
+            <button class="nav-btn" onclick="window.location.href='projects.html'">PROJECTS</button>
+            <button class="nav-btn" onclick="window.location.href='datasets.html'">DATASETS</button>
+            <button class="nav-btn" onclick="window.location.href='signal.html'">SIGNAL</button>
+            <button class="nav-btn" onclick="window.location.href='init.html'">INIT</button>
+        </nav>
+    </header>
+
+    <div class="content">
+        <div class="page-header">
+            <h1 class="page-title">// UNLISTED</h1>
+            <p class="page-subtitle">signals from outside — click one before it passes</p>
+        </div>
+
+        <div id="capture-counter">0 / 0 CAPTURED</div>
+        <svg id="constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+        <div id="comets-layer"></div>
+
+        <ul id="captured-log">
+            <li class="empty-log-hint">// waiting for first capture...</li>
+        </ul>
+    </div>
+
+    <script>
+        // ==========================================================
+        // كتب قريتها — كل عنصر هنا بيبقى "مذنب" في الصفحة دي.
+        // - title / author: اسم الكتاب والكاتب
+        // - note: جملة أو اتنين رأيك فيه أو أهم حاجة اتعلمتها
+        // - color: اختياري
+        // ضيف/امسح براحتك، العدد مش محدود
+        // ==========================================================
+        const booksData = [
+            { id: 1, title: "اسم الكتاب الأول", author: "اسم الكاتب", note: "سطر قصير برأيك في الكتاب", color: "#a8c5ff" },
+            { id: 2, title: "اسم الكتاب التاني", author: "اسم الكاتب", note: "سطر قصير برأيك في الكتاب", color: "#66ddaa" },
+            { id: 3, title: "اسم الكتاب التالت", author: "اسم الكاتب", note: "سطر قصير برأيك في الكتاب", color: "#f7ea3f" },
+            { id: 4, title: "اسم الكتاب الرابع", author: "اسم الكاتب", note: "سطر قصير برأيك في الكتاب", color: "#66ccff" },
+            { id: 5, title: "اسم الكتاب الخامس", author: "اسم الكاتب", note: "سطر قصير برأيك في الكتاب", color: "#ffcc66" },
+            { id: 6, title: "اسم الكتاب السادس", author: "اسم الكاتب", note: "سطر قصير برأيك في الكتاب", color: "#ff8fb8" }
+        ];
+
+        const spaceContainer = document.getElementById('space-container');
+        const cometsLayer = document.getElementById('comets-layer');
+        const linesSvg = document.getElementById('constellation-lines');
+        const logList = document.getElementById('captured-log');
+        const counterEl = document.getElementById('capture-counter');
+
+        const books = Array.isArray(booksData) ? booksData : [];
+        const palette = ['#a8c5ff', '#6688ff', '#66ddaa', '#f7ea3f', '#66ccff', '#ffcc66', '#ff8fb8', '#c299ff'];
+
+        let capturedCount = 0;
+        let lastCaptured = null;
+        let capturedList = [];
+
+        function createBgStars() {
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-bg';
+                const size = Math.random() * 1.5 + 0.3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = (Math.random() * 2.5) + 's';
+                spaceContainer.appendChild(star);
+            }
+        }
+
+        function randomPath() {
+            // بيعدي دايمًا من حافة لضدها (فوق↔تحت أو يمين↔شمال) عشان يقطع
+            // في نص الشاشة، مش بس يمشي على الحواف
+            const duration = 16 + Math.random() * 10;
+            const vertical = Math.random() < 0.5;
+
+            if (vertical) {
+                const topToBottom = Math.random() < 0.5;
+                const startY = topToBottom ? -12 : 112;
+                const endY = topToBottom ? 112 : -12;
+                return { startX: Math.random() * 100, startY: startY, endX: Math.random() * 100, endY: endY, duration: duration };
+            }
+
+            const leftToRight = Math.random() < 0.5;
+            const startX = leftToRight ? -12 : 112;
+            const endX = leftToRight ? 112 : -12;
+            return { startX: startX, startY: Math.random() * 100, endX: endX, endY: Math.random() * 100, duration: duration };
+        }
+
+        function createComet(book, index) {
+            const path = randomPath();
+            const travelAngle = Math.atan2(path.endY - path.startY, path.endX - path.startX) * 180 / Math.PI;
+            const tailAngle = travelAngle + 180;
+            const color = book.color || palette[index % palette.length];
+
+            const comet = document.createElement('div');
+            comet.className = 'comet';
+            comet.style.setProperty('--comet-color', color);
+            comet.style.left = path.startX + '%';
+            comet.style.top = path.startY + '%';
+
+            const tail = document.createElement('div');
+            tail.className = 'comet-tail';
+            tail.style.transform = `rotate(${tailAngle}deg)`;
+
+            const head = document.createElement('div');
+            head.className = 'comet-head';
+
+            const hint = document.createElement('div');
+            hint.className = 'comet-hint';
+            hint.textContent = 'capture';
+
+            comet.appendChild(tail);
+            comet.appendChild(head);
+            comet.appendChild(hint);
+
+            const kfName = 'cometPath' + index + '_' + Math.floor(Math.random() * 100000);
+            const styleTag = document.createElement('style');
+            styleTag.innerHTML = `
+                @keyframes ${kfName} {
+                    0% { left: ${path.startX}%; top: ${path.startY}%; transform: translate(-50%, -50%) scale(0.55); }
+                    50% { transform: translate(-50%, -50%) scale(1.4); }
+                    100% { left: ${path.endX}%; top: ${path.endY}%; transform: translate(-50%, -50%) scale(0.55); }
+                }
+            `;
+            document.head.appendChild(styleTag);
+
+            comet.style.animation = `${kfName} ${path.duration}s linear infinite`;
+
+            comet.addEventListener('click', function () {
+                captureComet(comet, book);
+            });
+
+            cometsLayer.appendChild(comet);
+        }
+
+        function captureComet(comet, book) {
+            if (comet.classList.contains('captured')) return;
+
+            const layerRect = cometsLayer.getBoundingClientRect();
+            const cometRect = comet.getBoundingClientRect();
+            const x = ((cometRect.left + cometRect.width / 2) - layerRect.left) / layerRect.width * 100;
+            const y = ((cometRect.top + cometRect.height / 2) - layerRect.top) / layerRect.height * 100;
+
+            comet.style.animation = 'none';
+            comet.style.left = x + '%';
+            comet.style.top = y + '%';
+            comet.classList.add('captured');
+
+            if (lastCaptured) {
+                drawLine(lastCaptured.x, lastCaptured.y, x, y);
+            }
+            lastCaptured = { x: x, y: y };
+            capturedList.push({ comet: comet, book: book, x: x, y: y });
+
+            capturedCount++;
+            counterEl.textContent = capturedCount + ' / ' + books.length + ' CAPTURED';
+
+            showBookCard(comet, book);
+            addLogEntry(book);
+
+            if (capturedList.length === books.length && books.length > 0) {
+                setTimeout(finalizeConstellation, 900);
+            }
+        }
+
+        function finalizeConstellation() {
+            const n = capturedList.length;
+            if (n < 2) return;
+
+            const layerRect = cometsLayer.getBoundingClientRect();
+            const cx = 50, cy = 46;
+            const pxOuter = Math.min(layerRect.width, layerRect.height) * 0.17;
+            const pxInner = pxOuter * 0.42;
+            const rxOuter = pxOuter / layerRect.width * 100;
+            const ryOuter = pxOuter / layerRect.height * 100;
+            const rxInner = pxInner / layerRect.width * 100;
+            const ryInner = pxInner / layerRect.height * 100;
+            const useStarPoints = n >= 5;
+
+            capturedList.forEach(function (item, i) {
+                const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+                const outer = !useStarPoints || (i % 2 === 0);
+                const rx = outer ? rxOuter : rxInner;
+                const ry = outer ? ryOuter : ryInner;
+                const nx = cx + rx * Math.cos(angle);
+                const ny = cy + ry * Math.sin(angle);
+                item.x = nx;
+                item.y = ny;
+                item.comet.style.left = nx + '%';
+                item.comet.style.top = ny + '%';
+            });
+
+            setTimeout(function () {
+                linesSvg.innerHTML = '';
+                capturedList.forEach(function (item, i) {
+                    const next = capturedList[(i + 1) % n];
+                    drawLine(item.x, item.y, next.x, next.y, true);
+                });
+                counterEl.textContent = n + ' / ' + n + ' — CONSTELLATION COMPLETE';
+            }, 950);
+        }
+
+        function drawLine(x1, y1, x2, y2) {
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', x1);
+            line.setAttribute('y1', y1);
+            line.setAttribute('x2', x1);
+            line.setAttribute('y2', y1);
+            line.setAttribute('class', 'constellation-line');
+            linesSvg.appendChild(line);
+            requestAnimationFrame(function () {
+                line.style.transition = 'x2 1s ease, y2 1s ease';
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+            });
+        }
+
+        function showBookCard(comet, book) {
+            const card = document.createElement('div');
+            card.className = 'book-card';
+            card.innerHTML = `
+                <div class="book-card-title">${book.title}</div>
+                <div class="book-card-author">${book.author}</div>
+                <div class="book-card-note">${book.note}</div>
+            `;
+            comet.appendChild(card);
+
+            // تظهر لحظة اللقطة، وبعد شوية تختفي وتبقى بس تظهر لو حد لمسها/حوّم عليها
+            comet.classList.add('reveal');
+            setTimeout(function () {
+                comet.classList.remove('reveal');
+            }, 2200);
+        }
+
+        function addLogEntry(book) {
+            const hint = logList.querySelector('.empty-log-hint');
+            if (hint) hint.remove();
+            const li = document.createElement('li');
+            li.textContent = '> ' + book.title + ' — ' + book.author;
+            logList.appendChild(li);
+            logList.scrollTop = logList.scrollHeight;
+        }
+
+        function init() {
+            createBgStars();
+            counterEl.textContent = '0 / ' + books.length + ' CAPTURED';
+            books.forEach(function (book, i) {
+                createComet(book, i);
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>

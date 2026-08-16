@@ -175,6 +175,180 @@
             margin-bottom: 20px;
         }
 
+        /* ============================================================
+           TRANSMISSION EASTER EGG — إشارة راديو غامضة بتوصل بعد شوية
+           لو داس "RECEIVE" يروح books.html، لو داس "IGNORE" تختفي
+           وتتحول لبادچ صغير فوق يمين زي إشعار مهمة معلقة
+        ============================================================= */
+        .transmission-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+        .transmission-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .transmission-overlay.hidden { display: none; }
+
+        .transmission-panel {
+            position: relative;
+            width: min(440px, 92vw);
+            background: rgba(8, 10, 25, 0.94);
+            border: 1px solid rgba(150, 180, 255, 0.6);
+            box-shadow: 0 0 45px rgba(100, 150, 255, 0.35);
+            padding: 26px 26px 22px;
+            overflow: hidden;
+            animation: staticFlicker 0.5s steps(6) 1;
+        }
+
+        .scanlines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.035) 0px,
+                rgba(255, 255, 255, 0.035) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        @keyframes staticFlicker {
+            0% { filter: brightness(3) contrast(2); transform: translate(2px, 0); }
+            20% { filter: brightness(0.4); transform: translate(-2px, 1px); }
+            40% { filter: brightness(2); transform: translate(1px, -1px); }
+            60% { filter: brightness(0.6); transform: translate(-1px, 0); }
+            80% { filter: brightness(1.6); transform: translate(1px, 1px); }
+            100% { filter: brightness(1); transform: translate(0, 0); }
+        }
+
+        .transmission-header {
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: #ffb0b0;
+            text-shadow: 0 0 10px rgba(255, 100, 100, 0.6);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rec-dot {
+            width: 9px;
+            height: 9px;
+            background: #ff5050;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ff5050;
+            animation: recBlink 1s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes recBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.25; }
+        }
+
+        .transmission-text {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #cdd8ff;
+            min-height: 84px;
+            white-space: pre-line;
+        }
+
+        .transmission-actions {
+            display: flex;
+            gap: 14px;
+            margin-top: 18px;
+            justify-content: flex-end;
+        }
+
+        .tx-btn {
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            padding: 0.55rem 1.3rem;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .tx-yes {
+            border: 1px solid rgba(120, 255, 170, 0.7);
+            color: #aaffcf;
+            box-shadow: 0 0 10px rgba(120, 255, 170, 0.25);
+        }
+
+        .tx-yes:hover {
+            background: rgba(120, 255, 170, 0.12);
+            box-shadow: 0 0 18px rgba(120, 255, 170, 0.5);
+            transform: scale(1.05);
+        }
+
+        .tx-no {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #9aa8c8;
+        }
+
+        .tx-no:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            color: #fff;
+        }
+
+        .transmission-badge {
+            position: fixed;
+            top: 96px;
+            right: 20px;
+            z-index: 500;
+            background: rgba(10, 10, 30, 0.85);
+            border: 1px solid rgba(255, 120, 120, 0.5);
+            color: #ffb0b0;
+            font-family: 'VT323', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            padding: 8px 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 14px rgba(255, 90, 90, 0.25);
+            animation: badgePulse 2.4s ease-in-out infinite;
+        }
+
+        .transmission-badge.hidden { display: none; }
+
+        .transmission-badge:hover { transform: scale(1.06); }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            background: #ff5050;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ff5050;
+            flex-shrink: 0;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 90, 90, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(255, 90, 90, 0.55); }
+        }
+
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
             .navbar {
@@ -214,6 +388,23 @@
 
             .content {
                 padding-top: 90px;
+            }
+
+            .transmission-panel {
+                padding: 20px 18px 18px;
+            }
+
+            .transmission-text {
+                font-size: 1rem;
+                min-height: 100px;
+            }
+
+            .transmission-badge {
+                top: auto;
+                bottom: 20px;
+                right: 16px;
+                font-size: 0.78rem;
+                padding: 7px 12px;
             }
         }
 
@@ -275,6 +466,24 @@
         </div>
     </div>
 
+    <!-- بانل الترانسميشن، مخفي لحد ما الجافاسكريبت تظهره -->
+    <div id="transmission-overlay" class="transmission-overlay hidden">
+        <div class="transmission-panel">
+            <div class="scanlines"></div>
+            <div class="transmission-header"><span class="rec-dot"></span> INCOMING TRANSMISSION</div>
+            <p class="transmission-text" id="transmissionText"></p>
+            <div class="transmission-actions">
+                <button id="tx-no" class="tx-btn tx-no">IGNORE</button>
+                <button id="tx-yes" class="tx-btn tx-yes">RECEIVE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- بادچ صغير بيفضل معلق فوق يمين لو المستخدم دوس IGNORE -->
+    <button id="transmission-badge" class="transmission-badge hidden" title="unread transmission">
+        <span class="badge-dot"></span> SIGNAL PENDING
+    </button>
+
     <script>
         const spaceContainer = document.getElementById('space-container');
         const bgStarCount = 200;
@@ -311,6 +520,122 @@
 
         createBgStars();
         createAsteroids();
+    </script>
+
+    <!-- ============================================================
+         منطق الترانسميشن: صوت تشويش راديو (Web Audio، من غير أي
+         ملف صوت خارجي) + رسالة بتتكتب حرف حرف + Yes/No
+    ============================================================= -->
+    <script>
+    (function () {
+        const overlay = document.getElementById('transmission-overlay');
+        const textEl = document.getElementById('transmissionText');
+        const yesBtn = document.getElementById('tx-yes');
+        const noBtn = document.getElementById('tx-no');
+        const badge = document.getElementById('transmission-badge');
+
+        const message = "A weak frequency just cut through the static.\nIt's carrying fragments of things I've read — pages, ideas, half-remembered lines.\n\nTune in?";
+
+        let audioCtx = null;
+        function getCtx() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtx;
+        }
+
+        function armAudio() {
+            try {
+                const ctx = getCtx();
+                if (ctx.state === 'suspended') ctx.resume();
+            } catch (e) {}
+        }
+        document.addEventListener('pointerdown', armAudio, { once: true });
+        document.addEventListener('keydown', armAudio, { once: true });
+
+        function playStatic(duration, peak) {
+            try {
+                const ctx = getCtx();
+                const bufferSize = Math.floor(ctx.sampleRate * duration);
+                const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+                const noise = ctx.createBufferSource();
+                noise.buffer = buffer;
+                const gain = ctx.createGain();
+                gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(peak || 0.12, ctx.currentTime + 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+                noise.connect(gain).connect(ctx.destination);
+                noise.start();
+                noise.stop(ctx.currentTime + duration);
+            } catch (e) { /* الصوت مش أساسي، الموقع لازم يشتغل من غيره */ }
+        }
+
+        function playBeep(freq) {
+            try {
+                const ctx = getCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'square';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.06, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.15);
+                osc.connect(gain).connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.15);
+            } catch (e) {}
+        }
+
+        function typeText(text) {
+            textEl.textContent = '';
+            let i = 0;
+            (function step() {
+                if (i <= text.length) {
+                    textEl.textContent = text.slice(0, i);
+                    i++;
+                    setTimeout(step, 18);
+                }
+            })();
+        }
+
+        function showPanel() {
+            badge.classList.add('hidden');
+            overlay.classList.remove('hidden');
+            requestAnimationFrame(function () {
+                overlay.classList.add('visible');
+            });
+            playStatic(0.9, 0.13);
+            typeText(message);
+        }
+
+        function hidePanel() {
+            overlay.classList.remove('visible');
+            setTimeout(function () {
+                overlay.classList.add('hidden');
+            }, 400);
+        }
+
+        yesBtn.addEventListener('click', function () {
+            playBeep(880);
+            hidePanel();
+            setTimeout(function () {
+                window.location.href = 'books.html';
+            }, 350);
+        });
+
+        noBtn.addEventListener('click', function () {
+            playBeep(220);
+            hidePanel();
+            setTimeout(function () {
+                badge.classList.remove('hidden');
+            }, 450);
+        });
+
+        badge.addEventListener('click', showPanel);
+
+        setTimeout(showPanel, 4500 + Math.random() * 2500);
+    })();
     </script>
 </body>
 </html>
