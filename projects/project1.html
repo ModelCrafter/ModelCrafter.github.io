@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chemical Encoder | Youssef Khaled</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Chemical Encoder — a deep learning model that encodes chemical compounds into meaningful embeddings using graph neural networks.">
+    <meta property="og:title" content="Chemical Encoder | Youssef Khaled">
+    <meta property="og:description" content="Advanced chemical compound encoding using neural networks.">
+    <meta property="og:type" content="article">
+    <meta name="robots" content="index, follow">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Chemical Encoder | Youssef Khaled">
+    <meta name="twitter:description" content="Advanced chemical compound encoding using neural networks.">
+    <link rel="canonical" href="https://modelcrafter.github.io/projects/project1.html">
+    <meta property="og:url" content="https://modelcrafter.github.io/projects/project1.html">
+
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -97,6 +110,8 @@
             letter-spacing: 2px;
             box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
             text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-btn:hover {
@@ -105,6 +120,11 @@
             color: #d0e0ff;
             box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
             text-shadow: 0 0 8px rgba(100, 150, 255, 0.6);
+        }
+
+        .nav-btn:focus-visible {
+            outline: 2px solid #a8c5ff;
+            outline-offset: 3px;
         }
 
         /* CONTENT */
@@ -235,7 +255,7 @@
     <div id="space-container"></div>
 
     <header class="navbar">
-        <button class="nav-btn" onclick="window.location.href='../index.html'">BACK</button>
+        <a class="nav-btn" href="../index.html">BACK</a>
     </header>
 
     <div class="content">
@@ -262,6 +282,7 @@
             for (let i = 0; i < bgStarCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-bg';
+                star.setAttribute('aria-hidden', 'true');
                 const pos = { x: Math.random() * 100, y: Math.random() * 100 };
                 const size = Math.random() * 1.5 + 0.3;
                 star.style.width = size + 'px';
@@ -278,6 +299,7 @@
             for (let i = 0; i < asteroidCount; i++) {
                 const asteroid = document.createElement('div');
                 asteroid.className = 'asteroid';
+                asteroid.setAttribute('aria-hidden', 'true');
                 const size = Math.random() * 6 + 2;
                 asteroid.style.width = size + 'px';
                 asteroid.style.height = size + 'px';

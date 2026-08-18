@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /datasetTamplet.html
+Disallow: /datasets/dataset4.html
+Disallow: /datasets/dataset5.html
+Disallow: /projects/project2.html
+Disallow: /projects/project3.html
+Disallow: /projects/project4.html
+Disallow: /projects/project5.html
+
+Sitemap: https://modelcrafter.github.io/sitemap.xml

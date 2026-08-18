@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | Youssef Khaled</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Machine learning projects by Youssef Khaled — chemical encoding, language models, audio classification, and generative AI.">
+    <meta property="og:title" content="Projects | Youssef Khaled">
+    <meta property="og:description" content="Machine learning projects by Youssef Khaled.">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Projects | Youssef Khaled">
+    <meta name="twitter:description" content="Machine learning projects by Youssef Khaled.">
+    <link rel="canonical" href="https://modelcrafter.github.io/projects.html">
+    <meta property="og:url" content="https://modelcrafter.github.io/projects.html">
+
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -98,6 +111,8 @@
             box-shadow: 0 0 12px rgba(100, 150, 255, 0.3);
             text-shadow: 0 0 8px rgba(100, 150, 255, 0.5);
             white-space: nowrap;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-home-btn:hover {
@@ -126,6 +141,8 @@
             letter-spacing: 2px;
             box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
             text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-btn:hover {
@@ -141,6 +158,13 @@
             color: #ffffff;
             box-shadow: 0 0 18px rgba(100, 150, 255, 0.5);
             text-shadow: 0 0 10px rgba(100, 150, 255, 0.7);
+        }
+
+        .nav-home-btn:focus-visible,
+        .nav-btn:focus-visible,
+        .project-card:focus-visible {
+            outline: 2px solid #a8c5ff;
+            outline-offset: 3px;
         }
 
         /* CONTENT */
@@ -177,6 +201,8 @@
             cursor: pointer;
             transition: all 0.4s ease;
             backdrop-filter: blur(10px);
+            text-decoration: none;
+            display: block;
         }
 
         .project-card:hover {
@@ -297,12 +323,12 @@
     <div id="space-container"></div>
 
     <header class="navbar">
-        <button class="nav-home-btn" onclick="window.location.href='index.html'">← HOME</button>
+        <a class="nav-home-btn" href="index.html">← HOME</a>
         <nav class="nav-links">
-            <button class="nav-btn active" onclick="window.location.href='projects.html'">PROJECTS</button>
-            <button class="nav-btn" onclick="window.location.href='datasets.html'">DATASETS</button>
-            <button class="nav-btn" onclick="window.location.href='signal.html'">SIGNAL</button>
-            <button class="nav-btn" onclick="window.location.href='init.html'">INIT</button>
+            <a class="nav-btn active" href="projects.html">PROJECTS</a>
+            <a class="nav-btn" href="datasets.html">DATASETS</a>
+            <a class="nav-btn" href="signal.html">SIGNAL</a>
+            <a class="nav-btn" href="init.html">INIT</a>
         </nav>
     </header>
 
@@ -321,6 +347,7 @@
             for (let i = 0; i < bgStarCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-bg';
+                star.setAttribute('aria-hidden', 'true');
                 const pos = { x: Math.random() * 100, y: Math.random() * 100 };
                 const size = Math.random() * 1.5 + 0.3;
                 star.style.width = size + 'px';
@@ -337,6 +364,7 @@
             for (let i = 0; i < asteroidCount; i++) {
                 const asteroid = document.createElement('div');
                 asteroid.className = 'asteroid';
+                asteroid.setAttribute('aria-hidden', 'true');
                 const size = Math.random() * 6 + 2;
                 asteroid.style.width = size + 'px';
                 asteroid.style.height = size + 'px';
@@ -350,16 +378,16 @@
         function renderProjects() {
             projectsContainer.innerHTML = '';
             projectsData.forEach(project => {
-                const card = document.createElement('div');
+                // Real <a href> card: Google can crawl straight to the
+                // project page, and it's reachable by keyboard/Tab too.
+                const card = document.createElement('a');
                 card.className = 'project-card';
+                card.href = project.link;
                 card.innerHTML = `
                     <div class="project-id">PROJECT_0${project.id}</div>
                     <h3 class="project-title">${project.title}</h3>
                     <p class="project-description">${project.description}</p>
                 `;
-                card.addEventListener('click', function() {
-                    window.location.href = project.link;
-                });
                 projectsContainer.appendChild(card);
             });
         }

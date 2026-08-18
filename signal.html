@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signal | Youssef Khaled</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Signal — Youssef Khaled's mission and focus in AI and machine learning.">
+    <meta property="og:title" content="Signal | Youssef Khaled">
+    <meta property="og:description" content="Youssef Khaled's mission and focus in AI and machine learning.">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Signal | Youssef Khaled">
+    <meta name="twitter:description" content="Youssef Khaled's mission and focus in AI and machine learning.">
+    <link rel="canonical" href="https://modelcrafter.github.io/signal.html">
+    <meta property="og:url" content="https://modelcrafter.github.io/signal.html">
+
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -98,6 +111,8 @@
             box-shadow: 0 0 12px rgba(100, 150, 255, 0.3);
             text-shadow: 0 0 8px rgba(100, 150, 255, 0.5);
             white-space: nowrap;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-home-btn:hover {
@@ -126,6 +141,8 @@
             letter-spacing: 2px;
             box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
             text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-btn:hover {
@@ -141,6 +158,12 @@
             color: #ffffff;
             box-shadow: 0 0 18px rgba(100, 150, 255, 0.5);
             text-shadow: 0 0 10px rgba(100, 150, 255, 0.7);
+        }
+
+        .nav-home-btn:focus-visible,
+        .nav-btn:focus-visible {
+            outline: 2px solid #a8c5ff;
+            outline-offset: 3px;
         }
 
         /* CONTENT */
@@ -448,12 +471,12 @@
     <div id="space-container"></div>
 
     <header class="navbar">
-        <button class="nav-home-btn" onclick="window.location.href='index.html'">← HOME</button>
+        <a class="nav-home-btn" href="index.html">← HOME</a>
         <nav class="nav-links">
-            <button class="nav-btn" onclick="window.location.href='projects.html'">PROJECTS</button>
-            <button class="nav-btn" onclick="window.location.href='datasets.html'">DATASETS</button>
-            <button class="nav-btn active" onclick="window.location.href='signal.html'">SIGNAL</button>
-            <button class="nav-btn" onclick="window.location.href='init.html'">INIT</button>
+            <a class="nav-btn" href="projects.html">PROJECTS</a>
+            <a class="nav-btn" href="datasets.html">DATASETS</a>
+            <a class="nav-btn active" href="signal.html">SIGNAL</a>
+            <a class="nav-btn" href="init.html">INIT</a>
         </nav>
     </header>
 

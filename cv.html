@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV | Youssef Khaled</title>
+
+    <!-- SEO -->
+    <meta name="description" content="CV of Youssef Khaled — Machine Learning Engineer specializing in deep learning, chemical informatics, and NLP.">
+    <meta property="og:title" content="CV | Youssef Khaled">
+    <meta property="og:description" content="Machine Learning Engineer specializing in deep learning, chemical informatics, and NLP.">
+    <meta property="og:type" content="profile">
+    <meta name="robots" content="index, follow">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="CV | Youssef Khaled">
+    <meta name="twitter:description" content="Machine Learning Engineer specializing in deep learning, chemical informatics, and NLP.">
+    <link rel="canonical" href="https://modelcrafter.github.io/cv.html">
+    <meta property="og:url" content="https://modelcrafter.github.io/cv.html">
+
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -86,6 +99,8 @@
             box-shadow: 0 0 12px rgba(100, 150, 255, 0.3);
             text-shadow: 0 0 8px rgba(100, 150, 255, 0.5);
             white-space: nowrap;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-home-btn:hover {
@@ -110,6 +125,8 @@
             letter-spacing: 2px;
             box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
             text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-btn:hover {
@@ -117,6 +134,13 @@
             border-color: rgba(150, 180, 255, 0.8);
             color: #d0e0ff;
             box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
+        }
+
+        .nav-home-btn:focus-visible,
+        .nav-btn:focus-visible,
+        .nav-dl-btn:focus-visible {
+            outline: 2px solid #a8c5ff;
+            outline-offset: 3px;
         }
 
         .nav-dl-btn {
@@ -432,11 +456,11 @@
 <div id="space-container"></div>
 
 <header class="navbar">
-    <button class="nav-home-btn" onclick="window.location.href='index.html'">← HOME</button>
+    <a class="nav-home-btn" href="index.html">← HOME</a>
     <nav class="nav-links">
-        <button class="nav-btn" onclick="window.location.href='projects.html'">PROJECTS</button>
-        <button class="nav-btn" onclick="window.location.href='datasets.html'">DATASETS</button>
-        <button class="nav-btn" onclick="window.location.href='init.html'">INIT</button>
+        <a class="nav-btn" href="projects.html">PROJECTS</a>
+        <a class="nav-btn" href="datasets.html">DATASETS</a>
+        <a class="nav-btn" href="init.html">INIT</a>
         <a class="nav-dl-btn" href="#" onclick="window.print(); return false;">⬇ DOWNLOAD</a>
     </nav>
 </header>

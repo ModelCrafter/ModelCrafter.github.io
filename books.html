@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Youssef Khaled</title>
+    <title>Unlisted | Youssef Khaled</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Unlisted — books Youssef Khaled has read on machine learning, mathematics, and computer science.">
+    <meta property="og:title" content="Unlisted | Youssef Khaled">
+    <meta property="og:description" content="Books Youssef Khaled has read on machine learning, mathematics, and computer science.">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Unlisted | Youssef Khaled">
+    <meta name="twitter:description" content="Books Youssef Khaled has read on machine learning, mathematics, and computer science.">
+    <link rel="canonical" href="https://modelcrafter.github.io/books.html">
+    <meta property="og:url" content="https://modelcrafter.github.io/books.html">
+
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -78,6 +91,8 @@
             box-shadow: 0 0 12px rgba(100, 150, 255, 0.3);
             text-shadow: 0 0 8px rgba(100, 150, 255, 0.5);
             white-space: nowrap;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-home-btn:hover {
@@ -102,6 +117,8 @@
             letter-spacing: 2px;
             box-shadow: 0 0 10px rgba(100, 150, 255, 0.2);
             text-shadow: 0 0 5px rgba(100, 150, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
         }
 
         .nav-btn:hover {
@@ -109,6 +126,12 @@
             border-color: rgba(150, 180, 255, 0.8);
             color: #d0e0ff;
             box-shadow: 0 0 15px rgba(100, 150, 255, 0.4);
+        }
+
+        .nav-home-btn:focus-visible,
+        .nav-btn:focus-visible {
+            outline: 2px solid #a8c5ff;
+            outline-offset: 3px;
         }
 
         /* CONTENT */
@@ -333,12 +356,12 @@
     <div id="space-container"></div>
 
     <header class="navbar">
-        <button class="nav-home-btn" onclick="window.location.href='index.html'">← HOME</button>
+        <a class="nav-home-btn" href="index.html">← HOME</a>
         <nav class="nav-links">
-            <button class="nav-btn" onclick="window.location.href='projects.html'">PROJECTS</button>
-            <button class="nav-btn" onclick="window.location.href='datasets.html'">DATASETS</button>
-            <button class="nav-btn" onclick="window.location.href='signal.html'">SIGNAL</button>
-            <button class="nav-btn" onclick="window.location.href='init.html'">INIT</button>
+            <a class="nav-btn" href="projects.html">PROJECTS</a>
+            <a class="nav-btn" href="datasets.html">DATASETS</a>
+            <a class="nav-btn" href="signal.html">SIGNAL</a>
+            <a class="nav-btn" href="init.html">INIT</a>
         </nav>
     </header>
 
