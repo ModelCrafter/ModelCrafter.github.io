@@ -18,20 +18,12 @@
 <meta property="og:url" content="https://modelcrafter.github.io/init.html">
 
 <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common.css">
 <style>
-:root{--nav-bg:rgba(10,10,30,0.95);}
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{width:100%;height:100%;overflow:hidden;}
+html,body{overflow:hidden;}
 body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
 
-.navbar{position:fixed;top:0;left:0;width:100%;height:80px;background:var(--nav-bg);backdrop-filter:blur(15px);border-bottom:1px solid rgba(100,150,255,.3);display:flex;justify-content:space-between;align-items:center;padding:0 20px;z-index:999;box-shadow:0 0 20px rgba(100,150,255,.15);}
-.nav-home-btn{background:transparent;border:1px solid rgba(150,180,255,.7);color:#d0e0ff;padding:.7rem 1.4rem;font-size:1.2rem;font-family:'VT323',monospace;cursor:pointer;transition:all .4s;text-transform:uppercase;letter-spacing:2px;box-shadow:0 0 12px rgba(100,150,255,.3);text-shadow:0 0 8px rgba(100,150,255,.5);white-space:nowrap;text-decoration:none;display:inline-block;}
-.nav-home-btn:hover{transform:scale(1.08);border-color:rgba(150,180,255,1);color:#fff;box-shadow:0 0 20px rgba(100,150,255,.5);}
-.nav-links{display:flex;gap:.8rem;align-items:center;}
-.nav-btn{background:transparent;border:1px solid rgba(150,180,255,.5);color:#a8c5ff;padding:.7rem 1.4rem;font-size:1.2rem;font-family:'VT323',monospace;cursor:pointer;transition:all .4s;text-transform:uppercase;letter-spacing:2px;box-shadow:0 0 10px rgba(100,150,255,.2);text-shadow:0 0 5px rgba(100,150,255,.3);text-decoration:none;display:inline-block;}
-.nav-btn:hover{transform:scale(1.08);border-color:rgba(150,180,255,.8);color:#d0e0ff;box-shadow:0 0 15px rgba(100,150,255,.4);}
-.nav-btn.active{border-color:rgba(150,180,255,.9);color:#fff;box-shadow:0 0 18px rgba(100,150,255,.5);text-shadow:0 0 10px rgba(100,150,255,.7);}
-.nav-home-btn:focus-visible,.nav-btn:focus-visible,.ch-skip:focus-visible{outline:2px solid #a8c5ff;outline-offset:3px;}
+.ch-skip:focus-visible{outline:2px solid #a8c5ff;outline-offset:3px;}
 
 #scene{position:fixed;inset:0;z-index:10;}
 
@@ -166,15 +158,9 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
 
 /* ── MOBILE ── */
 @media(max-width:768px){
-  .navbar{height:auto;padding:10px 12px;flex-wrap:wrap;gap:8px;}
-  .nav-home-btn{padding:.5rem .8rem;font-size:.85rem;}
-  .nav-links{gap:.4rem;flex-wrap:wrap;}
-  .nav-btn{padding:.5rem .7rem;font-size:.8rem;}
   #ch-bar{gap:12px;padding:8px 16px;}
 }
 @media(max-width:480px){
-  .nav-home-btn{padding:.4rem .6rem;font-size:.75rem;}
-  .nav-btn{padding:.4rem .55rem;font-size:.65rem;}
 }
 </style>
 </head>
