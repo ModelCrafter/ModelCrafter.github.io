@@ -1,7 +1,35 @@
+
+    body.addEventListener('click', function() {
+        window.location.href = project.file;
+    });
+
+    galaxy.appendChild(body);
+}
+
+function createPlanet(dataset) {
+    const body = document.createElement('div');
+    const pos = getRandomPositionFull();
+    body.className = 'celestial-body planet';
+    body.style.left = pos.x + '%';
+    body.style.top = pos.y + '%';
+    body.style.transform = 'translate(-50%, -50%)';
+
+    const core = document.createElement('div');
+    core.className = 'planet-core';
+    core.style.background = dataset.color;
+    core.style.color = dataset.color;
+    core.style.boxShadow = `inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 15px ${dataset.color}`;
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    tooltip.style.borderColor = dataset.color;
+    tooltip.style.color = dataset.color;
+    tooltip.innerHTML = '🌍 DATA_0' + dataset.id + '<br>' + dataset.name + ' (' + dataset.size + ')';
+
+    body.appendChild(core);
 const galaxy = document.getElementById('galaxy-container');
 const bgStarCount = 350;
 const asteroidCount = 8;
-const navBtns = document.querySelectorAll('.nav-btn');
 
 const projects = projectsData.map(p => ({
     id: p.id,
@@ -62,6 +90,7 @@ function createBgStars() {
     for (let i = 0; i < bgStarCount; i++) {
         const star = document.createElement('div');
         star.className = 'star-bg';
+        star.setAttribute('aria-hidden', 'true'); // decorative only, skip for screen readers
         const pos = { x: Math.random() * 100, y: Math.random() * 100 };
         const size = Math.random() * 1.5 + 0.3;
         star.style.width = size + 'px';
@@ -91,6 +120,7 @@ function createAsteroids() {
         const delay = index * 2 + Math.random() * 3;
         
         asteroid.className = 'asteroid';
+        asteroid.setAttribute('aria-hidden', 'true'); // decorative only
         asteroid.style.width = size + 'px';
         asteroid.style.height = size + 'px';
         asteroid.style.left = path.startX + '%';
@@ -116,37 +146,42 @@ function createAsteroids() {
 }
 
 function createSun(project) {
-    const body = document.createElement('div');
+    // Real <a href> instead of a <div> with a click listener:
+    // Google can now discover and index this project page, and it's
+    // reachable by keyboard (Tab + Enter) and readable by screen readers.
+    const body = document.createElement('a');
+    body.href = project.file;
     const pos = getRandomPositionFull();
     body.className = 'celestial-body sun';
     body.style.left = pos.x + '%';
     body.style.top = pos.y + '%';
     body.style.transform = 'translate(-50%, -50%)';
+    body.setAttribute('aria-label', project.title);
 
     const core = document.createElement('div');
     core.className = 'sun-core';
 
     const tooltip = document.createElement('div');
     tooltip.className = 'tooltip';
+    tooltip.setAttribute('aria-hidden', 'true');
     tooltip.innerHTML = '☀️ SUN_0' + project.id + '<br>' + project.title;
 
     body.appendChild(core);
     body.appendChild(tooltip);
-    
-    body.addEventListener('click', function() {
-        window.location.href = project.file;
-    });
 
     galaxy.appendChild(body);
 }
 
 function createPlanet(dataset) {
-    const body = document.createElement('div');
+    // Same idea as createSun: a real link, not a div + click handler.
+    const body = document.createElement('a');
+    body.href = dataset.link;
     const pos = getRandomPositionFull();
     body.className = 'celestial-body planet';
     body.style.left = pos.x + '%';
     body.style.top = pos.y + '%';
     body.style.transform = 'translate(-50%, -50%)';
+    body.setAttribute('aria-label', dataset.name + ' dataset, ' + dataset.size);
 
     const core = document.createElement('div');
     core.className = 'planet-core';
@@ -156,6 +191,7 @@ function createPlanet(dataset) {
 
     const tooltip = document.createElement('div');
     tooltip.className = 'tooltip';
+    tooltip.setAttribute('aria-hidden', 'true');
     tooltip.style.borderColor = dataset.color;
     tooltip.style.color = dataset.color;
     tooltip.innerHTML = '🌍 DATA_0' + dataset.id + '<br>' + dataset.name + ' (' + dataset.size + ')';
@@ -163,20 +199,18 @@ function createPlanet(dataset) {
     body.appendChild(core);
     body.appendChild(tooltip);
 
-    // ✅ FIX: الكواكب دلوقتي بتفتح الـ dataset الصح
-    body.addEventListener('click', function() {
-        window.location.href = dataset.link;
-    });
-
     galaxy.appendChild(body);
 }
 
 function createAstronaut() {
-    const astronaut = document.createElement('div');
+    // Real link to init.html instead of a div + click listener.
+    const astronaut = document.createElement('a');
+    astronaut.href = 'init.html';
     astronaut.className = 'astronaut';
+    astronaut.setAttribute('aria-label', 'Init page');
     
     astronaut.innerHTML = `
-        <svg width="50" height="60" viewBox="0 0 80 100" style="display: block;">
+        <svg width="50" height="60" viewBox="0 0 80 100" style="display: block;" aria-hidden="true">
             <polygon points="40,8 50,14 50,26 40,32 30,26 30,14" fill="currentColor" opacity="0.85"/>
             <polygon points="40,35 28,50 52,50" fill="currentColor" opacity="0.8"/>
             <polygon points="28,50 52,50 56,70 24,70" fill="currentColor" opacity="0.7"/>
@@ -228,6 +262,7 @@ function createAstronaut() {
         const randomMsg = astronautMessages[Math.floor(Math.random() * astronautMessages.length)];
         const message = document.createElement('div');
         message.className = 'floating-message';
+        message.setAttribute('aria-hidden', 'true');
         message.textContent = randomMsg;
         
         const msgX = parseFloat(astronaut.style.left);
@@ -246,11 +281,6 @@ function createAstronaut() {
     
     showRandomMessage();
     
-    astronaut.addEventListener('click', function() {
-        clearTimeout(messageTimeout);
-        window.location.href = 'init.html';
-    });
-    
     galaxy.appendChild(astronaut);
 }
 
@@ -266,20 +296,9 @@ function init() {
     createAstronaut();
 }
 
-navBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        const nav = btn.getAttribute('data-nav');
-        const pages = {
-            'signal': 'signal.html',
-            'projects': 'projects.html',
-            'datasets': 'datasets.html',
-            'init': 'init.html'
-        };
-        if (pages[nav]) {
-            window.location.href = pages[nav];
-        }
-    });
-});
+// Note: the top nav (SIGNAL / PROJECTS / DATASETS / INIT) is now made of
+// real <a href> elements directly in index.html, so no JS click-routing
+// is needed for it anymore.
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

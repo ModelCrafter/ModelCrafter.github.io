@@ -17,13 +17,16 @@
 <link rel="canonical" href="https://modelcrafter.github.io/init.html">
 <meta property="og:url" content="https://modelcrafter.github.io/init.html">
 
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="common.css">
 <style>
 html,body{overflow:hidden;}
 body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
 
-.ch-skip:focus-visible{outline:2px solid #a8c5ff;outline-offset:3px;}
+.ch-skip:focus-visible,
+.ch-text-btn:focus-visible,
+.float-next-btn:focus-visible,
+.text-view-close:focus-visible{outline:2px solid #a8c5ff;outline-offset:3px;}
 
 #scene{position:fixed;inset:0;z-index:10;}
 
@@ -34,18 +37,75 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
   background:rgba(4,4,20,.93);
   border:1px solid rgba(100,150,255,.2);
   border-radius:5px;
-  padding:8px 14px;
+  padding:2px 14px 10px;
   backdrop-filter:blur(20px);
   white-space:pre-wrap;
   max-width:min(380px,86vw);
+  max-height:min(56vh,420px);
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(150,180,255,.4) transparent;
   pointer-events:none;
   opacity:0;transform:translateY(6px);
   transition:opacity .28s,transform .28s;
   text-shadow:0 0 8px rgba(100,150,255,.35);
   line-height:1.55;
 }
-#float-msg.show{opacity:1;transform:translateY(0);}
+#float-msg.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+#float-msg::-webkit-scrollbar{width:5px;}
+#float-msg::-webkit-scrollbar-track{background:transparent;}
+#float-msg::-webkit-scrollbar-thumb{background:rgba(150,180,255,.35);border-radius:3px;}
+#float-txt{display:block;margin-top:0;}
 #float-bar{position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0;}
+
+/* زرار NEXT جوه رسالة المحطة */
+.float-next-wrap{display:none;justify-content:flex-end;margin-top:10px;}
+.float-next-btn{
+  background:rgba(100,150,255,.12);
+  border:1px solid rgba(140,180,255,.55);
+  color:#cfe0ff;
+  font-family:'VT323',monospace;
+  font-size:.95rem;
+  white-space:normal;
+  letter-spacing:2px;
+  padding:5px 14px;
+  border-radius:16px;
+  cursor:pointer;
+  text-transform:uppercase;
+  transition:all .25s;
+  text-shadow:0 0 6px rgba(140,180,255,.4);
+}
+.float-next-btn:hover{
+  background:rgba(100,150,255,.22);
+  border-color:rgba(170,200,255,.9);
+  color:#fff;
+  transform:scale(1.05);
+}
+
+/* هيدر الرسالة: أيقونة + اسم الكوكب على الشمال، تلميح NEXT على اليمين */
+.float-header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-bottom:0;padding-bottom:2px;
+  border-bottom:1px solid rgba(150,180,255,.15);
+}
+.float-header-left{display:flex;align-items:center;gap:8px;min-width:0;}
+.float-icon{width:20px;height:20px;flex-shrink:0;filter:drop-shadow(0 0 4px rgba(150,180,255,.4));}
+.float-title{
+  font-size:.95rem;letter-spacing:1.5px;line-height:1.1;
+  text-transform:uppercase;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.float-next-hint{
+  display:none;align-items:center;gap:4px;
+  font-size:.7rem;letter-spacing:1.5px;line-height:1.1;
+  color:rgba(180,205,255,.6);
+  text-transform:uppercase;white-space:nowrap;flex-shrink:0;
+  padding:2px 8px;
+  border:1px solid rgba(150,180,255,.25);
+  border-radius:10px;
+  animation:nextHintPulse 2.4s ease-in-out infinite;
+}
+@keyframes nextHintPulse{0%,100%{opacity:.55;}50%{opacity:1;}}
 
 /* ══════════════════════════════════════
    BOTTOM CONSOLE
@@ -149,6 +209,28 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
   transform:scale(1.06);
 }
 
+/* VIEW AS TEXT */
+.ch-text-btn{
+  background:rgba(100,150,255,.08);
+  border:1px solid rgba(140,180,255,.55);
+  color:rgba(190,215,255,.92);
+  padding:4px 14px;
+  font-size:.95rem;font-family:'VT323',monospace;
+  cursor:pointer;letter-spacing:2px;
+  text-transform:uppercase;border-radius:22px;
+  text-shadow:0 0 8px rgba(140,180,255,.4);
+  box-shadow:0 0 10px rgba(100,150,255,.12);
+  transition:all .35s;white-space:nowrap;
+}
+.ch-text-btn:hover{
+  background:rgba(100,150,255,.16);
+  border-color:rgba(170,200,255,.9);
+  color:#fff;
+  box-shadow:0 0 18px rgba(100,150,255,.4),0 0 40px rgba(100,150,255,.12);
+  text-shadow:0 0 12px rgba(170,200,255,.8);
+  transform:scale(1.06);
+}
+
 /* ── CHAPTER OVERLAY ── */
 #chapter-overlay{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .2s;}
 #chapter-overlay.show{opacity:1;}
@@ -156,11 +238,89 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
 #chapter-title{font-size:clamp(2rem,6vw,4rem);letter-spacing:6px;color:#e0eeff;text-shadow:0 0 30px rgba(100,160,255,.9);text-transform:uppercase;text-align:center;padding:0 20px;}
 #chapter-sub{font-size:clamp(.8rem,1.5vw,1rem);letter-spacing:4px;color:rgba(160,210,255,.4);margin-top:12px;text-transform:uppercase;}
 
+/* ── VIEW AS TEXT OVERLAY ── */
+.text-view-overlay{
+  position:fixed;inset:0;z-index:3000;
+  background:rgba(2,2,10,.94);
+  backdrop-filter:blur(6px);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+}
+.text-view-overlay[hidden]{display:none;}
+.text-view-panel{
+  width:min(720px,94vw);
+  max-height:88vh;
+  background:rgba(6,6,20,.97);
+  border:1px solid rgba(140,180,255,.3);
+  border-radius:6px;
+  box-shadow:0 0 50px rgba(100,150,255,.2);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.text-view-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 22px;
+  border-bottom:1px solid rgba(140,180,255,.2);
+  flex-shrink:0;
+}
+.text-view-header h2{
+  font-family:'VT323',monospace;
+  font-size:1.3rem;letter-spacing:3px;
+  color:#e0eeff;text-shadow:0 0 14px rgba(100,150,255,.4);
+  font-weight:normal;
+}
+.text-view-close{
+  background:transparent;border:1px solid rgba(255,255,255,.25);
+  color:#cfe0ff;width:32px;height:32px;border-radius:50%;
+  cursor:pointer;font-size:1rem;line-height:1;
+  transition:all .25s;
+  font-family:'VT323',monospace;
+  flex-shrink:0;
+}
+.text-view-close:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.08);}
+.text-view-body{
+  overflow-y:auto;padding:22px 26px;
+  font-family:'Share Tech Mono', monospace;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(150,180,255,.4) transparent;
+}
+.text-view-body::-webkit-scrollbar{width:6px;}
+.text-view-body::-webkit-scrollbar-track{background:transparent;}
+.text-view-body::-webkit-scrollbar-thumb{background:rgba(150,180,255,.35);border-radius:3px;}
+.tv-chapter{margin-bottom:28px;}
+.tv-chapter:last-child{margin-bottom:0;}
+.tv-chapter h3{
+  font-family:'VT323',monospace;
+  font-size:1.15rem;letter-spacing:2px;
+  color:#a8c5ff;text-shadow:0 0 10px rgba(100,150,255,.35);
+  border-left:3px solid rgba(100,150,255,.5);
+  padding-left:10px;margin-bottom:14px;
+  text-transform:uppercase;
+}
+.tv-waypoint{margin-bottom:16px;}
+.tv-waypoint h4{
+  font-family:'VT323',monospace;
+  font-size:.95rem;letter-spacing:2px;
+  color:#ffb066;margin-bottom:5px;
+  text-transform:uppercase;
+}
+.tv-waypoint p{
+  font-size:.85rem;line-height:1.8;
+  color:#b8c8e8;white-space:pre-line;
+}
+.text-view-footer{
+  padding:16px 22px;border-top:1px solid rgba(140,180,255,.2);
+  display:flex;justify-content:flex-end;flex-shrink:0;
+}
+
 /* ── MOBILE ── */
 @media(max-width:768px){
   #ch-bar{gap:12px;padding:8px 16px;}
+  .text-view-body{padding:16px 18px;}
 }
 @media(max-width:480px){
+  #ch-bar{flex-wrap:wrap;row-gap:8px;justify-content:center;}
+  .ch-text-btn,.ch-skip{font-size:.8rem;padding:4px 10px;}
 }
 </style>
 </head>
@@ -180,7 +340,17 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
 
 <div id="float-msg">
   <div id="float-bar"></div>
+  <div id="float-header" class="float-header">
+    <div class="float-header-left">
+      <svg id="float-icon" class="float-icon" viewBox="0 0 40 40" aria-hidden="true"></svg>
+      <span id="float-title" class="float-title"></span>
+    </div>
+    <span id="float-next-hint" class="float-next-hint">NEXT ↓</span>
+  </div>
   <span id="float-txt"></span>
+  <div id="float-next-wrap" class="float-next-wrap">
+    <button id="float-next" class="float-next-btn" type="button">NEXT →</button>
+  </div>
 </div>
 
 <div id="chapter-overlay">
@@ -189,13 +359,29 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
   <div id="chapter-sub"></div>
 </div>
 
-<!-- bottom console: progress gems + skip -->
+<!-- bottom console: progress gems + view as text + skip -->
 <div id="ch-console">
   <div id="ch-title-label">— THE FIRST SIGNAL —</div>
   <div id="ch-bar">
     <div id="ch-gems"></div>
     <div class="ch-divider"></div>
+    <button id="view-text-btn" class="ch-text-btn" type="button">VIEW AS TEXT</button>
+    <div class="ch-divider"></div>
     <a class="ch-skip" href="cv.html">SKIP → CV</a>
+  </div>
+</div>
+
+<!-- نسخة نصية كاملة من القصة — لقراء الشاشة وكل حد يفضل يقرا بدل ما يتفرج -->
+<div id="text-view-overlay" class="text-view-overlay" role="dialog" aria-modal="true" aria-labelledby="text-view-heading" hidden>
+  <div class="text-view-panel">
+    <div class="text-view-header">
+      <h2 id="text-view-heading">THE STORY — TEXT VERSION</h2>
+      <button id="text-view-close" class="text-view-close" type="button" aria-label="Close text view">✕</button>
+    </div>
+    <div id="text-view-body" class="text-view-body"></div>
+    <div class="text-view-footer">
+      <button id="text-view-cv" class="float-next-btn" type="button">CONTINUE TO CV →</button>
+    </div>
   </div>
 </div>
 
@@ -210,10 +396,10 @@ const CHAPTERS = [
     era:'CHAPTER_01', title:'THE-FIRST-SIGNAL', sub:'2019 — 2020',
     theme:[30,15,105],
     waypoints:[
-      {type:'neutron',pos:[18,22],title:'THE SPARK',      color:[130,60,255], msg:'Youssef Khaled was a boy fast approaching his fourteenth birthday, owning a phone and a small, run-down computer.\nOne day, he overheard his father, who worked as an engineer, mentioning that he had a friend capable of hacking into other phones and spying on them.\nThe idea completely captivated Youssef, so he kept asking his father about the nature of this thing and how it worked.\nHowever, his father didnt pay much attention and merely gave him random, dismissive answers.\nDriven by curiosity, the boy went ahead and opened his dilapidated computer, turned to Google, and typed into the search bar: How to hack a phone...'},
-      {type:'enzyme',  pos:[55,15],title:'THE GATEWAY',        color:[150,220,255],msg:'After searching for a very long time, he found almost nothing useful, except for downloading Kali Linux, which he did not even know the nature of. Furthermore, his own computer was not powerful enough to run it. So, he kept searching for a program that could work on a phone until he downloaded Termux\nand the journey began right from there...'},
-      {type:'sun',      pos:[78,30],title:'FIRST CODE', color:[255,160,60], msg:'The boy became deeply attached to this, even abandoning his favorite game, chess.\nHe kept trying to hack phones to no avail, watching countless videos on YouTube.\nThen, by chance, he came across a channel explaining the Batch Script language.\nHe started learning it, and fortune smiled upon him.\nBefore turning fifteen, he created his very first calculator using it, which felt like a revolutionary invention to him.'},
-      {type:'planet',   pos:[60,52],title:'MILESTONE',color:[255,255,255], msg:'Then came his fifteenth year, with the boy having gained a slight understanding of the Batch Script language.'},
+      {type:'neutron',pos:[20,26],title:'THE SPARK',      color:[130,60,255], msg:'Youssef Khaled was a boy fast approaching his fourteenth birthday, owning a phone and a small, run-down computer.\nOne day, he overheard his father, who worked as an engineer, mentioning that he had a friend capable of hacking into other phones and spying on them.\nThe idea completely captivated Youssef, so he kept asking his father about the nature of this thing and how it worked.\nHowever, his father didnt pay much attention and merely gave him random, dismissive answers.\nDriven by curiosity, the boy went ahead and opened his dilapidated computer, turned to Google, and typed into the search bar: How to hack a phone...'},
+      {type:'enzyme',  pos:[34,20],title:'THE GATEWAY',        color:[150,220,255],msg:'After searching for a very long time, he found almost nothing useful, except for downloading Kali Linux, which he did not even know the nature of. Furthermore, his own computer was not powerful enough to run it. So, he kept searching for a program that could work on a phone until he downloaded Termux\nand the journey began right from there...'},
+      {type:'sun',      pos:[76,34],title:'FIRST CODE', color:[255,160,60], msg:'The boy became deeply attached to this, even abandoning his favorite game, chess.\nHe kept trying to hack phones to no avail, watching countless videos on YouTube.\nThen, by chance, he came across a channel explaining the Batch Script language.\nHe started learning it, and fortune smiled upon him.\nBefore turning fifteen, he created his very first calculator using it, which felt like a revolutionary invention to him.'},
+      {type:'planet',   pos:[64,48],title:'MILESTONE',color:[255,255,255], msg:'Then came his fifteenth year, with the boy having gained a slight understanding of the Batch Script language.'},
       ]
   },
   {
@@ -221,12 +407,12 @@ const CHAPTERS = [
     theme:[10,60,145],
     waypoints:[
       /* ── repositioned: max y = 74 ── */
-      {type:'blackhole',pos:[80,20],title:'THE FADE',  color:[255,120,80], msg:'The boy kept drifting and learning without a tangible, clear goal, until his spark and inner fire began to fade, especially since using the phone was uncomfortable.\nHe remained in this state until he completely stopped learning and neglected the whole matter.'},
-      {type:'planet',   pos:[30,36],title:'DRIFTING',  color:[255,255,255], msg:'The boy left the matter behind and occupied himself with his studies, thinking that the whole thing was unrewarding.\nHe remained like this, without any plan, just drifting with no one to guide him or answer his questions.\nEvery month or two, he would still type something into Termux to no avail.\nHe continued in this manner until his sixteenth year knocked on the door and entered, bringing with it a brand new dawn.'},
-      {type:'sun',  pos:[65,52],title:'REBOOT',        color:[160,230,255],msg:'During the summer vacation, I grew bored of playing chess so much, so I opened YouTube and kept searching for something that would make me a hacker extremely fast.\nAfter dozens of videos, I found a video that changed my life, which was learning "Python for hacking."\nBecause of my weak English language at the time, I couldnt watch the videos, so I searched and typed: Python...'},
-      {type:'neutron',pos:[20,66],title:'NEW CORE',        color:[170,90,255], msg:'By good fortune and success, I found out that my father had bought us a new laptop, which was absolutely mesmerizing to me.\nFrom the very third day, I kept searching heavily for Python, coming across many misleading people and many who were simply wrong.\nThe summary of my research was that I found a vast number of people saying: "You must learn C++ before Python."\nAlso, because I had no one to ask, I dived into that language, downloaded the Code::Blocks program, and began my journey with cout << "Hello World!";...'},
-      {type:'enzyme',   pos:[72,70],title:'GAME LOOP',     color:[100,150,255],msg:'I kept learning for a long time and reached loops and continued, but I grew tired of its syntax.\nOnce I started developing a programming awareness, even if slight, I researched and found that C++ was used only for the Unreal game engine—according to my research—and since I was truly passionate about games, I continued learning for a bit and downloaded Unreal.\nUnfortunately, with this laptop, working on it was impossible.\nSo I sat searching for a lightweight engine and found Godot, which I liked very, very much; it was simple and it worked, despite the difficulty, but it worked.\nHowever, I faced the obstacle of GDScript, so I left C++ and learned it, as games were still part of my passion, and I continued my way into GDScript and built a simple game.'},
-      {type:'planet',   pos:[61,74],title:'MILESTONE',     color:[255,255,255],msg:'Then a new year arrived, and I turned 17 years old.'},
+      {type:'blackhole',pos:[78,20],title:'THE FADE',  color:[255,120,80], msg:'The boy kept drifting and learning without a tangible, clear goal, until his spark and inner fire began to fade, especially since using the phone was uncomfortable.\nHe remained in this state until he completely stopped learning and neglected the whole matter.'},
+      {type:'planet',   pos:[64,30],title:'DRIFTING',  color:[255,255,255], msg:'The boy left the matter behind and occupied himself with his studies, thinking that the whole thing was unrewarding.\nHe remained like this, without any plan, just drifting with no one to guide him or answer his questions.\nEvery month or two, he would still type something into Termux to no avail.\nHe continued in this manner until his sixteenth year knocked on the door and entered, bringing with it a brand new dawn.'},
+      {type:'sun',  pos:[20,48],title:'REBOOT',        color:[160,230,255],msg:'During the summer vacation, I grew bored of playing chess so much, so I opened YouTube and kept searching for something that would make me a hacker extremely fast.\nAfter dozens of videos, I found a video that changed my life, which was learning "Python for hacking."\nBecause of my weak English language at the time, I couldnt watch the videos, so I searched and typed: Python...'},
+      {type:'neutron',pos:[34,58],title:'NEW CORE',        color:[170,90,255], msg:'By good fortune and success, I found out that my father had bought us a new laptop, which was absolutely mesmerizing to me.\nFrom the very third day, I kept searching heavily for Python, coming across many misleading people and many who were simply wrong.\nThe summary of my research was that I found a vast number of people saying: "You must learn C++ before Python."\nAlso, because I had no one to ask, I dived into that language, downloaded the Code::Blocks program, and began my journey with cout << "Hello World!";...'},
+      {type:'enzyme',   pos:[66,64],title:'GAME LOOP',     color:[100,150,255],msg:'I kept learning for a long time and reached loops and continued, but I grew tired of its syntax.\nOnce I started developing a programming awareness, even if slight, I researched and found that C++ was used only for the Unreal game engine—according to my research—and since I was truly passionate about games, I continued learning for a bit and downloaded Unreal.\nUnfortunately, with this laptop, working on it was impossible.\nSo I sat searching for a lightweight engine and found Godot, which I liked very, very much; it was simple and it worked, despite the difficulty, but it worked.\nHowever, I faced the obstacle of GDScript, so I left C++ and learned it, as games were still part of my passion, and I continued my way into GDScript and built a simple game.'},
+      {type:'planet',   pos:[50,70],title:'MILESTONE',     color:[255,255,255],msg:'Then a new year arrived, and I turned 17 years old.'},
 
     ]
   },
@@ -234,25 +420,25 @@ const CHAPTERS = [
     era:'CHAPTER_03', title:'EVENT HORIZON', sub:'2022 — 2024',
     theme:[90,15,65],
     waypoints:[
-      {type:'blackhole',pos:[20,22],title:'THE WALL',  color:[200,80,200], msg:'I drifted and became deeply in love with the matter, and I was actually on the verge of making a game of my own.\nHowever, I hit a giant wall: how would I get the assets, graphics, characters, and so on?\nSo I remained distracted, taking open-source assets while my hands were helpless, even though my mind was producing and overflowing with a flood of ideas and games that I wanted to create.\nAs a result, I left that behind as well and moved away from Godot, staying at a distance.\nBut this time, I didnt snap out of it after a year; instead, I woke up incredibly fast..'},
-      {type:'neutron',  pos:[62,16],title:'BIG BANG',  color:[180,240,180],msg:'I began to feel frustrated, but I had started to understand the true nature of programming, and my heart was full of passion and infatuation with it, so it was hard for me to just leave it and neglect it.\nI dusted myself off, stood up, and immediately started a Python learning course, less than a month after the Godot setback.\nThanks to my knowledge of C++, Python felt incredibly easy and simple to me.\nI even struggled to grasp loops in Python, so I went back to a C++ video to understand them because it was deeper, and I absolutely hate superficiality.\nFrom this very point, the Big Bang of my real journey began.'},
-      {type:'blackhole',      pos:[76,40],title:'DARKNESS',  color:[255,180,40], msg:'I did not know how to classify this year. Should I mark it as a white planet because it was a new year, as I usually do? Or should I mark it as a neutron star because it was a pivotal, turning-point year in my programming journey? Or should I mark it as a black hole because it was a terrible year in my academic life?\nIn the end, I decided to label it a black hole for what we are about to discuss.\nAt that point, I had reached the absolute peak of my passion; I was completely infatuated with Python and abandoned almost everything else—even going out and playing.\nI did nothing but learn, excel in it, and the like.\nIn Egypt, this was that crucial, make-or-break year: Thanaweya Amma—the year you must secure a high score to get into the Faculty of Engineering.\nI was capable of getting the score and I could have done it, but Python was my entire mind, so I did not achieve that high score.\nHere lies the black hole.\nThe social pressure began to weigh on me, and I left programming and abandoned everything.\nI was truly heartbroken, and it was the beginning of my 18th year...'},
-      {type:'enzyme',   pos:[38,58],title:'RESURGENCE',  color:[120,160,255],msg:'After entering the Faculty of Arts, which is completely far removed from programming and mathematics, the world looked pitch black in my eyes.\nCould this clever boy really end up here? Could this researcher, who wanted to change the world, finish his journey here?\nI found no answers, and I lived with heavy social pressure for a long time, as sadness completely took over, until... a friend said to me: "I never expected you would end up like this; I always saw you as an engineer since childhood," and there was sadness for my sake in his eyes.\nThat was the exact moment I returned home immediately, opened my laptop, and resumed learning Python, until I completely finished it as well...'},
-      {type:'planet', pos:[75,72],title:'MILESTONE',  color:[255,255,255], msg:'My 19th year knocked on my door, and before it arrived, I had been lost in a state of confusion, doing nothing but solving programming problems, studying for college, and passing with good grades just to prove that I could succeed in both fields, all while playing chess and raising my rating.\nThen, one day, I came across an advertisement for the book "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow."\nAnd right from there, the most important stage of all began.'},
+      {type:'blackhole',pos:[22,22],title:'THE WALL',  color:[200,80,200], msg:'I drifted and became deeply in love with the matter, and I was actually on the verge of making a game of my own.\nHowever, I hit a giant wall: how would I get the assets, graphics, characters, and so on?\nSo I remained distracted, taking open-source assets while my hands were helpless, even though my mind was producing and overflowing with a flood of ideas and games that I wanted to create.\nAs a result, I left that behind as well and moved away from Godot, staying at a distance.\nBut this time, I didnt snap out of it after a year; instead, I woke up incredibly fast..'},
+      {type:'neutron',  pos:[36,32],title:'BIG BANG',  color:[180,240,180],msg:'I began to feel frustrated, but I had started to understand the true nature of programming, and my heart was full of passion and infatuation with it, so it was hard for me to just leave it and neglect it.\nI dusted myself off, stood up, and immediately started a Python learning course, less than a month after the Godot setback.\nThanks to my knowledge of C++, Python felt incredibly easy and simple to me.\nI even struggled to grasp loops in Python, so I went back to a C++ video to understand them because it was deeper, and I absolutely hate superficiality.\nFrom this very point, the Big Bang of my real journey began.'},
+      {type:'blackhole',      pos:[78,46],title:'DARKNESS',  color:[255,180,40], msg:'I did not know how to classify this year. Should I mark it as a white planet because it was a new year, as I usually do? Or should I mark it as a neutron star because it was a pivotal, turning-point year in my programming journey? Or should I mark it as a black hole because it was a terrible year in my academic life?\nIn the end, I decided to label it a black hole for what we are about to discuss.\nAt that point, I had reached the absolute peak of my passion; I was completely infatuated with Python and abandoned almost everything else—even going out and playing.\nI did nothing but learn, excel in it, and the like.\nIn Egypt, this was that crucial, make-or-break year: Thanaweya Amma—the year you must secure a high score to get into the Faculty of Engineering.\nI was capable of getting the score and I could have done it, but Python was my entire mind, so I did not achieve that high score.\nHere lies the black hole.\nThe social pressure began to weigh on me, and I left programming and abandoned everything.\nI was truly heartbroken, and it was the beginning of my 18th year...'},
+      {type:'enzyme',   pos:[64,56],title:'RESURGENCE',  color:[120,160,255],msg:'After entering the Faculty of Arts, which is completely far removed from programming and mathematics, the world looked pitch black in my eyes.\nCould this clever boy really end up here? Could this researcher, who wanted to change the world, finish his journey here?\nI found no answers, and I lived with heavy social pressure for a long time, as sadness completely took over, until... a friend said to me: "I never expected you would end up like this; I always saw you as an engineer since childhood," and there was sadness for my sake in his eyes.\nThat was the exact moment I returned home immediately, opened my laptop, and resumed learning Python, until I completely finished it as well...'},
+      {type:'planet', pos:[32,66],title:'MILESTONE',  color:[255,255,255], msg:'My 19th year knocked on my door, and before it arrived, I had been lost in a state of confusion, doing nothing but solving programming problems, studying for college, and passing with good grades just to prove that I could succeed in both fields, all while playing chess and raising my rating.\nThen, one day, I came across an advertisement for the book "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow."\nAnd right from there, the most important stage of all began.'},
     ]
   },
   {
     era:'CHAPTER_04', title:'ERA OF ASTERY', sub:'2024 — NOW',
     theme:[0,80,55],
     waypoints:[
-      {type:'neutron',   pos:[22,28],title:'BLACK BOX',  color:[60,240,160], msg:'I actually bought the book, and when it arrived, I found that it was a giant—a massive reference manual.\nHowever, this only excited me because I knew that I wouldn’t be dealing with this field superficially, which is exactly what I love and adore.\nI started reading and diving deep, chapter by chapter, and managed to finish nearly four chapters.\nOf course, the models and components were like a black box to me; although I built projects—even if they were small—and made things and understood them, what was happening under the hood was completely missing.\nSo, I decided to jump straight into deep learning, thinking it would explain things from beneath the surface, but I discovered that it explained the absolute fundamentals of the models instead.\nYet, the multiplication, the matrices, and everything like that still remained a black box...'},
-      {type:'sun', pos:[66,20],title:'UNDER THE HOOD',  color:[140,70,255], msg:'I went down to our local book market and bought reference books in linear algebra, then returned home.\nThis was the definitive turning point; I went back home and learned almost the entire foundation thoroughly from professors in the Faculty of Sciences mathematics department and the Faculty of Engineering.\nOnce my English improved, especially my reading skills, I looked forward to a major and important reference manual.\nI kept searching until I found Gilbert Strang’s book, and from there, I mastered many of its chapters and deeply understood its most critical sections.\nWhat I truly loved about Strang was that he doesn’t waste time on tedious proof details, and from that point on, I understood everything and became utterly infatuated with programming with my own hands at a low level, rather than just using model.fit()...'},
-      {type:'planet',  pos:[80,46],title:'MILESTONE',  color:[255,255,255],msg:'Once I understood linear algebra intensely and achieved true mastery in it—while my passion still drives me to finish all the remaining chapters in Strang’s book—my 20th year knocked on my door.'},
+      {type:'neutron',   pos:[22,20],title:'BLACK BOX',  color:[60,240,160], msg:'I actually bought the book, and when it arrived, I found that it was a giant—a massive reference manual.\nHowever, this only excited me because I knew that I wouldn’t be dealing with this field superficially, which is exactly what I love and adore.\nI started reading and diving deep, chapter by chapter, and managed to finish nearly four chapters.\nOf course, the models and components were like a black box to me; although I built projects—even if they were small—and made things and understood them, what was happening under the hood was completely missing.\nSo, I decided to jump straight into deep learning, thinking it would explain things from beneath the surface, but I discovered that it explained the absolute fundamentals of the models instead.\nYet, the multiplication, the matrices, and everything like that still remained a black box...'},
+      {type:'sun', pos:[36,30],title:'UNDER THE HOOD',  color:[140,70,255], msg:'I went down to our local book market and bought reference books in linear algebra, then returned home.\nThis was the definitive turning point; I went back home and learned almost the entire foundation thoroughly from professors in the Faculty of Sciences mathematics department and the Faculty of Engineering.\nOnce my English improved, especially my reading skills, I looked forward to a major and important reference manual.\nI kept searching until I found Gilbert Strang’s book, and from there, I mastered many of its chapters and deeply understood its most critical sections.\nWhat I truly loved about Strang was that he doesn’t waste time on tedious proof details, and from that point on, I understood everything and became utterly infatuated with programming with my own hands at a low level, rather than just using model.fit()...'},
+      {type:'planet',  pos:[50,40],title:'MILESTONE',  color:[255,255,255],msg:'Once I understood linear algebra intensely and achieved true mastery in it—while my passion still drives me to finish all the remaining chapters in Strang’s book—my 20th year knocked on my door.'},
       
-      {type:'molecule', pos:[44,62],title:'THE CRAFT',  color:[255,200,100],msg:'I began mastering the craft, striving to understand everything alongside its mathematical equations.\nI was no longer satisfied with just writing import tensorflow or import sklearn; instead, I wanted to comprehend exactly how these algorithms work under the hood and what the mathematics behind them truly meant.\nI kept pushing forward this way and built dozens of projects, but the ones you see showcased here are only those that demanded deep time and effort—the ones truly worthy of reflecting my real capabilities.\nI worked heavily on tabular data and competed in hackathons on Zindi, but to me, none of that felt unique enough to showcase.\nI chose to display only the work that genuinely makes the eyes light up and carries a real, profound challenge.'},
-      {type:'sun',  pos:[55,48],title:'THE MENTOR',  color:[160,240,255],msg:'And then an opportunity came my way here in Egypt, where I joined a local educational center as a Python instructor.\nI actually ended up teaching a lot of young students, some of whom were the exact same age as me, and those were truly among the happiest days of my life.\nI dedicated myself to it for a long time, but God willed that my journey there would come to an end.'},
+      {type:'molecule', pos:[86,66],title:'THE CRAFT',  color:[255,200,100],msg:'I began mastering the craft, striving to understand everything alongside its mathematical equations.\nI was no longer satisfied with just writing import tensorflow or import sklearn; instead, I wanted to comprehend exactly how these algorithms work under the hood and what the mathematics behind them truly meant.\nI kept pushing forward this way and built dozens of projects, but the ones you see showcased here are only those that demanded deep time and effort—the ones truly worthy of reflecting my real capabilities.\nI worked heavily on tabular data and competed in hackathons on Zindi, but to me, none of that felt unique enough to showcase.\nI chose to display only the work that genuinely makes the eyes light up and carries a real, profound challenge.'},
+      {type:'sun',  pos:[52,66],title:'THE MENTOR',  color:[160,240,255],msg:'And then an opportunity came my way here in Egypt, where I joined a local educational center as a Python instructor.\nI actually ended up teaching a lot of young students, some of whom were the exact same age as me, and those were truly among the happiest days of my life.\nI dedicated myself to it for a long time, but God willed that my journey there would come to an end.'},
       
-      {type:'molecule',     pos:[18,74],title:'PRODUCTION READY',  color:[255,140,40], msg:'And now, right before stepping into my 21st year, my passion has intensified more than ever.\nI am currently focused on mastering three distinct domains: I am diving into FastAPI and am still at the very beginning of its tracks.\nI am also mastering Calculus to solidify my mathematical depth.\nFinally, I have completed nearly 90% of my pipeline with MLflow, DVC, and Dagshub.\nI am now actively looking forward to an opportunity that will become my next major station—a place where I can squeeze every ounce of my mind, where I can improve the ecosystem, and where the company and I can grow and learn together.'},
+      {type:'molecule',     pos:[18,58],title:'PRODUCTION READY',  color:[255,140,40], msg:'And now, right before stepping into my 21st year, my passion has intensified more than ever.\nI am currently focused on mastering three distinct domains: I am diving into FastAPI and am still at the very beginning of its tracks.\nI am also mastering Calculus to solidify my mathematical depth.\nFinally, I have completed nearly 90% of my pipeline with MLflow, DVC, and Dagshub.\nI am now actively looking forward to an opportunity that will become my next major station—a place where I can squeeze every ounce of my mind, where I can improve the ecosystem, and where the company and I can grow and learn together.'},
     ]
   },
 ];
@@ -267,29 +453,60 @@ let currentChapter = 0;
 let WAYPOINTS      = CHAPTERS[0].waypoints;
 
 /* ── GLITCH ── */
-const G={active:false,phase:'none',timer:0,intensity:0,next:-1,DUR:{buildup:22,heavy:38,flash:14,reveal:28,settle:22}};
+const G={active:false,phase:'none',timer:0,intensity:0,next:-1,finish:false,DUR:{buildup:22,heavy:38,flash:14,reveal:28,settle:22}};
 
 /* ── SHIP ── */
-const ship={x:0,y:0,angle:0,trail:[],tT:0,travelling:false,flightT:0,fromX:0,fromY:0,cpX:0,cpY:0,toX:0,toY:0,orbiting:false,orbitCx:0,orbitCy:0,orbitR:0,orbitAngle:0,stationIdx:-1,waitTimer:0,waitDuration:200,msgShown:false};
-
-/* ── SMART DWELL ── */
-function calcWait(msg){return Math.round(Math.min(440,Math.max(150,190+Math.max(0,msg.length-55)*.85)));}
+const ship={x:0,y:0,angle:0,trail:[],tT:0,travelling:false,flightT:0,fromX:0,fromY:0,cpX:0,cpY:0,toX:0,toY:0,orbiting:false,orbitCx:0,orbitCy:0,orbitR:0,orbitAngle:0,stationIdx:-1,msgShown:false};
 
 /* ── HOVER ── */
 const mouse={x:-9999,y:-9999};
-let hoveredWP=null,hoverActive=false,hoverTimer=null;
-cv.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
-cv.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
+let hoveredWP=null,hoverActive=false,hoverTimer=null,overFloatBox=false,stationHidden=false;
+window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+document.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
+
+/* دوس على فضا فاضي والطيارة واقفة = يقفل الرسالة عشان تشوف الرصة والشكل من غير حجب */
+cv.addEventListener('click',(e)=>{
+  if(G.active)return;
+  if(!ship.orbiting)return;
+  let hitWP=false;
+  WAYPOINTS.forEach(wp=>{const{x,y}=wpos(wp);if(Math.hypot(e.clientX-x,e.clientY-y)<30)hitWP=true;});
+  if(!hitWP&&!stationHidden){
+    floatEl.classList.remove('show');
+    stationHidden=true;
+    hoverActive=false;hoveredWP=null;overFloatBox=false;clearTimeout(hoverTimer);
+  }
+});
 
 function checkHover(){
   if(G.active){hoveredWP=null;cv.style.cursor='default';return;}
   let found=null;
   WAYPOINTS.forEach(wp=>{const{x,y}=wpos(wp);if(Math.hypot(mouse.x-x,mouse.y-y)<30)found=wp;});
   cv.style.cursor=found?'pointer':'default';
+
+  /* لسه واقف/بيسكرول جوه الرسالة المفتوحة (حتى لو بعيد عن المسدج نفسها) — سيبها زي ما هي */
+  if(!found&&overFloatBox&&hoverActive){clearTimeout(hoverTimer);return;}
+
   if(found===hoveredWP)return;
   hoveredWP=found;clearTimeout(hoverTimer);
-  if(found){hoverActive=true;clearTimeout(msgTimeout);_renderMsg(found);}
-  else{hoverTimer=setTimeout(()=>{hoverActive=false;if(ship.stationIdx===-1||!ship.msgShown)floatEl.classList.remove('show');},350);}
+  if(found){
+    if(ship.orbiting&&found===WAYPOINTS[ship.stationIdx]){
+      hoverActive=false;
+      if(stationHidden){_renderMsg(found,true);stationHidden=false;}
+    } else {
+      hoverActive=true;
+      _renderMsg(found,false);
+    }
+  } else {
+    hoverTimer=setTimeout(()=>{
+      if(overFloatBox)return;
+      hoverActive=false;
+      if(ship.stationIdx===-1||!ship.msgShown||stationHidden){
+        floatEl.classList.remove('show');
+      } else {
+        _renderMsg(WAYPOINTS[ship.stationIdx],true);
+      }
+    },350);
+  }
 }
 
 /* ── RESIZE ── */
@@ -345,12 +562,23 @@ function drawShip(){const{x,y,angle}=ship;ship.trail.unshift({x,y});if(ship.trai
 /* ════════════════════════════════════════════
    GLITCH
    ════════════════════════════════════════════ */
-function triggerGlitch(idx){if(G.active)return;G.active=true;G.phase='buildup';G.timer=0;G.intensity=0;G.next=idx;}
+function triggerGlitch(idx){if(G.active)return;G.active=true;G.phase='buildup';G.timer=0;G.intensity=0;G.next=idx;G.finish=false;}
+function triggerFinish(){if(G.active)return;G.active=true;G.phase='buildup';G.timer=0;G.intensity=0;G.next=-1;G.finish=true;}
 
 function updateGlitch(){
   if(!G.active)return;G.timer++;const D=G.DUR;
   if(G.phase==='buildup'){G.intensity=(G.timer/D.buildup)*.45;if(G.timer>=D.buildup){G.phase='heavy';G.timer=0;}}
-  else if(G.phase==='heavy'){G.intensity=.45+(G.timer/D.heavy)*.55;if(G.timer>=D.heavy){G.phase='flash';G.timer=0;switchChapter();}}
+  else if(G.phase==='heavy'){
+    G.intensity=.45+(G.timer/D.heavy)*.55;
+    if(G.timer>=D.heavy){
+      G.phase='flash';G.timer=0;
+      if(G.finish){
+        setTimeout(()=>{window.location.href='cv.html';},180);
+      } else {
+        switchChapter();
+      }
+    }
+  }
   else if(G.phase==='flash'){G.intensity=1;if(G.timer>=D.flash){G.phase='reveal';G.timer=0;}}
   else if(G.phase==='reveal'){G.intensity=1-(G.timer/D.reveal)*.65;if(G.timer>=D.reveal){G.phase='settle';G.timer=0;}}
   else if(G.phase==='settle'){G.intensity=.35*(1-G.timer/D.settle);if(G.timer>=D.settle){G.active=false;G.intensity=0;G.phase='none';}}
@@ -359,7 +587,7 @@ function updateGlitch(){
 function switchChapter(){
   currentChapter=G.next%CHAPTERS.length;
   WAYPOINTS=CHAPTERS[currentChapter].waypoints;
-  journeyIdx=0;hoveredWP=null;hoverActive=false;
+  journeyIdx=0;hoveredWP=null;hoverActive=false;overFloatBox=false;stationHidden=false;
   ship.stationIdx=-1;ship.orbiting=false;ship.travelling=false;ship.trail=[];
   const first=wpos(WAYPOINTS[0]);
   ship.x=first.x-80;ship.y=first.y+40;ship.angle=Math.PI*.5;
@@ -381,23 +609,86 @@ function renderGlitch(){
 const floatEl=document.getElementById('float-msg');
 const floatTxt=document.getElementById('float-txt');
 const floatBar=document.getElementById('float-bar');
-let msgTimeout=null;
+const floatNextWrap=document.getElementById('float-next-wrap');
+const floatNextBtn=document.getElementById('float-next');
+const floatIcon=document.getElementById('float-icon');
+const floatTitle=document.getElementById('float-title');
+const floatNextHint=document.getElementById('float-next-hint');
 
-function _renderMsg(wp){
+/* بنعرف امتى الماوس فوق صندوق الرسالة نفسه عشان لو بيسكرول جواه منقفلوش */
+floatEl.addEventListener('mouseenter',()=>{overFloatBox=true;});
+floatEl.addEventListener('mouseleave',()=>{overFloatBox=false;});
+
+/* أيقونة صغيرة تلخّص شكل الجسم (شمس/كوكب/نجم نيوتروني...) جنب اسمه فوق كل رسالة */
+function iconMarkup(type,R,Gc,B){
+  const c=`rgb(${R},${Gc},${B})`,glow=`rgba(${R},${Gc},${B},.55)`;
+  switch(type){
+    case 'sun':
+      return `<circle cx="20" cy="20" r="15" fill="none" stroke="${glow}" stroke-width="1.4"/><circle cx="20" cy="20" r="9" fill="${c}"/>`;
+    case 'planet':
+      return `<ellipse cx="20" cy="20" rx="16" ry="5" fill="none" stroke="${glow}" stroke-width="2.5" transform="rotate(-18 20 20)"/><circle cx="20" cy="20" r="9" fill="${c}"/>`;
+    case 'blackhole':
+      return `<circle cx="20" cy="20" r="14" fill="none" stroke="${c}" stroke-width="2"/><circle cx="20" cy="20" r="8" fill="#000"/>`;
+    case 'neutron':
+      return `<line x1="20" y1="4" x2="20" y2="36" stroke="${glow}" stroke-width="1.6"/><line x1="4" y1="20" x2="36" y2="20" stroke="${glow}" stroke-width="1.6"/><circle cx="20" cy="20" r="6" fill="${c}"/>`;
+    case 'enzyme':
+      return `<path d="M20 6C27 6 33 11 34 18C35 25 30 34 21 34C12 34 6 27 6 19C6 12 13 6 20 6Z" fill="${c}" opacity=".9"/>`;
+    case 'molecule':
+      return `<line x1="20" y1="20" x2="30" y2="12" stroke="${glow}" stroke-width="1.4"/><line x1="20" y1="20" x2="8" y2="14" stroke="${glow}" stroke-width="1.4"/><line x1="20" y1="20" x2="16" y2="32" stroke="${glow}" stroke-width="1.4"/><circle cx="20" cy="20" r="6" fill="${c}"/><circle cx="30" cy="12" r="3" fill="${c}"/><circle cx="8" cy="14" r="3" fill="${c}"/><circle cx="16" cy="32" r="3" fill="${c}"/>`;
+    default:
+      return `<circle cx="20" cy="20" r="9" fill="${c}"/>`;
+  }
+}
+
+function updateNextButtonLabel(){
+  const isVeryLast=(journeyIdx===WAYPOINTS.length-1)&&(currentChapter===CHAPTERS.length-1);
+  floatNextBtn.textContent = isVeryLast ? 'FINISH → CV' : 'NEXT →';
+}
+
+function _renderMsg(wp, isStation){
   const[R,Gv,B]=wp.color;
   floatBar.style.background=`rgba(${R},${Gv},${B},.85)`;
   floatEl.style.borderColor=`rgba(${R},${Gv},${B},.2)`;
   floatTxt.textContent=wp.msg;
-  const{x,y}=wpos(wp),MARGIN=14;
+
+  floatIcon.innerHTML=iconMarkup(wp.type,R,Gv,B);
+  floatTitle.textContent=wp.title;
+  floatTitle.style.color=`rgba(${R},${Gv},${B},.95)`;
+  floatTitle.style.textShadow=`0 0 8px rgba(${R},${Gv},${B},.5)`;
+  floatNextHint.style.display=isStation?'inline-flex':'none';
+
+  floatNextWrap.style.display=isStation?'flex':'none';
+  if(isStation)updateNextButtonLabel();
+
+  const{x,y}=wpos(wp), MARGIN=14, CONSOLE_H=150;
   floatEl.style.left=Math.max(6,Math.min(window.innerWidth-400,x-140))+'px';
-  if(y-80-60-MARGIN<0){floatEl.style.top=(y+MARGIN)+'px';floatEl.style.bottom='auto';}
-  else{floatEl.style.top='auto';floatEl.style.bottom=(window.innerHeight-y+MARGIN)+'px';}
+
+  /* بنقيس ارتفاع الرسالة الحقيقي (بعد ما اتحدد النص) عشان
+     نحسب أفضل مكان ليها وميتقطعش جزء منها بره الشاشة */
+  floatEl.style.top='0px';
+  floatEl.style.bottom='auto';
+  const boxH=floatEl.offsetHeight;
+
+  const spaceAbove=y-MARGIN;
+  const spaceBelow=(window.innerHeight-CONSOLE_H)-y-MARGIN;
+
+  let top;
+  if(boxH<=spaceAbove){
+    top=y-boxH-MARGIN;
+  } else if(boxH<=spaceBelow){
+    top=y+MARGIN;
+  } else {
+    top=MARGIN;
+  }
+  floatEl.style.top=Math.max(MARGIN,top)+'px';
+  floatEl.style.bottom='auto';
+
   floatEl.classList.add('show');
 }
+
 function showMsg(wp){
   if(hoverActive)return;
-  clearTimeout(msgTimeout);_renderMsg(wp);
-  msgTimeout=setTimeout(()=>{if(!hoverActive)floatEl.classList.remove('show');},ship.waitDuration/60*1000-200);
+  _renderMsg(wp,true);
 }
 
 /* ── CHAPTER TITLE ── */
@@ -414,6 +705,16 @@ function showChapterTitle(ch){
 /* ════════════════════════════════════════════
    CONSOLE  — progress indicator only (no click)
    ════════════════════════════════════════════ */
+
+/* بتقفل أي رسالة مفتوحة (بتاعة السفينة أو hover) قبل ما نقفز لتشابتر تاني يدوي */
+function jumpToChapter(i){
+  if(G.active)return;
+  floatEl.classList.remove('show');
+  hoverActive=false;hoveredWP=null;overFloatBox=false;stationHidden=false;
+  clearTimeout(hoverTimer);
+  triggerGlitch(i);
+}
+
 function buildConsole(){
   const gemsEl=document.getElementById('ch-gems');
   gemsEl.innerHTML='';
@@ -428,7 +729,7 @@ function buildConsole(){
     const gem=document.createElement('div');
     gem.className='ch-gem';
     wrap.appendChild(gem);
-    wrap.addEventListener('click', ()=>triggerGlitch(i));
+    wrap.addEventListener('click', ()=>jumpToChapter(i));
     gemsEl.appendChild(wrap);
   });
 
@@ -463,9 +764,29 @@ function arriveAt(idx){
   ship.orbitCx=x;ship.orbitCy=y;
   ship.orbitR=wp.type==='blackhole'?26:wp.type==='neutron'?22:24;
   ship.orbitAngle=Math.atan2(ship.y-y,ship.x-x);
-  ship.stationIdx=idx;ship.waitTimer=0;ship.msgShown=false;
-  ship.waitDuration=calcWait(wp.msg);
+  ship.stationIdx=idx;ship.msgShown=false;stationHidden=false;
 }
+
+/* بتتنده لما القارئ يدوس NEXT — تتحرك بس، من غير أي عداد وقت */
+function advanceJourney(){
+  if(G.active||!ship.orbiting)return;
+  floatEl.classList.remove('show');
+  ship.orbiting=false;stationHidden=false;
+
+  if(journeyIdx===WAYPOINTS.length-1){
+    ship.stationIdx=-1;
+    if(currentChapter===CHAPTERS.length-1){
+      triggerFinish();                 // آخر محطة في آخر تشابتر → cv.html
+    } else {
+      triggerGlitch(currentChapter+1); // آخر محطة في تشابتر عادي → التشابتر اللي بعده
+    }
+  } else {
+    const fx=ship.x,fy=ship.y,fl=journeyIdx;
+    journeyIdx++;ship.stationIdx=-1;
+    startLeg(fx,fy,journeyIdx,fl);
+  }
+}
+floatNextBtn.addEventListener('click',advanceJourney);
 
 (function boot(){
   const first=wpos(WAYPOINTS[0]);
@@ -483,7 +804,7 @@ function loop(){
   const frozen=G.active&&(G.phase==='buildup'||G.phase==='heavy'||G.phase==='flash');
   if(!frozen){
     if(ship.travelling){
-      ship.flightT=Math.min(ship.flightT+.0025,1);
+      ship.flightT=Math.min(ship.flightT+.0032,1);
       const et=ease(ship.flightT);
       const pos=bez(ship.fromX,ship.fromY,ship.cpX,ship.cpY,ship.toX,ship.toY,et);
       const tan=bezTan(ship.fromX,ship.fromY,ship.cpX,ship.cpY,ship.toX,ship.toY,Math.min(et,.999));
@@ -497,18 +818,6 @@ function loop(){
       ship.y=ship.orbitCy+Math.sin(ship.orbitAngle)*ship.orbitR*.4;
       ship.angle=ship.orbitAngle+Math.PI/2;
       if(!ship.msgShown){showMsg(WAYPOINTS[ship.stationIdx]);ship.msgShown=true;}
-      ship.waitTimer++;
-      if(ship.waitTimer>=ship.waitDuration){
-        floatEl.classList.remove('show');
-        if(journeyIdx===WAYPOINTS.length-1){
-          ship.orbiting=false;ship.stationIdx=-1;
-          triggerGlitch((currentChapter+1)%CHAPTERS.length);
-        } else {
-          const fx=ship.x,fy=ship.y,fl=journeyIdx;
-          journeyIdx++;ship.stationIdx=-1;ship.orbiting=false;
-          startLeg(fx,fy,journeyIdx,fl);
-        }
-      }
     }
   }
   const shX=G.active?(Math.random()-.5)*G.intensity*14:0;
@@ -520,6 +829,68 @@ function loop(){
   if(G.active)renderGlitch();
 }
 loop();
+
+/* ════════════════════════════════════════════
+   VIEW AS TEXT
+   ════════════════════════════════════════════ */
+const textOverlay=document.getElementById('text-view-overlay');
+const textPanel=textOverlay.querySelector('.text-view-panel');
+const textBody=document.getElementById('text-view-body');
+const viewTextBtn=document.getElementById('view-text-btn');
+const textCloseBtn=document.getElementById('text-view-close');
+const textCvBtn=document.getElementById('text-view-cv');
+let lastFocusedEl=null;
+
+function buildTextView(){
+  textBody.innerHTML='';
+  CHAPTERS.forEach(ch=>{
+    const sec=document.createElement('section');
+    sec.className='tv-chapter';
+    const h3=document.createElement('h3');
+    h3.textContent=`${ch.era} — ${ch.title.replace(/-/g,' ')} (${ch.sub})`;
+    sec.appendChild(h3);
+    ch.waypoints.forEach(wp=>{
+      const wrap=document.createElement('div');
+      wrap.className='tv-waypoint';
+      const h4=document.createElement('h4');
+      h4.textContent=wp.title;
+      const p=document.createElement('p');
+      p.textContent=wp.msg;
+      wrap.appendChild(h4);wrap.appendChild(p);
+      sec.appendChild(wrap);
+    });
+    textBody.appendChild(sec);
+  });
+}
+
+function onTextViewKeydown(e){
+  if(e.key==='Escape'){closeTextView();return;}
+  if(e.key==='Tab'){
+    const focusables=textPanel.querySelectorAll('button, a[href]');
+    if(!focusables.length)return;
+    const first=focusables[0],last=focusables[focusables.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
+}
+
+function openTextView(){
+  buildTextView();
+  lastFocusedEl=document.activeElement;
+  textOverlay.hidden=false;
+  textCloseBtn.focus();
+  document.addEventListener('keydown',onTextViewKeydown);
+}
+
+function closeTextView(){
+  textOverlay.hidden=true;
+  document.removeEventListener('keydown',onTextViewKeydown);
+  if(lastFocusedEl)lastFocusedEl.focus();
+}
+
+viewTextBtn.addEventListener('click',openTextView);
+textCloseBtn.addEventListener('click',closeTextView);
+textCvBtn.addEventListener('click',()=>{window.location.href='cv.html';});
 </script>
 </body>
 </html>
