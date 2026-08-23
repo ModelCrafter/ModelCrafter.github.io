@@ -1,32 +1,3 @@
-
-    body.addEventListener('click', function() {
-        window.location.href = project.file;
-    });
-
-    galaxy.appendChild(body);
-}
-
-function createPlanet(dataset) {
-    const body = document.createElement('div');
-    const pos = getRandomPositionFull();
-    body.className = 'celestial-body planet';
-    body.style.left = pos.x + '%';
-    body.style.top = pos.y + '%';
-    body.style.transform = 'translate(-50%, -50%)';
-
-    const core = document.createElement('div');
-    core.className = 'planet-core';
-    core.style.background = dataset.color;
-    core.style.color = dataset.color;
-    core.style.boxShadow = `inset 0 0 10px rgba(0, 0, 0, 0.5), 0 0 15px ${dataset.color}`;
-
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip';
-    tooltip.style.borderColor = dataset.color;
-    tooltip.style.color = dataset.color;
-    tooltip.innerHTML = '🌍 DATA_0' + dataset.id + '<br>' + dataset.name + ' (' + dataset.size + ')';
-
-    body.appendChild(core);
 const galaxy = document.getElementById('galaxy-container');
 const bgStarCount = 350;
 const asteroidCount = 8;
