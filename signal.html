@@ -62,6 +62,252 @@
         }
 
         /* ============================================================
+           SECTION LABEL — reusable "// ..." heading used by both the
+           channels grid and the uplink console below
+        ============================================================= */
+        .section-label {
+            font-size: 0.85rem;
+            letter-spacing: 4px;
+            color: rgba(168, 197, 255, 0.5);
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        @keyframes softBlinkSig {
+            0%, 49%, 100% { opacity: 1; }
+            50%, 99% { opacity: 0.35; }
+        }
+
+        /* ============================================================
+           TRANSMISSION CHANNELS — profile links styled as tuned
+           radio-scanner frequencies instead of plain social icons
+        ============================================================= */
+        .channels-section {
+            max-width: 1000px;
+            margin: 64px auto 0;
+            padding: 0 20px;
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .channel-card {
+            --cr: 168; --cg: 197; --cb: 255;
+            position: relative;
+            display: block;
+            text-decoration: none;
+            background: rgba(15, 15, 35, 0.55);
+            border: 1px solid rgba(var(--cr), var(--cg), var(--cb), 0.28);
+            border-radius: 6px;
+            padding: 18px 20px 16px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .channel-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.07), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.6s ease;
+            pointer-events: none;
+        }
+
+        .channel-card:hover::before { left: 130%; }
+
+        .channel-card:hover {
+            border-color: rgba(var(--cr), var(--cg), var(--cb), 0.9);
+            box-shadow: 0 0 25px rgba(var(--cr), var(--cg), var(--cb), 0.3);
+            transform: translateY(-4px);
+        }
+
+        .channel-bars {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 22px;
+        }
+
+        .channel-bars span {
+            width: 3px;
+            background: rgba(var(--cr), var(--cg), var(--cb), 0.8);
+            border-radius: 1px;
+            animation: barPulse 1.15s ease-in-out infinite;
+            transform-origin: bottom;
+        }
+
+        @keyframes barPulse {
+            0%, 100% { transform: scaleY(0.35); opacity: 0.55; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        .channel-freq {
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            color: rgba(var(--cr), var(--cg), var(--cb), 0.95);
+            text-shadow: 0 0 10px rgba(var(--cr), var(--cg), var(--cb), 0.5);
+        }
+
+        .channel-freq .unit {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            letter-spacing: 2px;
+            margin-left: 5px;
+        }
+
+        .channel-name {
+            font-size: 1.15rem;
+            letter-spacing: 3px;
+            color: #e0e0e8;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
+        .channel-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: rgba(var(--cr), var(--cg), var(--cb), 0.7);
+        }
+
+        .channel-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .channel-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(var(--cr), var(--cg), var(--cb), 0.95);
+            box-shadow: 0 0 6px rgba(var(--cr), var(--cg), var(--cb), 0.8);
+            animation: softBlinkSig 2s infinite;
+        }
+
+        /* ============================================================
+           UPLINK — send a message directly, no email client needed
+        ============================================================= */
+        .uplink-section {
+            max-width: 1000px;
+            margin: 56px auto 0;
+            padding: 0 20px;
+        }
+
+        .uplink-console {
+            max-width: 620px;
+            margin: 0 auto;
+            background: rgba(10, 10, 28, 0.55);
+            border: 1px solid rgba(100, 150, 255, 0.25);
+            border-radius: 6px;
+            padding: 28px 28px 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .uplink-row {
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .uplink-row label {
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: rgba(168, 197, 255, 0.55);
+            text-transform: uppercase;
+        }
+
+        .uplink-row input,
+        .uplink-row textarea {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(100, 150, 255, 0.25);
+            border-radius: 4px;
+            padding: 10px 12px;
+            color: #e0e0e8;
+            font-family: 'VT323', monospace;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            resize: vertical;
+        }
+
+        .uplink-row input:focus,
+        .uplink-row textarea:focus {
+            border-color: rgba(150, 180, 255, 0.8);
+            box-shadow: 0 0 12px rgba(100, 150, 255, 0.25);
+        }
+
+        /* honeypot field — hidden from humans, catches simple bots */
+        .uplink-hp {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+
+        .uplink-btn {
+            width: 100%;
+            background: rgba(120, 255, 170, 0.08);
+            border: 1px solid rgba(120, 255, 170, 0.6);
+            color: #aaffcf;
+            padding: 12px;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .uplink-btn:hover:not(:disabled) {
+            background: rgba(120, 255, 170, 0.16);
+            box-shadow: 0 0 20px rgba(120, 255, 170, 0.35);
+            transform: scale(1.02);
+        }
+
+        .uplink-btn:disabled {
+            opacity: 0.55;
+            cursor: wait;
+        }
+
+        .uplink-status {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .uplink-status.success {
+            color: #aaffcf;
+            text-shadow: 0 0 8px rgba(120, 255, 170, 0.5);
+        }
+
+        .uplink-status.error {
+            color: #ffb0b0;
+            text-shadow: 0 0 8px rgba(255, 100, 100, 0.5);
+        }
+
+        /* ============================================================
            TRANSMISSION EASTER EGG — إشارة راديو غامضة بتوصل بعد شوية
            لو داس "RECEIVE" يروح books.html، لو داس "IGNORE" تختفي
            وتتحول لبادچ صغير فوق يمين زي إشعار مهمة معلقة
@@ -252,6 +498,23 @@
                 padding-top: 90px;
             }
 
+            .channels-section,
+            .uplink-section {
+                margin-top: 44px;
+            }
+
+            .channels-grid {
+                gap: 14px;
+            }
+
+            .channel-card {
+                padding: 16px 16px 14px;
+            }
+
+            .uplink-console {
+                padding: 20px 18px 18px;
+            }
+
             .transmission-panel {
                 padding: 20px 18px 18px;
             }
@@ -288,6 +551,14 @@
             .content {
                 padding-top: 80px;
             }
+
+            .channels-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .channel-freq {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
@@ -310,6 +581,57 @@
             <p>Building the future of AI, one model at a time.</p>
             <p>Exploring the intersection of machine learning and creative computing.</p>
             <p>Let's transform data into insights and insights into impact.</p>
+        </div>
+
+        <!-- ============================================================
+             TRANSMISSION CHANNELS — profile links rendered as tuned
+             radio frequencies (see channelsData in the script below)
+        ============================================================= -->
+        <div class="channels-section">
+            <div class="section-label">// OUTGOING FREQUENCIES — TUNE IN</div>
+            <div class="channels-grid" id="channelsGrid"></div>
+        </div>
+
+        <!-- ============================================================
+             UPLINK — direct message form, no email client required.
+             Powered by Web3Forms (free, no backend). See setup note
+             next to the access_key field below.
+        ============================================================= -->
+        <div class="uplink-section">
+            <div class="section-label">// DIRECT UPLINK — SEND A TRANSMISSION</div>
+            <div class="uplink-console">
+                <form id="uplinkForm">
+                    <!--
+                        SETUP (once): go to https://web3forms.com , enter your
+                        email, click "Create Access Key" — no account needed,
+                        the key arrives by email instantly. Paste it below
+                        instead of YOUR_ACCESS_KEY_HERE. Every message sent
+                        through this form will then land straight in your inbox.
+                    -->
+                    <input type="hidden" name="access_key" value="838d318d-e953-4b00-8009-d921321a7d55">
+                    <input type="hidden" name="subject" value="New transmission from modelcrafter.github.io">
+                    <input type="hidden" name="from_name" value="Signal Uplink">
+                    <input type="text" name="botcheck" class="uplink-hp" tabindex="-1" autocomplete="off">
+
+                    <div class="uplink-row">
+                        <label for="uplinkName">Callsign (name)</label>
+                        <input type="text" id="uplinkName" name="name" required placeholder="who's transmitting?">
+                    </div>
+                    <div class="uplink-row">
+                        <label for="uplinkEmail">Return frequency (email)</label>
+                        <input type="email" id="uplinkEmail" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="uplink-row">
+                        <label for="uplinkMessage">Message payload</label>
+                        <textarea id="uplinkMessage" name="message" rows="5" required placeholder="type your transmission..."></textarea>
+                    </div>
+
+                    <button type="submit" class="uplink-btn" id="uplinkBtn">
+                        <span id="uplinkBtnText">▲ TRANSMIT</span>
+                    </button>
+                    <div id="uplinkStatus" class="uplink-status" role="status" aria-live="polite"></div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -367,6 +689,127 @@
 
         createBgStars();
         createAsteroids();
+    </script>
+
+    <!-- ============================================================
+         TRANSMISSION CHANNELS — روابطي الحقيقية متعروضة كأنها
+         محطات راديو متضبوطة على تردد معين بدل أيقونات سوشيال عادية
+    ============================================================= -->
+    <script>
+    (function () {
+        const channelsData = [
+            { name: 'DAGSHUB',  freq: '104.7', url: 'https://dagshub.com/ModelCrafter', color: '#66ddaa' },
+            { name: 'LINKEDIN', freq: '88.3',  url: 'https://www.linkedin.com/in/youssef-khaled-b09bb4347', color: '#66ccff' },
+            { name: 'GITHUB',   freq: '97.1',  url: 'https://github.com/ModelCrafter', color: '#a8c5ff' },
+            { name: 'KAGGLE',   freq: '120.5', url: 'https://www.kaggle.com/m0delcrafter', color: '#ffcc66' }
+        ];
+
+        function hexToRgb(hex) {
+            const clean = hex.replace('#', '');
+            const bigint = parseInt(clean, 16);
+            return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+        }
+
+        function renderChannels() {
+            const grid = document.getElementById('channelsGrid');
+            if (!grid) return;
+
+            channelsData.forEach(function (ch, i) {
+                const [r, g, b] = hexToRgb(ch.color);
+
+                const card = document.createElement('a');
+                card.className = 'channel-card';
+                card.href = ch.url;
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+                card.style.setProperty('--cr', r);
+                card.style.setProperty('--cg', g);
+                card.style.setProperty('--cb', b);
+
+                let barsHTML = '';
+                for (let k = 0; k < 5; k++) {
+                    const h = 30 + Math.random() * 70;
+                    const delay = (i * 0.15 + k * 0.12).toFixed(2);
+                    barsHTML += '<span style="height:' + h + '%; animation-delay:' + delay + 's;"></span>';
+                }
+
+                card.innerHTML =
+                    '<div class="channel-bars">' + barsHTML + '</div>' +
+                    '<div class="channel-freq">' + ch.freq + '<span class="unit">MHZ</span></div>' +
+                    '<div class="channel-name">' + ch.name + '</div>' +
+                    '<div class="channel-footer">' +
+                        '<span class="channel-status">ON AIR</span>' +
+                        '<span>TUNE IN →</span>' +
+                    '</div>';
+
+                grid.appendChild(card);
+            });
+        }
+
+        renderChannels();
+    })();
+    </script>
+
+    <!-- ============================================================
+         UPLINK — بيبعت الرسالة على طول لإيميلي عن طريق Web3Forms
+         من غير ما اللي بيبعت يفتح Gmail أو أي حاجة تانية.
+         (لازم تحط الـ access_key بتاعك في الفورم فوق، شوف الكومنت هناك)
+    ============================================================= -->
+    <script>
+    (function () {
+        const form = document.getElementById('uplinkForm');
+        if (!form) return;
+
+        const btn = document.getElementById('uplinkBtn');
+        const btnText = document.getElementById('uplinkBtnText');
+        const status = document.getElementById('uplinkStatus');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const accessKey = form.querySelector('input[name="access_key"]').value;
+            if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
+                status.textContent = 'Uplink not configured yet — missing Web3Forms access key.';
+                status.className = 'uplink-status error';
+                return;
+            }
+
+            status.textContent = '';
+            status.className = 'uplink-status';
+            btn.disabled = true;
+            btnText.textContent = '◐ TRANSMITTING...';
+
+            const formData = new FormData(form);
+            const payload = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await res.json();
+
+                if (result.success) {
+                    btnText.textContent = '✓ SENT';
+                    status.textContent = "Transmission received — I'll respond soon.";
+                    status.className = 'uplink-status success';
+                    form.reset();
+                } else {
+                    throw new Error(result.message || 'Transmission failed');
+                }
+            } catch (err) {
+                btnText.textContent = '▲ TRANSMIT';
+                status.textContent = 'Signal lost — please try again in a moment.';
+                status.className = 'uplink-status error';
+            } finally {
+                btn.disabled = false;
+                setTimeout(function () {
+                    if (btnText.textContent === '✓ SENT') btnText.textContent = '▲ TRANSMIT';
+                }, 3500);
+            }
+        });
+    })();
     </script>
 
     <!-- ============================================================
