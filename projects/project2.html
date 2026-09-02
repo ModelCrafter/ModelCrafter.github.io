@@ -1,1 +1,82 @@
-ject
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>The Golden Age of Theory | Youssef Khaled</title>
+	<meta name="description" content="The Golden Age of Theory - a data-driven investigation into how Transformer theory rewired AI between 2019-2022, using Google Trends, arXiv, and Meta Kaggle data.">
+	<meta property="og:title" content="The Golden Age of Theory | Youssef Khaled">
+	<meta property="og:description" content="A data-driven investigation into how Transformers rewired AI (2019-2022).">
+	<meta property="og:type" content="article">
+	<meta name="robots" content="index, follow">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="The Golden Age of Theory | Youssef Khaled">
+	<meta name="twitter:description" content="A data-driven investigation into how Transformers rewired AI (2019-2022).">
+	<link rel="canonical" href="https://modelcrafter.github.io/projects/project2.html">
+	<meta property="og:url" content="https://modelcrafter.github.io/projects/project2.html">
+	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../common.css">
+	<style>
+		body { background:#000; color:var(--text-color); font-family:'VT323',monospace; overflow-y:auto; overflow-x:hidden; min-height:100vh; }
+		.content { position:relative; z-index:10; padding:100px 0 50px; }
+		.project-header { max-width:1000px; margin:0 auto 40px; padding:0 20px 40px; text-align:center; border-bottom:1px solid rgba(100,150,255,.3); }
+		.project-id { font-size:.9rem; color:#ffaa66; text-shadow:0 0 5px rgba(255,170,102,.4); letter-spacing:1px; margin-bottom:12px; }
+		.project-title { font-size:2.5rem; color:#e0e0e8; text-shadow:0 0 30px rgba(100,150,255,.4); letter-spacing:3px; margin-bottom:12px; }
+		.project-meta { font-size:1rem; color:#b8c8e8; text-shadow:0 0 15px rgba(100,150,255,.2); }
+		.readme-container { max-width:900px; margin:0 auto; padding:40px; background:rgba(15,15,35,.4); border:1px solid rgba(100,150,255,.2); border-radius:4px; backdrop-filter:blur(10px); }
+		.readme-content h2 { font-size:1.8rem; color:#e0e0e8; text-shadow:0 0 20px rgba(100,150,255,.3); margin:30px 0 15px; letter-spacing:2px; border-left:3px solid rgba(255,170,102,.6); padding-left:12px; }
+		.readme-content h2:first-child { margin-top:0; }
+		.readme-content h3 { font-size:1.3rem; color:#b8c8e8; margin:20px 0 10px; letter-spacing:1px; }
+		.readme-content p { font-size:1rem; color:#a8c5ff; line-height:1.8; margin-bottom:15px; }
+		.readme-content code { background:rgba(100,150,255,.1); padding:2px 6px; border-radius:3px; color:#ffaa66; }
+		.readme-content blockquote { border-left:3px solid rgba(255,170,102,.6); background:rgba(255,170,102,.06); padding:12px 18px; margin:18px 0; font-style:italic; color:#ffd9b3; }
+		.readme-content ul { margin:0 0 15px 20px; } .readme-content li { margin-bottom:8px; color:#a8c5ff; }
+		.readme-content table { width:100%; border-collapse:collapse; margin:15px 0 25px; }
+		.readme-content th,.readme-content td { border:1px solid rgba(100,150,255,.25); padding:10px 14px; text-align:left; color:#a8c5ff; font-size:.95rem; }
+		.readme-content th { background:rgba(100,150,255,.1); color:#e0e0e8; letter-spacing:1px; }
+		.stat-strip,.section-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:10px 0 25px; }
+		.stat-box,.section-card { background:rgba(100,150,255,.08); border:1px solid rgba(100,150,255,.25); border-radius:4px; padding:14px 12px; text-align:center; }
+		.stat-num { font-size:1.8rem; color:#ffaa66; text-shadow:0 0 12px rgba(255,170,102,.5); }
+		.stat-label { font-size:.85rem; color:#8fa5d8; letter-spacing:1px; margin-top:4px; }
+		.timeline { margin:10px 0 30px; padding-left:26px; border-left:2px solid rgba(100,150,255,.3); }
+		.timeline-item { position:relative; margin-bottom:20px; } .timeline-item:before { content:''; position:absolute; left:-32px; top:6px; width:10px; height:10px; border-radius:50%; background:#ffaa66; box-shadow:0 0 10px rgba(255,170,102,.7); }
+		.timeline-year { color:#ffaa66; font-size:1.1rem; letter-spacing:1px; } .timeline-item p { margin:2px 0 0; }
+		.section-grid { grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); } .section-card { text-align:left; padding:16px 18px; background:rgba(100,150,255,.05); }
+		.section-card h4 { color:#e0e0e8; font-size:1.15rem; letter-spacing:1px; margin:0 0 6px; } .section-card p { font-size:.92rem; margin:0; color:#93aee0; }
+		.hook-list li { color:#ffd9b3; font-style:italic; }
+		.tag-row { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 25px; } .tag-pill { background:rgba(100,150,255,.1); border:1px solid rgba(100,150,255,.3); padding:4px 12px; border-radius:20px; color:#a8c5ff; }
+		.cta-box { margin-top:20px; text-align:center; padding:26px 20px; background:rgba(255,170,102,.06); border:1px solid rgba(255,170,102,.35); border-radius:4px; }
+		.cta-box p { color:#ffd9b3; margin-bottom:16px; } .cta-btn,.back-btn { display:inline-block; border:1px solid rgba(255,170,102,.7); color:#ffd9b3; padding:.7rem 1.6rem; font-family:'VT323',monospace; text-decoration:none; text-transform:uppercase; letter-spacing:2px; transition:all .4s ease; }
+		.cta-btn { background:rgba(255,170,102,.1); } .cta-btn:hover { background:rgba(255,170,102,.2); box-shadow:0 0 20px rgba(255,170,102,.4); transform:scale(1.05); }
+		.back-btn { margin-top:30px; border-color:rgba(150,180,255,.5); color:#a8c5ff; } .back-btn:hover { border-color:rgba(150,180,255,.8); color:#d0e0ff; box-shadow:0 0 15px rgba(100,150,255,.4); }
+		@media (max-width:768px) { .project-title{font-size:1.7rem}.readme-container{padding:22px}.content{padding-top:90px}.stat-num{font-size:1.4rem} }
+	</style>
+</head>
+<body>
+	<div id="space-container"></div>
+	<header class="navbar"><a class="nav-btn" href="../index.html">BACK</a></header>
+	<main class="content">
+		<div class="project-header"><div class="project-id">PROJECT_02</div><h1 class="project-title">The Golden Age of Theory</h1><p class="project-meta">How Transformers rewired AI (2019 - 2022) - a data investigation via Google Trends, arXiv &amp; Meta Kaggle</p></div>
+		<div class="readme-container"><div class="readme-content" id="readmeContent"></div></div>
+		<div style="max-width:900px;margin:0 auto;padding:0 20px;text-align:center"><a href="../projects.html" class="back-btn">&larr; Back to Projects</a></div>
+	</main>
+	<script>
+		const spaceContainer = document.getElementById('space-container');
+		function createSpace() { for (let index = 0; index < 206; index++) { const item = document.createElement('div'); item.className = index < 200 ? 'star-bg' : 'asteroid'; item.setAttribute('aria-hidden','true'); const size = index < 200 ? Math.random() * 1.5 + .3 : Math.random() * 6 + 2; item.style.width = size + 'px'; item.style.height = size + 'px'; item.style.left = Math.random() * 100 + '%'; item.style.top = Math.random() * 100 + '%'; if (index < 200) item.style.animationDelay = Math.random() * 2.5 + 's'; else item.style.background = '#b4b4c8'; spaceContainer.appendChild(item); } }
+		document.getElementById('readmeContent').innerHTML = `
+			<h2>Overview</h2>
+			<p>"Attention Is All You Need" landed in 2017. This is a full <strong>research-grade data investigation</strong> into how that one paper took over search engines, research labs, deep learning frameworks, and Kaggle notebooks. Four independent data sources, eleven cross-referenced figures, six sections: <code>Google Trends</code> &rarr; <code>arXiv</code> &rarr; <code>Meta Kaggle notebooks</code> &rarr; <code>Meta Kaggle community</code>.</p>
+			<p>The goal was to <strong>prove, with independent public signals, exactly when and how the world changed</strong> - down to the year, framework, and subfield.</p>
+			<h2>The Headline Numbers</h2><div class="stat-strip">
+				<div class="stat-box"><div class="stat-num">+1,644%</div><div class="stat-label">Dataset growth 2019-21</div></div><div class="stat-box"><div class="stat-num">17,054</div><div class="stat-label">arXiv papers 2021+2022</div></div><div class="stat-box"><div class="stat-num">7M+</div><div class="stat-label">Kaggle notebook visits</div></div><div class="stat-box"><div class="stat-num">3.5M+</div><div class="stat-label">Dataset downloads</div></div><div class="stat-box"><div class="stat-num">8,971</div><div class="stat-label">Papers in 2022 alone</div></div><div class="stat-box"><div class="stat-num">11</div><div class="stat-label">Figures analyzed</div></div>
+			</div>
+			<h2>A Timeline Built Entirely From Data - Not Memory</h2><div class="timeline"><div class="timeline-item"><div class="timeline-year">2017</div><p>"Attention Is All You Need" submitted. Search interest: near zero. Kaggle notebooks tagged Transformer: none.</p></div><div class="timeline-item"><div class="timeline-year">2018-2019</div><p>BERT ships, TensorFlow-native. arXiv publications spike. Text Classification still dominates applied work.</p></div><div class="timeline-item"><div class="timeline-year">2020</div><p>COVID-19 dents public search interest, but notebook creation and dataset volume keep climbing.</p></div><div class="timeline-item"><div class="timeline-year">2021</div><p>The "silent" year: 8,083 papers, GPT-3 adoption, Hugging Face rising, PyTorch overtaking TensorFlow.</p></div><div class="timeline-item"><div class="timeline-year">2022</div><p>Search, papers, downloads, and forum activity surge at once - the Twilight of the Golden Age.</p></div></div>
+			<h2>Findings That Flip the Obvious Narrative</h2><ul class="hook-list"><li>2021 looks quiet on Google Trends, but it is the year the applied community built what exploded publicly in 2022.</li><li>The 2021 dip in notebook views is not disengagement - thousands of observers became contributors.</li><li>TensorFlow did not lose because it got worse; one OpenAI framework choice for GPT reshaped an ecosystem.</li><li>A flat Kaggle signal turned out to be a labeling blind spot, not a lack of activity.</li></ul>
+			<h2>What's Inside - Section by Section</h2><div class="section-grid"><div class="section-card"><h4>I - Public &amp; Research Attention</h4><p>Google Trends cross-referenced against arXiv publication volume, year by year.</p></div><div class="section-card"><h4>II - The Flourishing of Kernels</h4><p>Kaggle notebook growth, millions of views, and the TensorFlow to PyTorch shift.</p></div><div class="section-card"><h4>III - NLP Subfields</h4><p>Text Classification, Question Answering, and Text Generation across research and practice.</p></div><div class="section-card"><h4>IV - The Flourishing of Datasets</h4><p>A 1,644% dataset explosion and 3.5M+ downloads made the trends possible.</p></div><div class="section-card"><h4>V - The Kaggle Community</h4><p>Forum activity across NLP and Computer Vision, including the 2022 generative shift.</p></div><div class="section-card"><h4>VI - The Big Picture</h4><p>Search, research, application, and community pulled into one coherent story.</p></div></div>
+			<blockquote>2021 was overlooked in Google Trends - but far from ordinary. Much of the explosive momentum of 2022 took root during that quiet year.</blockquote>
+			<h2>Stack &amp; Sources</h2><div class="tag-row"><span class="tag-pill">pytrends</span><span class="tag-pill">arXiv API</span><span class="tag-pill">Meta Kaggle</span><span class="tag-pill">Pandas</span><span class="tag-pill">Matplotlib</span><span class="tag-pill">Data Storytelling</span></div><p>Four independent public datasets were reconciled so every conclusion is backed by at least two separate signals.</p>
+			<div class="cta-box"><p>This page only scratches the surface. The full write-up - all 11 figures and the reasoning behind every insight - lives on GitHub / Kaggle.</p><a class="cta-btn" href="https://github.com/ModelCrafter/Competitions-Data-analysis/blob/main/Competitions/Meta%20kaggle%20%20hackathon/WritUp.md" target="_blank" rel="noopener">Read the Full Write-Up &rarr;</a></div>`;
+		createSpace();
+	</script>
+</body>
+</html>
