@@ -2,39 +2,19 @@
 const projectsData = [
     { 
         id: 1, 
-        title: "Chemical Encoder", 
-        description: "Advanced chemical compound encoding using neural networks",
-        details: "A sophisticated machine learning model designed to encode chemical compounds into meaningful representations. Uses deep learning to understand molecular structures.",
+        title: "Pixel Art VAE",
+        description: "Pixel Art VAE - a disentangled Variational Autoencoder for high-fidelity pixel art generation, with patch-based latent interpretability, beta-annealing, and Jacobian sensitivity analysis.",
+        details: "This project focuses on developing a disentangled Variational Autoencoder (VAE) specifically designed for generating high-quality pixel art. The model incorporates patch-based latent interpretability, allowing for better understanding of the learned representations. Additionally, it employs beta-annealing techniques to improve training stability and utilizes Jacobian sensitivity analysis to assess the robustness of the generated outputs.",
         link: "projects/project1.html"
     },
     { 
         id: 2, 
-        title: "Blender LLM", 
-        description: "Large language model optimized for creative tasks",
-        details: "Fine-tuned language model specifically designed for creative writing, code generation, and artistic applications.",
-        link: "projects/project2.html"  // نفس الصفحة بالفترة الحالية
+        title: "The Golden Age of Theory",
+        description: "The Golden Age of Theory - a data-driven investigation into how Transformer theory rewired AI between 2019-2022, using Google Trends, arXiv, and Meta Kaggle data",
+        details: "This project explores the transformative impact of Transformer models on the field of artificial intelligence during the period from 2019 to 2022. By analyzing data from Google Trends, arXiv publications, and Meta Kaggle competitions, the study provides insights into how Transformer theory has influenced research directions, model development, and practical applications in AI.",
+        link: "projects/project2.html"
     },
-    { 
-        id: 3, 
-        title: "BirdCLEF Audio Model", 
-        description: "Bird species classification from audio data",
-        details: "Acoustic classification system trained to identify bird species from audio recordings using convolutional neural networks.",
-        link: "projects/project3.html"  // نفس الصفحة بالفترة الحالية
-    },
-    { 
-        id: 4, 
-        title: "Ancient Language FM", 
-        description: "Feature extraction for historical language processing",
-        details: "Specialized model for processing and analyzing ancient language texts using modern NLP techniques.",
-        link: "projects/project4.html"  // نفس الصفحة بالفترة الحالية
-    },
-    { 
-        id: 5, 
-        title: "Pixel Art VAE", 
-        description: "Variational autoencoder for pixel art generation",
-        details: "Generative model trained on pixel art datasets to create and understand artistic patterns and styles.",
-        link: "projects/project5.html"  // نفس الصفحة بالفترة الحالية
-    }
+
 ];
 
 const datasetsData = [
@@ -61,21 +41,5 @@ const datasetsData = [
         color: "#f7ea3fd8",
         details: "Curated collection of pixel art and low-resolution images for generative model training.",
         link: "datasets/dataset3.html"  // نفس الصفحة بالفترة الحالية
-    },
-    { 
-        id: 4, 
-        name: "Language Corpus", 
-        size: "15GB", 
-        color: "#66ccff",
-        details: "Large multilingual text corpus including historical documents, modern texts, and semantic annotations.",
-        link: "datasets/dataset4.html"  // نفس الصفحة بالفترة الحالية
-    },
-    { 
-        id: 5, 
-        name: "Chemical Data", 
-        size: "6GB", 
-        color: "#ffcc66",
-        details: "Chemical compound library with molecular structures, properties, and experimental results.",
-        link: "datasets/dataset5.html"  // نفس الصفحة بالفترة الحالية
     }
 ];
