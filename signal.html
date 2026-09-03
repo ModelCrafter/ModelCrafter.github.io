@@ -201,9 +201,9 @@
             animation: softBlinkSig 2s infinite;
         }
 
-        /* ============================================================
-           UPLINK — send a message directly, no email client needed
-        ============================================================= */
+          /* ============================================================
+              UPLINK — open a prepared email in Gmail
+          ============================================================= */
         .uplink-section {
             max-width: 1000px;
             margin: 56px auto 0;
@@ -287,6 +287,12 @@
         .uplink-btn:disabled {
             opacity: 0.55;
             cursor: wait;
+        }
+
+        .uplink-btn {
+            display: block;
+            text-align: center;
+            text-decoration: none;
         }
 
         .uplink-status {
@@ -593,44 +599,18 @@
         </div>
 
         <!-- ============================================================
-             UPLINK — direct message form, no email client required.
-             Powered by Web3Forms (free, no backend). See setup note
-             next to the access_key field below.
+             UPLINK — opens Gmail with a prepared message
         ============================================================= -->
         <div class="uplink-section">
             <div class="section-label">// DIRECT UPLINK — SEND A TRANSMISSION</div>
             <div class="uplink-console">
-                <form id="uplinkForm">
-                    <!--
-                        SETUP (once): go to https://web3forms.com , enter your
-                        email, click "Create Access Key" — no account needed,
-                        the key arrives by email instantly. Paste it below
-                        instead of YOUR_ACCESS_KEY_HERE. Every message sent
-                        through this form will then land straight in your inbox.
-                    -->
-                    <input type="hidden" name="access_key" value="838d318d-e953-4b00-8009-d921321a7d55">
-                    <input type="hidden" name="subject" value="New transmission from modelcrafter.github.io">
-                    <input type="hidden" name="from_name" value="Signal Uplink">
-                    <input type="text" name="botcheck" class="uplink-hp" tabindex="-1" autocomplete="off">
-
-                    <div class="uplink-row">
-                        <label for="uplinkName">Callsign (name)</label>
-                        <input type="text" id="uplinkName" name="name" required placeholder="who's transmitting?">
-                    </div>
-                    <div class="uplink-row">
-                        <label for="uplinkEmail">Return frequency (email)</label>
-                        <input type="email" id="uplinkEmail" name="email" required placeholder="your@email.com">
-                    </div>
-                    <div class="uplink-row">
-                        <label for="uplinkMessage">Message payload</label>
-                        <textarea id="uplinkMessage" name="message" rows="5" required placeholder="type your transmission..."></textarea>
-                    </div>
-
-                    <button type="submit" class="uplink-btn" id="uplinkBtn">
-                        <span id="uplinkBtnText">▲ TRANSMIT</span>
-                    </button>
-                    <div id="uplinkStatus" class="uplink-status" role="status" aria-live="polite"></div>
-                </form>
+                <a
+                    class="uplink-btn"
+                    href="https://mail.google.com/mail/?view=cm&fs=1&to=y0ussefkh1edv@gmail.com&su=New%20transmission%20from%20modelcrafter.github.io"
+                    target="_blank"
+                    rel="noopener"
+                >▲ TRANSMIT VIA EMAIL</a>
+                <p class="uplink-note">opens Gmail with a message ready to send</p>
             </div>
         </div>
     </div>
@@ -747,68 +727,6 @@
         }
 
         renderChannels();
-    })();
-    </script>
-
-    <!-- ============================================================
-         UPLINK — بيبعت الرسالة على طول لإيميلي عن طريق Web3Forms
-         من غير ما اللي بيبعت يفتح Gmail أو أي حاجة تانية.
-         (لازم تحط الـ access_key بتاعك في الفورم فوق، شوف الكومنت هناك)
-    ============================================================= -->
-    <script>
-    (function () {
-        const form = document.getElementById('uplinkForm');
-        if (!form) return;
-
-        const btn = document.getElementById('uplinkBtn');
-        const btnText = document.getElementById('uplinkBtnText');
-        const status = document.getElementById('uplinkStatus');
-
-        form.addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            const accessKey = form.querySelector('input[name="access_key"]').value;
-            if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
-                status.textContent = 'Uplink not configured yet — missing Web3Forms access key.';
-                status.className = 'uplink-status error';
-                return;
-            }
-
-            status.textContent = '';
-            status.className = 'uplink-status';
-            btn.disabled = true;
-            btnText.textContent = '◐ TRANSMITTING...';
-
-            const formData = new FormData(form);
-            const payload = Object.fromEntries(formData.entries());
-
-            try {
-                const res = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await res.json();
-
-                if (result.success) {
-                    btnText.textContent = '✓ SENT';
-                    status.textContent = "Transmission received — I'll respond soon.";
-                    status.className = 'uplink-status success';
-                    form.reset();
-                } else {
-                    throw new Error(result.message || 'Transmission failed');
-                }
-            } catch (err) {
-                btnText.textContent = '▲ TRANSMIT';
-                status.textContent = 'Signal lost — please try again in a moment.';
-                status.className = 'uplink-status error';
-            } finally {
-                btn.disabled = false;
-                setTimeout(function () {
-                    if (btnText.textContent === '✓ SENT') btnText.textContent = '▲ TRANSMIT';
-                }, 3500);
-            }
-        });
     })();
     </script>
 
