@@ -6,14 +6,14 @@
     <title>CV | Youssef Khaled</title>
 
     <!-- SEO -->
-    <meta name="description" content="CV of Youssef Khaled — Machine Learning Engineer specializing in deep learning, chemical informatics, and NLP.">
+    <meta name="description" content="CV of Youssef Khaled Ibrahim — self-taught Machine Learning Engineer, final-year Faculty of Arts student, Cairo, Egypt.">
     <meta property="og:title" content="CV | Youssef Khaled">
-    <meta property="og:description" content="Machine Learning Engineer specializing in deep learning, chemical informatics, and NLP.">
+    <meta property="og:description" content="Self-taught Machine Learning Engineer and TensorFlower with 3+ years in AI.">
     <meta property="og:type" content="profile">
     <meta name="robots" content="index, follow">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="CV | Youssef Khaled">
-    <meta name="twitter:description" content="Machine Learning Engineer specializing in deep learning, chemical informatics, and NLP.">
+    <meta name="twitter:description" content="Self-taught Machine Learning Engineer and TensorFlower with 3+ years in AI.">
     <link rel="canonical" href="https://modelcrafter.github.io/cv.html">
     <meta property="og:url" content="https://modelcrafter.github.io/cv.html">
 
@@ -74,11 +74,6 @@
             margin: 0 auto 40px;
             padding: 0 20px 36px;
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
         }
 
         .cv-label {
@@ -92,43 +87,18 @@
 
         .cv-name {
             font-family: 'VT323', monospace;
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             color: #e0eeff;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-shadow: 0 0 28px rgba(102, 136, 255, 0.5);
         }
 
         .cv-role {
-            font-size: 0.82rem;
-            color: var(--muted);
+            font-size: 0.85rem;
             letter-spacing: 3px;
             margin-top: 6px;
             text-transform: uppercase;
             color: #8899bb;
-        }
-
-        .cv-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.78rem;
-            color: #55dd88;
-            letter-spacing: 2px;
-            font-family: 'VT323', monospace;
-        }
-
-        .cv-status::before {
-            content: '';
-            width: 7px; height: 7px;
-            border-radius: 50%;
-            background: #55dd88;
-            box-shadow: 0 0 8px #55dd88;
-            animation: pulse-green 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-green {
-            0%, 100% { box-shadow: 0 0 6px #55dd88; }
-            50%       { box-shadow: 0 0 16px #55dd88, 0 0 30px rgba(85,221,136,.3); }
         }
 
         /* CV BODY */
@@ -175,6 +145,22 @@
         }
 
         /* SKILLS */
+        .skill-group {
+            margin-bottom: 18px;
+        }
+
+        .skill-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-group-label {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: #557799;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
         .skills-list {
             display: flex;
             flex-wrap: wrap;
@@ -193,7 +179,13 @@
             text-shadow: 0 0 6px rgba(102, 136, 255, 0.3);
         }
 
-        /* EXPERIENCE / EDUCATION */
+        .skills-list li .lvl {
+            color: #6688aa;
+            font-size: 0.72rem;
+            margin-left: 5px;
+        }
+
+        /* EXPERIENCE / EDUCATION / PROJECTS */
         .entry {
             margin-bottom: 24px;
             padding-bottom: 24px;
@@ -258,6 +250,20 @@
             font-size: 0.82rem;
         }
 
+        .portfolio-note {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px dashed rgba(102, 136, 255, 0.25);
+            font-size: 0.84rem;
+            color: #7f9bc4;
+            line-height: 1.8;
+        }
+
+        .portfolio-note a {
+            color: #a8c5ff;
+            text-decoration: underline;
+        }
+
         /* DATASETS */
         .dataset-link {
             display: flex;
@@ -293,6 +299,36 @@
             font-size: 0.78rem;
             color: #557799;
             letter-spacing: 1px;
+        }
+
+        /* LANGUAGES */
+        .lang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(102, 136, 255, 0.06);
+            border: 1px solid rgba(102, 136, 255, 0.15);
+            border-radius: 4px;
+            padding: 10px 14px;
+        }
+
+        .lang-name {
+            font-size: 0.9rem;
+            color: #c8d8f8;
+            letter-spacing: 1px;
+        }
+
+        .lang-level {
+            font-size: 0.75rem;
+            color: #6688aa;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         /* CONTACT */
@@ -336,6 +372,191 @@
             .nav-dl-btn { padding: 0.4rem 0.55rem; font-size: 0.65rem; }
             .cv-name { font-size: 1.6rem; }
         }
+
+        /* ============================================================
+           PRINT / PDF — this is what actually becomes the downloaded
+           file when the person hits "Download" (window.print → Save
+           as PDF). Everything here overrides the space theme with a
+           clean, ATS-readable, black-on-white one-column resume:
+           real selectable text, standard font, no glow/blur/animation.
+        ============================================================= */
+        @media print {
+            @page {
+                size: A4;
+                margin: 14mm 16mm;
+            }
+
+            html, body {
+                background: #ffffff !important;
+                color: #1a1a1a !important;
+                overflow: visible !important;
+                height: auto !important;
+                width: auto !important;
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 10.5pt;
+            }
+
+            #space-container,
+            .navbar,
+            .nav-dl-btn {
+                display: none !important;
+            }
+
+            .content {
+                padding: 0 !important;
+            }
+
+            .cv-header,
+            .cv-body {
+                max-width: 100% !important;
+                padding: 0 !important;
+                margin: 0 auto !important;
+            }
+
+            .cv-header {
+                border-bottom: 1.5px solid #333 !important;
+                padding-bottom: 14px !important;
+                margin-bottom: 18px !important;
+            }
+
+            .cv-label {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-size: 8pt !important;
+                letter-spacing: 3px !important;
+                color: #555 !important;
+                text-shadow: none !important;
+            }
+
+            .cv-name {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-weight: 700 !important;
+                font-size: 22pt !important;
+                letter-spacing: 0.5px !important;
+                color: #000 !important;
+                text-shadow: none !important;
+            }
+
+            .cv-role {
+                font-size: 9.5pt !important;
+                letter-spacing: 1px !important;
+                color: #333 !important;
+            }
+
+            .cv-section {
+                margin-bottom: 16px !important;
+                page-break-inside: avoid;
+            }
+
+            .section-title {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-weight: 700 !important;
+                font-size: 12.5pt !important;
+                letter-spacing: 1px !important;
+                color: #000 !important;
+                text-shadow: none !important;
+                border-left: 3px solid #333 !important;
+                padding-left: 8px !important;
+                margin-bottom: 8px !important;
+            }
+
+            .section-body {
+                background: none !important;
+                border: none !important;
+                backdrop-filter: none !important;
+                padding: 0 !important;
+            }
+
+            .about-text,
+            .entry-text,
+            .entry-list li,
+            .dl-meta {
+                color: #2a2a2a !important;
+                font-size: 9.5pt !important;
+                line-height: 1.55 !important;
+                text-shadow: none !important;
+            }
+
+            .about-text strong,
+            .entry-title,
+            .dl-name,
+            .lang-name {
+                color: #000 !important;
+                text-shadow: none !important;
+            }
+
+            .entry-title {
+                font-family: Arial, Helvetica, sans-serif !important;
+                font-weight: 700 !important;
+                font-size: 10.5pt !important;
+                letter-spacing: 0 !important;
+                padding-left: 12px !important;
+            }
+
+            .entry-title::before {
+                color: #333 !important;
+            }
+
+            .entry-meta {
+                color: #555 !important;
+                font-size: 8pt !important;
+                letter-spacing: 0.5px !important;
+                margin-bottom: 4px !important;
+            }
+
+            .entry {
+                border-bottom: 0.5px solid #ddd !important;
+                margin-bottom: 12px !important;
+                padding-bottom: 12px !important;
+                page-break-inside: avoid;
+            }
+
+            .skills-list li {
+                background: none !important;
+                border: 1px solid #999 !important;
+                color: #1a1a1a !important;
+                text-shadow: none !important;
+                font-size: 8.5pt !important;
+                padding: 2px 10px !important;
+            }
+
+            .skill-group-label {
+                color: #555 !important;
+            }
+
+            .portfolio-note {
+                color: #444 !important;
+                border-top: 0.5px dashed #999 !important;
+            }
+
+            .portfolio-note a,
+            .contact-value,
+            .dl-name {
+                color: #1a3d8f !important;
+                text-decoration: underline !important;
+            }
+
+            .dl-dot {
+                background: #333 !important;
+                box-shadow: none !important;
+            }
+
+            .lang-item {
+                background: none !important;
+                border: 1px solid #ccc !important;
+            }
+
+            .lang-level {
+                color: #555 !important;
+            }
+
+            .contact-label {
+                color: #555 !important;
+            }
+
+            a[href]:after {
+                content: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -348,19 +569,16 @@
         <a class="nav-btn" href="projects.html">PROJECTS</a>
         <a class="nav-btn" href="datasets.html">DATASETS</a>
         <a class="nav-btn" href="init.html">INIT</a>
-        <a class="nav-dl-btn" href="#" onclick="window.print(); return false;">⬇ DOWNLOAD</a>
+        <a class="nav-dl-btn" href="#" onclick="window.print(); return false;">⬇ DOWNLOAD PDF</a>
     </nav>
 </header>
 
 <div class="content">
 
     <div class="cv-header">
-        <div>
-            <div class="cv-label">CURRICULUM VITAE</div>
-            <div class="cv-name">YOUSSEF KHALED</div>
-            <div class="cv-role">Machine Learning Engineer · Cairo, Egypt</div>
-        </div>
-        <div class="cv-status">OPEN TO WORK</div>
+        <div class="cv-label">CURRICULUM VITAE</div>
+        <div class="cv-name">YOUSSEF KHALED IBRAHIM</div>
+        <div class="cv-role">Data Scientist · ML Engineer · Cairo, Egypt</div>
     </div>
 
     <div class="cv-body">
@@ -370,9 +588,10 @@
             <div class="section-title">ABOUT</div>
             <div class="section-body">
                 <p class="about-text">
-                    A passionate Machine Learning Engineer specializing in deep learning, chemical informatics, and natural language processing.
-                    I build models that solve real-world problems — from encoding <strong>50 million chemical compounds</strong> to training language models on <strong>classical Arabic poetry</strong>.
-                    Currently focused on graph neural networks, LLM fine-tuning, and large-scale data pipelines.
+                    A self-taught <strong>Machine Learning Engineer</strong> and dedicated TensorFlower with <strong>3+ years</strong> of experience in artificial intelligence — a path chosen deliberately, not a fallback.
+                    Coming from a non-traditional academic background pushed me toward a more rigorous foundation: mastering the mathematics first, and working through core textbooks and primary references rather than shortcuts.
+                    I keep a researcher's mindset, actively reading recent papers to design and prototype deep learning architectures and generative models — closing the gap between academic research and practical, production-minded solutions.
+                    That same self-taught path also shaped how fast I move: once I commit to a topic, I go from first principles to a working, non-trivial implementation quickly — the projects below are built from scratch, not assembled from off-the-shelf pipelines.
                 </p>
             </div>
         </div>
@@ -381,23 +600,33 @@
         <div class="cv-section">
             <div class="section-title">SKILLS</div>
             <div class="section-body">
-                <ul class="skills-list">
-                    <li>Python</li>
-                    <li>PyTorch</li>
-                    <li>TensorFlow</li>
-                    <li>RDKit</li>
-                    <li>Transformers</li>
-                    <li>NumPy</li>
-                    <li>Pandas</li>
-                    <li>Scikit-Learn</li>
-                    <li>Docker</li>
-                    <li>Git</li>
-                    <li>SQL</li>
-                    <li>Linux</li>
-                    <li>CUDA</li>
-                    <li>FastAPI</li>
-                    <li>C++</li>
-                </ul>
+                <div class="skill-group">
+                    <div class="skill-group-label">CORE STACK</div>
+                    <ul class="skills-list">
+                        <li>Python</li>
+                        <li>TensorFlow</li>
+                        <li>NumPy</li>
+                        <li>Pandas</li>
+                        <li>Matplotlib</li>
+                        <li>Git</li>
+                        <li>MLflow</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-label">MATH FOUNDATIONS</div>
+                    <ul class="skills-list">
+                        <li>Linear Algebra <span class="lvl">· Advanced</span></li>
+                        <li>Applied Statistics <span class="lvl">· Strong</span></li>
+                        <li>Calculus <span class="lvl">· Building</span></li>
+                    </ul>
+                </div>
+                <div class="skill-group">
+                    <div class="skill-group-label">CURRENTLY LEARNING</div>
+                    <ul class="skills-list">
+                        <li>FastAPI</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -406,21 +635,12 @@
             <div class="section-title">EXPERIENCE</div>
             <div class="section-body">
                 <div class="entry">
-                    <div class="entry-title">ML Engineer — ACME AI Labs</div>
-                    <div class="entry-meta">2023 – PRESENT</div>
+                    <div class="entry-title">Python Instructor — Local Learning Center</div>
+                    <div class="entry-meta">3 MONTHS</div>
                     <ul class="entry-list">
-                        <li>Designed and deployed a GNN-based molecular encoder achieving <strong style="color:#d0e4ff;">94.2% accuracy</strong> on property prediction benchmarks</li>
-                        <li>Built end-to-end data pipelines processing over <strong style="color:#d0e4ff;">181 GB</strong> of raw SDF chemical data</li>
-                        <li>Fine-tuned transformer models for domain-specific NLP tasks in Arabic and English</li>
-                    </ul>
-                </div>
-                <div class="entry">
-                    <div class="entry-title">Data Scientist — Placeholder Corp</div>
-                    <div class="entry-meta">2021 – 2023</div>
-                    <ul class="entry-list">
-                        <li>Developed bird species classification models from audio data using CNN architectures</li>
-                        <li>Maintained and extended internal ML tooling and experiment tracking infrastructure</li>
-                        <li>Collaborated with cross-functional teams to translate business problems into ML solutions</li>
+                        <li>Taught programming fundamentals and Python basics to young students</li>
+                        <li>Broke down core programming logic into approachable, hands-on lessons</li>
+                        <li>Built early skills in explaining technical concepts clearly to beginners</li>
                     </ul>
                 </div>
             </div>
@@ -428,23 +648,21 @@
 
         <!-- PROJECTS -->
         <div class="cv-section">
-            <div class="section-title">PROJECTS</div>
+            <div class="section-title">SELECTED PROJECTS</div>
             <div class="section-body">
                 <div class="entry">
-                    <div class="entry-title">Chemical Encoder</div>
-                    <div class="entry-meta">DEEP LEARNING · CHEMINFORMATICS</div>
-                    <p class="entry-text">Neural network encoding of SMILES representations into high-dimensional embeddings using Graph Neural Networks. Stack: <code>PyTorch</code> · <code>RDKit</code> · <code>NumPy</code></p>
+                    <div class="entry-title">Pixel Art VAE</div>
+                    <div class="entry-meta">GENERATIVE AI · CUSTOM-BUILT VAE</div>
+                    <p class="entry-text">A disentangled Variational Autoencoder built from scratch — custom patch-extraction layers, a hand-designed multi-objective loss, and a full latent-space interpretability study backed by Jacobian sensitivity analysis.</p>
                 </div>
                 <div class="entry">
-                    <div class="entry-title">Arabian Diwan NLP</div>
-                    <div class="entry-meta">NLP · CLASSICAL ARABIC</div>
-                    <p class="entry-text">Fine-tuned language models on a 55 MB corpus of classical Arabic poetry spanning pre-Islamic era to present. Full diacritization preserved.</p>
+                    <div class="entry-title">The Golden Age of Theory</div>
+                    <div class="entry-meta">RESEARCH-GRADE DATA INVESTIGATION</div>
+                    <p class="entry-text">An independent research project reconciling four separate public datasets — Google Trends, arXiv, and two Meta Kaggle sources — into a single, evidence-backed account of how Transformer theory reshaped AI between 2019 and 2022.</p>
                 </div>
-                <div class="entry">
-                    <div class="entry-title">PubChem 50M Pipeline</div>
-                    <div class="entry-meta">DATA ENGINEERING · CHEMISTRY</div>
-                    <p class="entry-text">Scalable preprocessing pipeline for 50 million compounds in raw SDF format, including 3D coordinate extraction and feature engineering.</p>
-                </div>
+                <p class="portfolio-note">
+                    Full technical write-ups — architecture details, methodology, and complete analysis for each project — are available in the interactive portfolio: <a href="https://modelcrafter.github.io/projects.html" target="_blank" rel="noopener">modelcrafter.github.io/projects.html</a>
+                </p>
             </div>
         </div>
 
@@ -453,9 +671,9 @@
             <div class="section-title">EDUCATION</div>
             <div class="section-body">
                 <div class="entry">
-                    <div class="entry-title">B.Sc. Computer Science</div>
-                    <div class="entry-meta">CAIRO UNIVERSITY · 2017 – 2021</div>
-                    <p class="entry-text">Graduation project: Protein structure prediction using deep learning.</p>
+                    <div class="entry-title">Faculty of Arts — Benha University</div>
+                    <div class="entry-meta">FINAL-YEAR STUDENT</div>
+                    <p class="entry-text">Formal studies outside of computing ran in parallel with a self-directed, years-long path into machine learning — mathematics, core ML/DL references, and applied projects pursued independently.</p>
                 </div>
             </div>
         </div>
@@ -482,6 +700,23 @@
             </div>
         </div>
 
+        <!-- LANGUAGES -->
+        <div class="cv-section">
+            <div class="section-title">LANGUAGES</div>
+            <div class="section-body">
+                <div class="lang-grid">
+                    <div class="lang-item">
+                        <span class="lang-name">Arabic</span>
+                        <span class="lang-level">Native</span>
+                    </div>
+                    <div class="lang-item">
+                        <span class="lang-name">English</span>
+                        <span class="lang-level">B1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- CONTACT -->
         <div class="cv-section">
             <div class="section-title">CONTACT</div>
@@ -489,19 +724,23 @@
                 <div class="contact-grid">
                     <div class="contact-item">
                         <span class="contact-label">EMAIL</span>
-                        <a class="contact-value" href="mailto:your@email.com">your@email.com</a>
+                        <a class="contact-value" href="mailto:y0ussefkh1edv@gmail.com">y0ussefkh1edv@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">PORTFOLIO</span>
+                        <a class="contact-value" href="https://modelcrafter.github.io/" target="_blank">modelcrafter.github.io</a>
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">KAGGLE</span>
-                        <a class="contact-value" href="https://kaggle.com/m0delcrafter" target="_blank">kaggle.com/m0delcrafter</a>
+                        <a class="contact-value" href="https://www.kaggle.com/m0delcrafter" target="_blank">kaggle.com/m0delcrafter</a>
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">GITHUB</span>
-                        <a class="contact-value" href="https://github.com/yourusername" target="_blank">github.com/yourusername</a>
+                        <a class="contact-value" href="https://github.com/ModelCrafter" target="_blank">github.com/ModelCrafter</a>
                     </div>
                     <div class="contact-item">
                         <span class="contact-label">LINKEDIN</span>
-                        <a class="contact-value" href="https://linkedin.com/in/yourusername" target="_blank">linkedin.com/in/yourusername</a>
+                        <a class="contact-value" href="https://www.linkedin.com/in/youssef-khaled-b09bb4347" target="_blank">linkedin.com/in/youssef-khaled-b09bb4347</a>
                     </div>
                 </div>
             </div>

@@ -43,7 +43,19 @@
             color: #e0e0e8;
             text-shadow: 0 0 30px rgba(100, 150, 255, 0.4);
             letter-spacing: 6px;
-            margin: 2rem 0 3rem;
+            margin: 2rem 0 0.6rem;
+        }
+
+        .page-tagline {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 3rem;
+            padding: 0 20px;
+            font-size: 1.15rem;
+            color: #8fa5d8;
+            text-shadow: 0 0 12px rgba(100, 150, 255, 0.2);
+            letter-spacing: 1px;
+            line-height: 1.6;
         }
 
         .projects-grid {
@@ -103,6 +115,11 @@
                 letter-spacing: 3px;
             }
 
+            .page-tagline {
+                font-size: 0.95rem;
+                margin-bottom: 2.2rem;
+            }
+
             .projects-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 16px;
@@ -122,7 +139,12 @@
             .page-title {
                 font-size: 1.5rem;
                 letter-spacing: 2px;
-                margin: 1.5rem 0 2rem;
+                margin: 1.5rem 0 0.5rem;
+            }
+
+            .page-tagline {
+                font-size: 0.85rem;
+                margin-bottom: 1.8rem;
             }
 
             .projects-grid {
@@ -157,6 +179,7 @@
 
     <div class="content">
         <h1 class="page-title">PROJECTS</h1>
+        <p class="page-tagline">// Not everything I've built — only what earned its place. Every project below was selected, not just finished.</p>
         <div class="projects-grid" id="projectsContainer"></div>
     </div>
 
