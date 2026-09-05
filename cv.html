@@ -19,6 +19,12 @@
 
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="common.css">
+
+    <!-- مكتبة توليد PDF من الكود مباشرة — من غير ما نستخدم print
+         المتصفح خالص، عشان منتصفش لهيدر/فوتر (التاريخ ورقم الصفحة)
+         اللي المتصفح بيحطهم تلقائي في أي حاجة بتتطبع -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <style>
         :root {
             --accent: #6688ff;
@@ -58,6 +64,11 @@
             border-color: rgba(150, 180, 255, 1);
             color: #fff;
             box-shadow: 0 0 22px rgba(102, 136, 255, 0.5);
+        }
+
+        .nav-dl-btn:disabled {
+            opacity: 0.55;
+            cursor: wait;
         }
 
         /* CONTENT */
@@ -372,242 +383,6 @@
             .nav-dl-btn { padding: 0.4rem 0.55rem; font-size: 0.65rem; }
             .cv-name { font-size: 1.6rem; }
         }
-
-        /* ============================================================
-           PRINT / PDF — this is what actually becomes the downloaded
-           file when the person hits "Download" (window.print → Save
-           as PDF). Fully plain, ATS-safe layout: black text on white,
-           single column everywhere, no colors, no borders/boxes,
-           no pills, no decorative glyphs. Everything reads top-to-
-           bottom in one straight column so any resume parser extracts
-           the text in the correct order.
-        ============================================================= */
-        @media print {
-            @page {
-                size: A4;
-                margin: 18mm 20mm;
-            }
-
-            html, body {
-                background: #ffffff !important;
-                color: #000000 !important;
-                overflow: visible !important;
-                height: auto !important;
-                width: auto !important;
-                font-family: Arial, Helvetica, sans-serif !important;
-                font-size: 11pt;
-                line-height: 1.5;
-            }
-
-            /* hide anything decorative or non-text */
-            #space-container,
-            .navbar,
-            .nav-dl-btn,
-            .dl-dot,
-            .rec-dot {
-                display: none !important;
-            }
-
-            .content {
-                padding: 0 !important;
-            }
-
-            .cv-header,
-            .cv-body {
-                max-width: 100% !important;
-                width: 100% !important;
-                padding: 0 !important;
-                margin: 0 !important;
-            }
-
-            .cv-header {
-                border-bottom: none !important;
-                padding-bottom: 10px !important;
-                margin-bottom: 14px !important;
-            }
-
-            .cv-label {
-                font-family: Arial, Helvetica, sans-serif !important;
-                font-size: 9pt !important;
-                letter-spacing: 0 !important;
-                color: #000 !important;
-                text-shadow: none !important;
-            }
-
-            .cv-name {
-                font-family: Arial, Helvetica, sans-serif !important;
-                font-weight: 700 !important;
-                font-size: 20pt !important;
-                letter-spacing: 0 !important;
-                color: #000 !important;
-                text-shadow: none !important;
-            }
-
-            .cv-role {
-                font-size: 10pt !important;
-                letter-spacing: 0 !important;
-                color: #000 !important;
-                text-transform: none !important;
-            }
-
-            .cv-section {
-                margin-bottom: 14px !important;
-                page-break-inside: avoid;
-            }
-
-            /* section heading: bold text + a plain underline, no
-               colored left border, no glow */
-            .section-title {
-                font-family: Arial, Helvetica, sans-serif !important;
-                font-weight: 700 !important;
-                font-size: 12pt !important;
-                letter-spacing: 0 !important;
-                color: #000 !important;
-                text-shadow: none !important;
-                border-left: none !important;
-                border-bottom: 1px solid #000 !important;
-                padding: 0 0 3px 0 !important;
-                margin-bottom: 8px !important;
-                text-transform: uppercase;
-            }
-
-            .section-body {
-                background: none !important;
-                border: none !important;
-                backdrop-filter: none !important;
-                border-radius: 0 !important;
-                padding: 0 !important;
-            }
-
-            .about-text,
-            .entry-text,
-            .entry-list li,
-            .dl-meta,
-            .lang-level,
-            .contact-label {
-                color: #000 !important;
-                font-size: 10pt !important;
-                line-height: 1.5 !important;
-                text-shadow: none !important;
-            }
-
-            .about-text strong,
-            .entry-title,
-            .dl-name,
-            .lang-name,
-            .contact-value {
-                color: #000 !important;
-                font-weight: 700 !important;
-                text-shadow: none !important;
-            }
-
-            /* drop the decorative ▸ glyph entirely — some parsers
-               don't handle CSS-generated content cleanly */
-            .entry-title {
-                font-family: Arial, Helvetica, sans-serif !important;
-                font-weight: 700 !important;
-                font-size: 11pt !important;
-                letter-spacing: 0 !important;
-                padding-left: 0 !important;
-            }
-
-            .entry-title::before {
-                content: none !important;
-            }
-
-            .entry-meta {
-                color: #333 !important;
-                font-size: 9pt !important;
-                font-style: italic;
-                letter-spacing: 0 !important;
-                margin-bottom: 4px !important;
-            }
-
-            .entry {
-                border-bottom: none !important;
-                margin-bottom: 10px !important;
-                padding-bottom: 10px !important;
-                page-break-inside: avoid;
-            }
-
-            .entry-list li::marker {
-                color: #000 !important;
-            }
-
-            /* skills: plain comma-separated text instead of colored
-               pill badges — this is the format ATS parsers expect */
-            .skill-group-label {
-                color: #000 !important;
-                font-weight: 700 !important;
-                font-size: 9pt !important;
-                letter-spacing: 0 !important;
-                margin-bottom: 3px !important;
-            }
-
-            .skills-list {
-                display: block !important;
-            }
-
-            .skills-list li {
-                display: inline !important;
-                background: none !important;
-                border: none !important;
-                padding: 0 !important;
-                border-radius: 0 !important;
-                color: #000 !important;
-                text-shadow: none !important;
-            }
-
-            .skills-list li .lvl {
-                color: #000 !important;
-            }
-
-            .skills-list li:not(:last-child)::after {
-                content: ", ";
-            }
-
-            .portfolio-note {
-                color: #000 !important;
-                border-top: none !important;
-                margin-top: 8px !important;
-                padding-top: 0 !important;
-            }
-
-            .portfolio-note a,
-            .contact-value,
-            .dl-name {
-                color: #000 !important;
-                text-decoration: underline !important;
-            }
-
-            .dataset-link {
-                display: block !important;
-                padding: 3px 0 !important;
-                border-bottom: none !important;
-            }
-
-            /* languages & contact: force a single column instead of
-               a multi-column grid — a printed/exported multi-column
-               grid can make text-extraction tools read lines out of
-               order (e.g. two unrelated fields glued together) */
-            .lang-grid,
-            .contact-grid {
-                display: block !important;
-            }
-
-            .lang-item,
-            .contact-item {
-                display: block !important;
-                background: none !important;
-                border: none !important;
-                padding: 2px 0 !important;
-                margin-bottom: 4px !important;
-            }
-
-            a[href]:after {
-                content: none !important;
-            }
-        }
     </style>
 </head>
 <body>
@@ -620,7 +395,7 @@
         <a class="nav-btn" href="projects.html">PROJECTS</a>
         <a class="nav-btn" href="datasets.html">DATASETS</a>
         <a class="nav-btn" href="init.html">INIT</a>
-        <a class="nav-dl-btn" href="#" onclick="window.print(); return false;">⬇ DOWNLOAD PDF</a>
+        <button id="downloadCvBtn" class="nav-dl-btn" type="button">⬇ DOWNLOAD PDF</button>
     </nav>
 </header>
 
@@ -833,6 +608,238 @@
 
     createBgStars();
     createAsteroids();
+</script>
+
+<!-- ============================================================
+     توليد الـ PDF بالكامل من الكود (jsPDF) بدل window.print():
+     - مفيش نافذة معاينة بتفتح، الملف بينزل على طول
+     - مفيش هيدر/فوتر بيضيفهم المتصفح (اسم الصفحة/التاريخ/رقم
+       الصفحة) لأننا مش بنستخدم آلية الطباعة خالص
+     - النص حقيقي وقابل للتحديد (مش صورة)، وده أهم حاجة للـ ATS
+============================================================= -->
+<script>
+(function () {
+    const btn = document.getElementById('downloadCvBtn');
+    if (!btn) return;
+
+    function buildCvPdf() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+
+        const marginX = 54;
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const maxWidth = pageWidth - marginX * 2;
+        const bottomLimit = pageHeight - 50;
+        let y = 58;
+
+        function checkPageBreak(neededHeight) {
+            if (y + neededHeight > bottomLimit) {
+                doc.addPage();
+                y = 58;
+            }
+        }
+
+        function addName(text) {
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(21);
+            doc.setTextColor(15, 15, 15);
+            doc.text(text, marginX, y);
+            y += 22;
+        }
+
+        function addRole(text) {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10.5);
+            doc.setTextColor(70, 70, 70);
+            doc.text(text, marginX, y);
+            y += 16;
+        }
+
+        function addDivider(weight) {
+            doc.setDrawColor(20, 20, 20);
+            doc.setLineWidth(weight || 1);
+            doc.line(marginX, y, pageWidth - marginX, y);
+            y += 16;
+        }
+
+        function addSectionTitle(text) {
+            checkPageBreak(32);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(12.5);
+            doc.setTextColor(15, 15, 15);
+            doc.text(text.toUpperCase(), marginX, y);
+            y += 5;
+            doc.setDrawColor(15, 15, 15);
+            doc.setLineWidth(0.75);
+            doc.line(marginX, y, pageWidth - marginX, y);
+            y += 15;
+        }
+
+        function addSubTitle(text) {
+            checkPageBreak(16);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.setTextColor(15, 15, 15);
+            doc.text(text, marginX, y);
+            y += 13;
+        }
+
+        function addMeta(text) {
+            checkPageBreak(13);
+            doc.setFont('helvetica', 'italic');
+            doc.setFontSize(9);
+            doc.setTextColor(90, 90, 90);
+            doc.text(text, marginX, y);
+            y += 14;
+        }
+
+        function addParagraph(text) {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(25, 25, 25);
+            const lines = doc.splitTextToSize(text, maxWidth);
+            checkPageBreak(lines.length * 13.5 + 4);
+            doc.text(lines, marginX, y);
+            y += lines.length * 13.5 + 10;
+        }
+
+        function addBullets(items) {
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(25, 25, 25);
+            items.forEach(function (item) {
+                const lines = doc.splitTextToSize(item, maxWidth - 14);
+                checkPageBreak(lines.length * 13.5 + 2);
+                doc.text('•', marginX, y);
+                doc.text(lines, marginX + 12, y);
+                y += lines.length * 13.5 + 3;
+            });
+            y += 6;
+        }
+
+        function addLink(label, value) {
+            checkPageBreak(15);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9.5);
+            doc.setTextColor(15, 15, 15);
+            doc.text(label + ':', marginX, y);
+            const labelWidth = doc.getTextWidth(label + ':') + 6;
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(30, 30, 90);
+            doc.text(value, marginX + labelWidth, y);
+            y += 15;
+        }
+
+        // ── HEADER ──
+        addName('YOUSSEF KHALED IBRAHIM');
+        addRole('Data Scientist   ·   ML Engineer   ·   Cairo, Egypt');
+        y += 2;
+        addDivider(1.2);
+
+        // ── ABOUT ──
+        addSectionTitle('About');
+        addParagraph(
+            "A self-taught Machine Learning Engineer and dedicated TensorFlower with 3+ years of " +
+            "experience in artificial intelligence, a path chosen deliberately, not a fallback. " +
+            "Coming from a non-traditional academic background pushed me toward a more rigorous " +
+            "foundation: mastering the mathematics first, and working through core textbooks and " +
+            "primary references rather than shortcuts. I keep a researcher's mindset, actively " +
+            "reading recent papers to design and prototype deep learning architectures and " +
+            "generative models, closing the gap between academic research and practical, " +
+            "production-minded solutions. That same self-taught path also shaped how fast I move: " +
+            "once I commit to a topic, I go from first principles to a working, non-trivial " +
+            "implementation quickly, the projects below are built from scratch, not assembled " +
+            "from off-the-shelf pipelines."
+        );
+
+        // ── SKILLS ──
+        addSectionTitle('Skills');
+        addSubTitle('Core Stack');
+        addParagraph('Python, TensorFlow, NumPy, Pandas, Matplotlib, Git, MLflow, SQL');
+        addSubTitle('Math Foundations');
+        addParagraph('Linear Algebra (Advanced), Applied Statistics (Strong), Calculus (Building)');
+        addSubTitle('Currently Learning');
+        addParagraph('FastAPI');
+
+        // ── EXPERIENCE ──
+        addSectionTitle('Experience');
+        addSubTitle('Python Instructor \u2014 Local Learning Center');
+        addMeta('3 months');
+        addBullets([
+            'Taught programming fundamentals and Python basics to young students',
+            'Broke down core programming logic into approachable, hands-on lessons',
+            'Built early skills in explaining technical concepts clearly to beginners'
+        ]);
+
+        // ── SELECTED PROJECTS ──
+        addSectionTitle('Selected Projects');
+        addSubTitle('Pixel Art VAE');
+        addMeta('Generative AI \u00b7 Custom-built VAE');
+        addParagraph(
+            'A disentangled Variational Autoencoder built from scratch, custom patch-extraction ' +
+            'layers, a hand-designed multi-objective loss, and a full latent-space ' +
+            'interpretability study backed by Jacobian sensitivity analysis.'
+        );
+        addSubTitle('The Golden Age of Theory');
+        addMeta('Research-grade data investigation');
+        addParagraph(
+            'An independent research project reconciling four separate public datasets, Google ' +
+            'Trends, arXiv, and two Meta Kaggle sources, into a single, evidence-backed account ' +
+            'of how Transformer theory reshaped AI between 2019 and 2022.'
+        );
+        addParagraph('Full technical write-ups: modelcrafter.github.io/projects.html');
+
+        // ── EDUCATION ──
+        addSectionTitle('Education');
+        addSubTitle('Faculty of Arts \u2014 Benha University');
+        addMeta('Final-year student');
+        addParagraph(
+            'Formal studies outside of computing ran in parallel with a self-directed, years-long ' +
+            'path into machine learning, mathematics, core ML/DL references, and applied projects ' +
+            'pursued independently.'
+        );
+
+        // ── DATASETS & PUBLICATIONS ──
+        addSectionTitle('Datasets & Publications');
+        addBullets([
+            'The Dream Dictionary \u2014 3.5 MB \u00b7 CSV',
+            'Arabian Diwan \u2014 55 MB \u00b7 JSON',
+            'PubChem 50M \u2014 181 GB \u00b7 SDF'
+        ]);
+
+        // ── LANGUAGES ──
+        addSectionTitle('Languages');
+        addParagraph('Arabic (Native), English (B1)');
+
+        // ── CONTACT ──
+        addSectionTitle('Contact');
+        addLink('Email', 'y0ussefkh1edv@gmail.com');
+        addLink('Portfolio', 'modelcrafter.github.io');
+        addLink('Kaggle', 'kaggle.com/m0delcrafter');
+        addLink('GitHub', 'github.com/ModelCrafter');
+        addLink('LinkedIn', 'linkedin.com/in/youssef-khaled-b09bb4347');
+
+        doc.save('Youssef_Khaled_CV.pdf');
+    }
+
+    btn.addEventListener('click', function () {
+        btn.disabled = true;
+        const originalText = btn.textContent;
+        btn.textContent = 'GENERATING...';
+        try {
+            buildCvPdf();
+        } catch (e) {
+            console.error(e);
+            alert('Could not generate the PDF. Please check your connection and try again.');
+        } finally {
+            setTimeout(function () {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }, 600);
+        }
+    });
+})();
 </script>
 </body>
 </html>
