@@ -340,6 +340,7 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
   padding:24px;
   background:radial-gradient(ellipse at center,rgba(2,2,10,.82) 0%,rgba(2,2,10,.55) 45%,rgba(2,2,10,.15) 75%,transparent 100%);
   opacity:1;transition:opacity .6s ease;
+  pointer-events:none; /* let clicks fall through to the navbar etc. — only the panel below re-enables them */
 }
 .intro-overlay.hiding{opacity:0;}
 .intro-overlay[hidden]{display:none;}
@@ -349,6 +350,7 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
   text-align:center;
   transform:translateY(0);
   transition:transform .6s ease;
+  pointer-events:auto;
 }
 .intro-overlay.hiding .intro-panel{transform:translateY(-8px);}
 
@@ -476,7 +478,7 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
      It says plainly what this page is, then hands them the choice:
      play the timeline, read it as text, or skip straight to the CV.
 ============================================================= -->
-<div id="intro-overlay" class="intro-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+<div id="intro-overlay" class="intro-overlay" aria-labelledby="intro-title">
   <div class="intro-panel">
     <div class="intro-era">Chapter_00</div>
     <h1 id="intro-title" class="intro-title">Before We Begin</h1>
@@ -1083,18 +1085,6 @@ const introTextBtn=document.getElementById('intro-text-btn');
 introBeginBtn.addEventListener('click',startExperience);
 introTextBtn.addEventListener('click',function(){ openTextView(); });
 introBeginBtn.focus();
-
-function onIntroKeydown(e){
-  if(e.key!=='Tab')return;
-  const focusables=introOverlay.querySelectorAll('button, a[href]');
-  if(!focusables.length)return;
-  const first=focusables[0],last=focusables[focusables.length-1];
-  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
-  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
-}
-document.addEventListener('keydown',function(e){
-  if(!introOverlay.hidden)onIntroKeydown(e);
-});
 </script>
 </body>
 </html>
