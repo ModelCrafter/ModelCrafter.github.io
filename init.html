@@ -322,6 +322,139 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
   #ch-bar{flex-wrap:wrap;row-gap:8px;justify-content:center;}
   .ch-text-btn,.ch-skip{font-size:.8rem;padding:4px 10px;}
 }
+
+/* ══════════════════════════════════════
+   INTRO / ENTRY — shown first so a visitor
+   knows what this page even is before the
+   ship starts moving anywhere.
+   Styled as "CHAPTER_00" of the same story —
+   no card, no border, just the scene behind it,
+   matching the language of #chapter-overlay.
+   ══════════════════════════════════════ */
+#ch-console{transition:opacity .5s ease, transform .5s ease;}
+#ch-console.console-hidden{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(24px);}
+
+.intro-overlay{
+  position:fixed;inset:0;z-index:2000;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+  background:radial-gradient(ellipse at center,rgba(2,2,10,.82) 0%,rgba(2,2,10,.55) 45%,rgba(2,2,10,.15) 75%,transparent 100%);
+  opacity:1;transition:opacity .6s ease;
+}
+.intro-overlay.hiding{opacity:0;}
+.intro-overlay[hidden]{display:none;}
+
+.intro-panel{
+  width:min(640px,92vw);
+  text-align:center;
+  transform:translateY(0);
+  transition:transform .6s ease;
+}
+.intro-overlay.hiding .intro-panel{transform:translateY(-8px);}
+
+.intro-era{
+  font-family:'VT323',monospace;
+  font-size:clamp(.85rem,2vw,1rem);
+  letter-spacing:10px;
+  color:rgba(160,210,255,.5);
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+.intro-title{
+  font-family:'VT323',monospace;
+  font-size:clamp(2.1rem,5.6vw,3.2rem);
+  letter-spacing:5px;
+  color:#e0eeff;
+  text-shadow:0 0 30px rgba(100,160,255,.7);
+  text-transform:uppercase;
+  line-height:1.15;
+  margin-bottom:14px;
+}
+
+.intro-sub{
+  font-family:'VT323',monospace;
+  font-size:clamp(.8rem,1.5vw,1rem);
+  letter-spacing:3px;
+  color:rgba(160,210,255,.55);
+  text-transform:uppercase;
+  margin-bottom:26px;
+}
+
+.intro-text{
+  font-family:'Share Tech Mono',monospace;
+  font-size:.92rem;line-height:1.85;
+  color:#a9c0e8;
+  max-width:480px;
+  margin:0 auto 30px;
+}
+
+.intro-actions{
+  display:flex;flex-wrap:wrap;gap:12px;
+  align-items:center;justify-content:center;
+}
+
+.intro-btn{
+  font-family:'VT323',monospace;
+  font-size:1rem;letter-spacing:2px;
+  text-transform:uppercase;
+  padding:8px 20px;
+  border-radius:22px;
+  cursor:pointer;
+  text-decoration:none;
+  transition:all .3s ease;
+  display:inline-block;
+}
+
+.intro-btn-primary{
+  background:rgba(120,255,170,.08);
+  border:1px solid rgba(120,255,170,.6);
+  color:#aaffcf;
+  text-shadow:0 0 8px rgba(120,255,170,.4);
+}
+.intro-btn-primary:hover{
+  background:rgba(120,255,170,.18);
+  border-color:#fff;
+  color:#fff;
+  box-shadow:0 0 18px rgba(120,255,170,.4);
+  transform:scale(1.05);
+}
+
+.intro-btn-secondary{
+  background:rgba(100,150,255,.08);
+  border:1px solid rgba(140,180,255,.55);
+  color:rgba(190,215,255,.92);
+  text-shadow:0 0 8px rgba(140,180,255,.4);
+}
+.intro-btn-secondary:hover{
+  background:rgba(100,150,255,.18);
+  border-color:#fff;
+  color:#fff;
+  box-shadow:0 0 18px rgba(100,150,255,.4);
+  transform:scale(1.05);
+}
+
+.intro-btn-tertiary{
+  background:transparent;
+  border:1px solid rgba(255,185,55,.5);
+  color:rgba(255,205,90,.85);
+  font-size:.92rem;
+}
+.intro-btn-tertiary:hover{
+  border-color:rgba(255,200,80,.9);
+  color:#fff;
+  box-shadow:0 0 15px rgba(255,175,40,.3);
+  transform:scale(1.05);
+}
+
+.intro-btn:focus-visible{outline:2px solid #a8c5ff;outline-offset:3px;}
+
+@media(max-width:480px){
+  .intro-title{font-size:1.6rem;letter-spacing:3px;}
+  .intro-sub{font-size:.75rem;}
+  .intro-text{font-size:.85rem;}
+  .intro-btn{font-size:.9rem;padding:7px 16px;}
+}
 </style>
 </head>
 <body>
@@ -337,6 +470,29 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
 </header>
 
 <canvas id="scene"></canvas>
+
+<!-- ============================================================
+     INTRO / ENTRY — the visitor sees this before anything moves.
+     It says plainly what this page is, then hands them the choice:
+     play the timeline, read it as text, or skip straight to the CV.
+============================================================= -->
+<div id="intro-overlay" class="intro-overlay" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+  <div class="intro-panel">
+    <div class="intro-era">Chapter_00</div>
+    <h1 id="intro-title" class="intro-title">Before We Begin</h1>
+    <div class="intro-sub">a personal log · 2019 — now</div>
+    <p class="intro-text">
+      This isn't a resume — it's a timeline of how a curious teenager with a
+      battered old laptop slowly became a self-taught Data Scientist &amp;
+      Machine Learning Engineer, told station by station.
+    </p>
+    <div class="intro-actions">
+      <button id="intro-begin-btn" class="intro-btn intro-btn-primary" type="button">▶ Begin the Journey</button>
+      <button id="intro-text-btn" class="intro-btn intro-btn-secondary" type="button">≡ Read It as Text</button>
+      <a class="intro-btn intro-btn-tertiary" href="cv.html">Skip → CV</a>
+    </div>
+  </div>
+</div>
 
 <div id="float-msg">
   <div id="float-bar"></div>
@@ -360,7 +516,7 @@ body{background:#000;color:#e0e0e8;font-family:'VT323',monospace;}
 </div>
 
 <!-- bottom console: progress gems + view as text + skip -->
-<div id="ch-console">
+<div id="ch-console" class="console-hidden">
   <div id="ch-title-label">— THE FIRST SIGNAL —</div>
   <div id="ch-bar">
     <div id="ch-gems"></div>
@@ -451,6 +607,7 @@ let W, H, animT = 0, stars = [];
 /* ── STATE ── */
 let currentChapter = 0;
 let WAYPOINTS      = CHAPTERS[0].waypoints;
+let experienceStarted = false; // becomes true once the visitor picks "Begin" on the intro screen
 
 /* ── GLITCH ── */
 const G={active:false,phase:'none',timer:0,intensity:0,next:-1,finish:false,DUR:{buildup:22,heavy:38,flash:14,reveal:28,settle:22}};
@@ -478,6 +635,7 @@ cv.addEventListener('click',(e)=>{
 });
 
 function checkHover(){
+  if(!experienceStarted){cv.style.cursor='default';return;}
   if(G.active){hoveredWP=null;cv.style.cursor='default';return;}
   let found=null;
   WAYPOINTS.forEach(wp=>{const{x,y}=wpos(wp);if(Math.hypot(mouse.x-x,mouse.y-y)<30)found=wp;});
@@ -788,12 +946,31 @@ function advanceJourney(){
 }
 floatNextBtn.addEventListener('click',advanceJourney);
 
-(function boot(){
+// Park the ship near the first waypoint on load, but don't launch the
+// journey yet — that only happens once the visitor picks "Begin" on the
+// intro screen. Reading it as text or skipping to the CV never touches this.
+(function parkShip(){
   const first=wpos(WAYPOINTS[0]);
   ship.x=first.x-80;ship.y=first.y+40;ship.angle=Math.PI*.5;
-  journeyIdx=0;startLeg(ship.x,ship.y,0,0);
-  showChapterTitle(CHAPTERS[0]);
 })();
+
+function closeIntro(){
+  const el=document.getElementById('intro-overlay');
+  el.classList.add('hiding');
+  setTimeout(function(){ el.hidden=true; },500);
+}
+
+function startExperience(){
+  if(experienceStarted)return;
+  experienceStarted=true;
+  journeyIdx=0;
+  startLeg(ship.x,ship.y,0,0);
+  closeIntro();
+  setTimeout(function(){
+    showChapterTitle(CHAPTERS[0]);
+    document.getElementById('ch-console').classList.remove('console-hidden');
+  },500);
+}
 
 /* ════════════════════════════════════════════
    MAIN LOOP
@@ -891,6 +1068,33 @@ function closeTextView(){
 viewTextBtn.addEventListener('click',openTextView);
 textCloseBtn.addEventListener('click',closeTextView);
 textCvBtn.addEventListener('click',()=>{window.location.href='cv.html';});
+
+/* ════════════════════════════════════════════
+   INTRO / ENTRY — wire the three choices up.
+   Begin → launches the ship journey.
+   Read as Text → reuses the existing text overlay,
+   intro stays underneath so closing it returns here.
+   Skip → CV is a plain <a href>, no JS needed.
+   ════════════════════════════════════════════ */
+const introOverlay=document.getElementById('intro-overlay');
+const introBeginBtn=document.getElementById('intro-begin-btn');
+const introTextBtn=document.getElementById('intro-text-btn');
+
+introBeginBtn.addEventListener('click',startExperience);
+introTextBtn.addEventListener('click',function(){ openTextView(); });
+introBeginBtn.focus();
+
+function onIntroKeydown(e){
+  if(e.key!=='Tab')return;
+  const focusables=introOverlay.querySelectorAll('button, a[href]');
+  if(!focusables.length)return;
+  const first=focusables[0],last=focusables[focusables.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+}
+document.addEventListener('keydown',function(e){
+  if(!introOverlay.hidden)onIntroKeydown(e);
+});
 </script>
 </body>
 </html>

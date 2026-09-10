@@ -568,3 +568,189 @@ body {
         transform: translate(0, -100px) scale(0.95);
     }
 }
+
+/* ============================================================
+   SYSTEM MAP LEGEND — self-explanatory collapsed badge
+   - the badge shows 3 tiny colored dots matching sun/planet/
+     astronaut, so it visually reads as "a key" even before
+     anyone touches it
+   - a quiet "MAP" caption sits underneath at all times
+   - a soft pulse ring draws the eye until the one-time
+     auto-reveal (triggered from index.html) opens it briefly
+============================================================= */
+#legend-widget {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+#legend-badge {
+    position: relative;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(10, 10, 30, 0.75);
+    border: 1px solid rgba(150, 180, 255, 0.5);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 12px rgba(100, 150, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+#legend-badge .ld {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+}
+
+#legend-badge .ld-sun {
+    background: #ff8800;
+    box-shadow: 0 0 5px #ff8800;
+    top: 8px;
+    left: 14px;
+}
+
+#legend-badge .ld-planet {
+    background: #6688ff;
+    box-shadow: 0 0 5px #6688ff;
+    bottom: 8px;
+    left: 8px;
+}
+
+#legend-badge .ld-astro {
+    background: #a8c5ff;
+    box-shadow: 0 0 5px #a8c5ff;
+    bottom: 8px;
+    right: 8px;
+}
+
+#legend-badge:hover,
+#legend-widget.open #legend-badge {
+    border-color: rgba(170, 200, 255, 1);
+    box-shadow: 0 0 18px rgba(100, 150, 255, 0.5);
+    transform: scale(1.08);
+}
+
+#legend-badge:focus-visible {
+    outline: 2px solid #a8c5ff;
+    outline-offset: 3px;
+}
+
+#legend-widget.pulse #legend-badge::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(150, 180, 255, 0.5);
+    animation: legendPulse 1.8s ease-out infinite;
+}
+
+@keyframes legendPulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+    }
+}
+
+#legend-caption {
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+    color: rgba(168, 197, 255, 0.45);
+    text-transform: uppercase;
+    padding-left: 2px;
+    user-select: none;
+}
+
+#legend-panel {
+    position: absolute;
+    left: 0;
+    bottom: 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    background: rgba(8, 8, 24, 0.92);
+    border: 1px solid rgba(100, 150, 255, 0.3);
+    border-radius: 8px;
+    padding: 12px 18px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(6px) scale(0.95);
+    pointer-events: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 0 20px rgba(100, 150, 255, 0.15);
+}
+
+#legend-widget.open #legend-panel {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+#legend-panel .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#legend-panel .legend-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#legend-panel .li-sun {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff8800, #cc5500);
+    box-shadow: 0 0 6px rgba(255, 136, 0, 0.7);
+}
+
+#legend-panel .li-planet {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #6688ff;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5), 0 0 6px #6688ff;
+}
+
+#legend-panel .li-astro svg {
+    width: 14px;
+    height: 17px;
+    color: #a8c5ff;
+    filter: drop-shadow(0 0 4px rgba(100, 150, 255, 0.6));
+    display: block;
+}
+
+#legend-panel span {
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    color: #c0d0f5;
+}
+
+@media (max-width: 768px) {
+    #legend-widget {
+        left: 14px;
+        bottom: 14px;
+    }
+
+    #legend-panel {
+        padding: 10px 14px;
+    }
+}

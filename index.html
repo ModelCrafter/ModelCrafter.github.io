@@ -37,7 +37,89 @@
         <h2 class="hero-subtitle">MACHINE LEARNING ENGINEER</h2>
     </div>
 
+    <!-- ============================================================
+         SYSTEM MAP LEGEND — explains what the sun / planet / astronaut
+         icons floating in the galaxy mean.
+         - the badge itself shows 3 tiny colored dots (matching the
+           sun/planet/astronaut colors) so it hints at "this is a key"
+           even before anyone interacts with it
+         - a quiet "MAP" caption sits under it at all times
+         - it auto-opens once, briefly, shortly after the page loads
+           so first-time visitors are taught without asking, then
+           collapses back down and behaves as hover/tap from then on
+    ============================================================= -->
+    <div id="legend-widget" class="pulse">
+        <div id="legend-panel" role="tooltip">
+            <div class="legend-row"><span class="legend-icon li-sun" aria-hidden="true"></span><span>PROJECT</span></div>
+            <div class="legend-row"><span class="legend-icon li-planet" aria-hidden="true"></span><span>DATASET</span></div>
+            <div class="legend-row">
+                <span class="legend-icon li-astro" aria-hidden="true">
+                    <svg viewBox="0 0 80 100">
+                        <polygon points="40,8 50,14 50,26 40,32 30,26 30,14" fill="currentColor" opacity="0.85"/>
+                        <polygon points="40,35 28,50 52,50" fill="currentColor" opacity="0.8"/>
+                        <polygon points="28,50 52,50 56,70 24,70" fill="currentColor" opacity="0.7"/>
+                    </svg>
+                </span>
+                <span>STORY</span>
+            </div>
+        </div>
+        <button id="legend-badge" type="button" aria-expanded="false" aria-controls="legend-panel" aria-label="Show what the icons on this page mean">
+            <span class="ld ld-sun" aria-hidden="true"></span>
+            <span class="ld ld-planet" aria-hidden="true"></span>
+            <span class="ld ld-astro" aria-hidden="true"></span>
+        </button>
+        <div id="legend-caption" aria-hidden="true">MAP</div>
+    </div>
+
     <script src="data.js"></script>
     <script src="script.js"></script>
+
+    <script>
+    (function () {
+        const widget = document.getElementById('legend-widget');
+        const badge = document.getElementById('legend-badge');
+
+        function openLegend() {
+            widget.classList.add('open');
+            badge.setAttribute('aria-expanded', 'true');
+        }
+        function closeLegend() {
+            widget.classList.remove('open');
+            badge.setAttribute('aria-expanded', 'false');
+        }
+        function toggleLegend() {
+            if (widget.classList.contains('open')) closeLegend(); else openLegend();
+        }
+
+        /* hover opens it on desktop */
+        widget.addEventListener('mouseenter', openLegend);
+        widget.addEventListener('mouseleave', function () {
+            if (!widget.classList.contains('tapped')) closeLegend();
+        });
+
+        /* tap toggles it and keeps it open on touch devices */
+        badge.addEventListener('click', function () {
+            widget.classList.toggle('tapped');
+            toggleLegend();
+        });
+
+        /* Escape or a click outside always closes it */
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') { closeLegend(); widget.classList.remove('tapped'); }
+        });
+        document.addEventListener('click', function (e) {
+            if (!widget.contains(e.target)) { closeLegend(); widget.classList.remove('tapped'); }
+        });
+
+        /* teach new visitors once: open briefly on its own, then collapse */
+        setTimeout(function () {
+            widget.classList.remove('pulse');
+            openLegend();
+            setTimeout(function () {
+                if (!widget.classList.contains('tapped')) closeLegend();
+            }, 4000);
+        }, 1600);
+    })();
+    </script>
 </body>
 </html>
