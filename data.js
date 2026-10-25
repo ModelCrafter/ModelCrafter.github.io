@@ -14,6 +14,13 @@ const projectsData = [
         details: "This project explores the transformative impact of Transformer models on the field of artificial intelligence during the period from 2019 to 2022. By analyzing data from Google Trends, arXiv publications, and Meta Kaggle competitions, the study provides insights into how Transformer theory has influenced research directions, model development, and practical applications in AI.",
         link: "projects/project2.html"
     },
+    {
+        id: 3,
+        title: "LightWeight Chess Engine",
+        description: "A 15.2M-parameter chess language model built from scratch in TensorFlow, featuring custom Transformer architecture innovations.",
+        details: "A chess small language model that predicts the next move from player ratings, time control, and game history, with a custom data pipeline and architecture experiments.",
+        link: "projects/project3.html"
+    },
 
 ];
 

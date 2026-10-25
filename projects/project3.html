@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LightWeight Chess Engine | Youssef Khaled</title>
+	<meta name="description" content="LightWeight Chess Engine - a 15.2M-parameter chess small language model built from scratch in TensorFlow, with RIEP re-injection and weight-reusing double attention.">
+	<meta property="og:title" content="LightWeight Chess Engine | Youssef Khaled">
+	<meta property="og:description" content="A chess small language model driven by custom architectural innovations (15.2M parameters).">
+	<meta property="og:type" content="article">
+	<meta name="robots" content="index, follow">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="LightWeight Chess Engine | Youssef Khaled">
+	<meta name="twitter:description" content="A chess small language model driven by custom architectural innovations (15.2M parameters).">
+	<link rel="canonical" href="https://modelcrafter.github.io/projects/project3.html">
+	<meta property="og:url" content="https://modelcrafter.github.io/projects/project3.html">
+	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="../common.css">
+	<style>
+		body{background:#000;color:var(--text-color);font-family:'VT323',monospace;overflow-y:auto;overflow-x:hidden;min-height:100vh}
+		.content{position:relative;z-index:10;padding:100px 0 50px}
+		.project-header{max-width:1000px;margin:0 auto 40px;padding:0 20px 40px;text-align:center;border-bottom:1px solid rgba(100,150,255,.3)}
+		.project-id{font-size:.9rem;color:#ffaa66;text-shadow:0 0 5px rgba(255,170,102,.4);letter-spacing:1px;margin-bottom:12px}
+		.project-title{font-size:2.5rem;color:#e0e0e8;text-shadow:0 0 30px rgba(100,150,255,.4);letter-spacing:3px;margin-bottom:12px}
+		.project-meta{font-size:1rem;color:#b8c8e8;text-shadow:0 0 15px rgba(100,150,255,.2)}
+		.project-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+		.project-tags span,.tag-pill{background:rgba(100,150,255,.1);border:1px solid rgba(100,150,255,.3);padding:3px 12px;border-radius:20px;font-size:.85rem;color:#a8c5ff}
+		.readme-container{max-width:900px;margin:0 auto;padding:40px;background:rgba(15,15,35,.4);border:1px solid rgba(100,150,255,.2);border-radius:4px;backdrop-filter:blur(10px)}
+		.readme-content h2{font-size:1.8rem;color:#e0e0e8;text-shadow:0 0 20px rgba(100,150,255,.3);margin:34px 0 15px;letter-spacing:2px;border-left:3px solid rgba(255,170,102,.6);padding-left:12px}
+		.readme-content h2:first-child{margin-top:0}
+		.readme-content p{font-size:1rem;color:#a8c5ff;line-height:1.8;margin-bottom:15px}
+		.readme-content code{background:rgba(100,150,255,.1);padding:2px 6px;border-radius:3px;color:#ffaa66}
+		.readme-content pre{background:rgba(100,150,255,.08);padding:14px;border-left:3px solid rgba(255,170,102,.6);margin:15px 0;overflow-x:auto;font-size:.9rem;color:#ffaa66;line-height:1.6}
+		.readme-content pre code{background:none;padding:0}
+		.readme-content ul{margin:0 0 15px 20px}.readme-content li{margin-bottom:9px;color:#a8c5ff;line-height:1.7}.readme-content li strong{color:#e0e0e8}
+		.readme-content table{width:100%;border-collapse:collapse;margin:15px 0 25px;font-size:.92rem}
+		.readme-content th,.readme-content td{border:1px solid rgba(100,150,255,.25);padding:10px 12px;text-align:left;color:#a8c5ff}
+		.readme-content th{background:rgba(100,150,255,.1);color:#e0e0e8;letter-spacing:1px}
+		.readme-content blockquote{border-left:3px solid rgba(255,170,102,.6);background:rgba(255,170,102,.06);padding:12px 18px;margin:18px 0;font-style:italic;color:#ffd9b3}
+		.stat-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin:10px 0 25px}
+		.stat-box{background:rgba(100,150,255,.08);border:1px solid rgba(100,150,255,.25);border-radius:4px;padding:14px 12px;text-align:center}
+		.stat-num{font-size:1.8rem;color:#ffaa66;text-shadow:0 0 12px rgba(255,170,102,.5)}
+		.stat-label{font-size:.85rem;color:#8fa5d8;letter-spacing:1px;margin-top:4px}
+		/* mini board */
+		.board-wrap{display:flex;flex-wrap:wrap;gap:26px;align-items:center;justify-content:center;margin:18px 0 25px}
+		.board{display:grid;grid-template-columns:repeat(8,1fr);width:min(320px,100%);aspect-ratio:1;border:1px solid rgba(100,150,255,.45);box-shadow:0 0 25px rgba(100,150,255,.2)}
+		.sq{position:relative;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,6.4vw,31px);line-height:1;font-family:"Segoe UI Symbol","DejaVu Sans","Noto Sans Symbols 2",sans-serif}
+		.sq.l{background:#26315a}.sq.d{background:#10152e}
+		.sq.hl{box-shadow:inset 0 0 0 2px rgba(255,170,102,.85)}
+		.sq.chk{background:rgba(255,80,80,.38)}
+		.sq .co{position:absolute;font-family:'VT323',monospace;font-size:.6rem;color:rgba(168,197,255,.5)}
+		.sq .co.r{top:1px;left:2px}.sq .co.f{bottom:0;right:2px}
+		.pw{color:#f0f6ff;text-shadow:0 0 6px rgba(160,200,255,.6)}.pb{color:#ff9a4d;text-shadow:0 0 6px rgba(255,150,70,.5)}
+		.board-side{flex:1 1 240px;min-width:230px}
+		.board-side p{margin-bottom:12px}
+		.board-status{color:#ffd9b3;font-size:1.15rem;min-height:2.4em}
+		.board-btns{display:flex;flex-wrap:wrap;gap:10px}
+		.board-btns button{background:rgba(100,150,255,.1);border:1px solid rgba(150,180,255,.5);color:#d0e0ff;padding:.45rem 1rem;font-family:'VT323',monospace;font-size:1.05rem;letter-spacing:1px;cursor:pointer;transition:all .3s}
+		.board-btns button:hover{border-color:#fff;color:#fff;box-shadow:0 0 14px rgba(100,150,255,.4)}
+		.board-btns button.on{background:rgba(255,170,102,.15);border-color:rgba(255,170,102,.8);color:#ffd9b3}
+		.board-btns button:focus-visible{outline:2px solid #a8c5ff;outline-offset:3px}
+		.cta-box{margin-top:30px;text-align:center;padding:24px 20px;background:rgba(255,170,102,.06);border:1px solid rgba(255,170,102,.35);border-radius:4px}
+		.cta-box p{color:#ffd9b3}
+		.cta-btn,.back-btn{display:inline-block;border:1px solid rgba(255,170,102,.7);color:#ffd9b3;padding:.7rem 1.6rem;margin:4px;font-family:'VT323',monospace;text-decoration:none;text-transform:uppercase;letter-spacing:2px;transition:all .4s ease}
+		.cta-btn{background:rgba(255,170,102,.1)}.cta-btn:hover{background:rgba(255,170,102,.2);box-shadow:0 0 20px rgba(255,170,102,.4);transform:scale(1.05)}
+		.back-btn{margin-top:30px;border-color:rgba(150,180,255,.5);color:#a8c5ff}.back-btn:hover{border-color:rgba(150,180,255,.8);color:#d0e0ff;box-shadow:0 0 15px rgba(100,150,255,.4)}
+		@media(max-width:768px){.project-title{font-size:1.7rem}.readme-container{padding:20px}.content{padding-top:90px}.stat-num{font-size:1.4rem}.readme-content table{display:block;overflow-x:auto}}
+	</style>
+</head>
+<body>
+	<div id="space-container"></div>
+	<header class="navbar"><a class="nav-btn" href="../index.html">BACK</a></header>
+	<main class="content">
+		<div class="project-header">
+			<div class="project-id">PROJECT_03</div>
+			<h1 class="project-title">LightWeight Chess Engine</h1>
+			<p class="project-meta">A chess small language model built from scratch, driven by custom architectural innovations</p>
+			<div class="project-tags"><span>NLP</span><span>TensorFlow</span><span>Transformer</span><span>Board Games</span><span>DagsHub</span></div>
+		</div>
+		<div class="readme-container"><div class="readme-content">
+
+			<h2>Overview</h2>
+			<p>A 1700-rated chess player's attempt to build an engine completely from scratch, framed as a <strong>Chess Small Language Model</strong>: a decoder-only Transformer that reads the Elo tiers and time control of a game, then predicts the next ply. Kaggle's compute limits ruled out billions of games, so the focus went into an efficient data pipeline and an architecture worth studying rather than raw scale.</p>
+			<div class="stat-strip">
+				<div class="stat-box"><div class="stat-num">15.2M</div><div class="stat-label">Parameters</div></div>
+				<div class="stat-box"><div class="stat-num">44%</div><div class="stat-label">Top-1 accuracy</div></div>
+				<div class="stat-box"><div class="stat-num">81%</div><div class="stat-label">Top-5 accuracy</div></div>
+				<div class="stat-box"><div class="stat-num">6.82</div><div class="stat-label">Perplexity</div></div>
+				<div class="stat-box"><div class="stat-num">~2M</div><div class="stat-label">Training games</div></div>
+				<div class="stat-box"><div class="stat-num">11.7h</div><div class="stat-label">One Tesla T4</div></div>
+			</div>
+
+			<h2>The Model Plays a Move</h2>
+			<p>The model gets a prompt of two rating tokens, a time control and the moves so far, then predicts the next ply. Here the prompt is a super-GM classical game that has just reached <code>Bxf7+</code>:</p>
+			<pre><code>[super_gm] [super_gm] [classical] [START] e4 c5 Nc3 Nc6 f4 g6 Nf3 d6
+Bc4 Bg4 O-O e5 fxe5 Nxe5 Nxe5 Bxd1 Bxf7+</code></pre>
+			<div class="board-wrap">
+				<div class="board" id="board" role="img" aria-label="Chess board after Bxf7+"></div>
+				<div class="board-side">
+					<p class="board-status" id="boardStatus" aria-live="polite"></p>
+					<div class="board-btns">
+						<button type="button" id="btnBefore" class="on">After Bxf7+</button>
+						<button type="button" id="btnAfter">Model plays Ke7</button>
+					</div>
+				</div>
+			</div>
+			<p>Black is in check from the bishop on f7. <code>Ke7</code> is the only legal reply: the king cannot take f7 (the rook on f1 guards it) and d7 is covered by the knight on e5.</p>
+
+			<h2>Data Pipeline</h2>
+			<ul>
+				<li><strong>Filtering:</strong> kept White Elo, Black Elo, time control and PGN moves; removed exact duplicates and games longer than 537 characters (at most 132 tokens); kept only games that ended in checkmate or a draw.</li>
+				<li><strong>Elo as categories:</strong> ratings are discretized into tiers based on FIDE and USCF standards instead of being fed as raw numbers.</li>
+				<li><strong>TFRecords + dynamic bucketing:</strong> <code>bucket_by_sequence_length</code> pads each batch only to its own longest game, avoiding wasted compute on padding.</li>
+				<li><strong>Masked loss and metrics:</strong> metadata tokens and the first move of each game are excluded, so training focuses only on move generation.</li>
+				<li><strong>Metrics built for human play:</strong> Top-1 / Top-3 / Top-5 accuracy and perplexity, since naive accuracy punishes reasonable alternatives in noisy human games.</li>
+			</ul>
+
+			<h2>Why There Is No Outcome Head</h2>
+			<p>The original design had a second head predicting the game result. It was removed after it turned out to be reading a shortcut: after termination filtering every decisive game ends in checkmate (<code>#</code>), so the head could infer the result from the final token and game length. Validation error fell to about 0.01, far too low to be a real evaluation. Labelling every position with the final result was not a fix either, because it punishes correct evaluations of positions that were later lost to a blunder. One objective, move generation, remained.</p>
+
+			<h2>Architecture Evolution</h2>
+			<p>Every run was tracked on DagsHub. The short-step comparisons below used 5 blocks.</p>
+			<table>
+				<tr><th>Phase</th><th>Experiment</th><th>Result</th></tr>
+				<tr><td>1</td><td>Standard Pre-LN decoder (820 steps)</td><td>Control baseline</td></tr>
+				<tr><td>2</td><td>LightDense: low-rank FFN reduction</td><td>-2M parameters, accuracy dropped; kept for future vision / tabular work</td></tr>
+				<tr><td>2</td><td>Tied embeddings with learnable scale, bias and LayerNorm</td><td>-4M parameters, negligible loss; kept permanently</td></tr>
+				<tr><td>3</td><td>RIEP: gated re-injection of positional encodings and embeddings</td><td>Top-1 34.0% to 34.9%, Top-5 67.0% to 68.6%</td></tr>
+				<tr><td>3</td><td>1Block2Attention: second causal attention per block</td><td>Top-1 38.5% to 39.1%, Top-5 73.9% to 74.8%</td></tr>
+				<tr><td>3</td><td>ReuseFirst: second attention reuses the first one's weights</td><td>Same accuracy, no extra attention parameters (final design)</td></tr>
+			</table>
+
+			<h2>Final Configuration</h2>
+			<table>
+				<tr><th>Component</th><th>Setting</th></tr>
+				<tr><td>Transformer blocks</td><td>9 (scaled up from 5 for the long run)</td></tr>
+				<tr><td>Embedding / heads / FFN</td><td>320 / 8 heads (key dim 40) / 1024, GELU</td></tr>
+				<tr><td>Positional encoding</td><td>Fixed sinusoidal, max length 160</td></tr>
+				<tr><td>Vocabulary</td><td>14,517 tokens; tied embedding is about 30% of the model</td></tr>
+				<tr><td>Optimizer</td><td>Nadam, warmup 5e-5 to 1e-3 over 2,000 steps, global clip norm 3.0</td></tr>
+				<tr><td>Training</td><td>3 epochs x 16,550 steps, mixed float16</td></tr>
+			</table>
+			<p>Validation perplexity improved from 8.85 after epoch one to 6.82 after epoch three, with training metrics close behind, so no sign of overfitting.</p>
+
+			<h2>Inference</h2>
+			<p>Beam search ranks candidate lines by cumulative log-probability under the model, conditioned on the Elo and time-control tokens, so it favors the most likely human continuation rather than the objectively strongest move. There is currently <strong>no legal-move filter</strong>, so the model can propose illegal moves.</p>
+
+			<h2>Stack</h2>
+			<div class="tag-row" style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 10px"><span class="tag-pill">TensorFlow</span><span class="tag-pill">Keras custom layers</span><span class="tag-pill">TFRecords</span><span class="tag-pill">Mixed precision</span><span class="tag-pill">DagsHub</span><span class="tag-pill">Kaggle</span></div>
+
+			<div class="cta-box">
+				<p>This page is a condensed overview. The full write-up has the RIEP formulation, every experiment and the training notebook links.</p>
+				<a class="cta-btn" href="https://doi.org/10.34740/kaggle/w/113780" target="_blank" rel="noopener">Read the Full Write-Up &rarr;</a>
+				<a class="cta-btn" href="https://dagshub.com/ModelCrafter/chess-engine-experiments" target="_blank" rel="noopener">DagsHub Experiments &rarr;</a>
+			</div>
+		</div></div>
+		<div style="max-width:900px;margin:0 auto;padding:0 20px;text-align:center"><a href="../projects.html" class="back-btn">&larr; Back to Projects</a></div>
+	</main>
+	<script>
+		const spaceContainer=document.getElementById('space-container');
+		function createSpace(){for(let i=0;i<206;i++){const el=document.createElement('div');el.className=i<200?'star-bg':'asteroid';el.setAttribute('aria-hidden','true');const s=i<200?Math.random()*1.5+.3:Math.random()*6+2;el.style.width=s+'px';el.style.height=s+'px';el.style.left=Math.random()*100+'%';el.style.top=Math.random()*100+'%';if(i<200)el.style.animationDelay=Math.random()*2.5+'s';else el.style.background='#b4b4c8';spaceContainer.appendChild(el)}}
+		createSpace();
+
+		/* mini board: position after Bxf7+, black to move */
+		const FEN='r2qkbnr/pp3B1p/3p2p1/2p1N3/4P3/2N5/PPPP2PP/R1Bb1RK1';
+		const G={k:'\u265A',q:'\u265B',r:'\u265C',b:'\u265D',n:'\u265E',p:'\u265F\uFE0E'};
+		const base=[];
+		FEN.split('/').forEach(function(row){for(const ch of row){if(/\d/.test(ch)){for(let n=0;n<+ch;n++)base.push(null)}else base.push(ch)}});
+		const boardEl=document.getElementById('board'),statusEl=document.getElementById('boardStatus');
+		const btnB=document.getElementById('btnBefore'),btnA=document.getElementById('btnAfter');
+		function render(after){
+			const pos=base.slice();
+			if(after){pos[12]=pos[4];pos[4]=null} /* e8 -> e7 */
+			boardEl.innerHTML='';
+			for(let i=0;i<64;i++){
+				const r=i>>3,f=i&7,sq=document.createElement('div');
+				sq.className='sq '+((r+f)%2===0?'l':'d');
+				if(after&&(i===4||i===12))sq.classList.add('hl');
+				if(!after&&i===4)sq.classList.add('chk');
+				const p=pos[i];
+				if(p){const s=document.createElement('span');const white=p===p.toUpperCase();s.className=white?'pw':'pb';s.textContent=G[p.toLowerCase()];sq.appendChild(s)}
+				if(f===0){const c=document.createElement('span');c.className='co r';c.textContent=8-r;sq.appendChild(c)}
+				if(r===7){const c=document.createElement('span');c.className='co f';c.textContent='abcdefgh'[f];sq.appendChild(c)}
+				boardEl.appendChild(sq);
+			}
+			boardEl.setAttribute('aria-label',after?'Chess board after the model plays Ke7':'Chess board after Bxf7+, Black king in check');
+			statusEl.textContent=after?'Model plays Ke7, the king steps out of check.':'Black to move. The king on e8 is in check from the bishop on f7.';
+			btnB.classList.toggle('on',!after);btnA.classList.toggle('on',after);
+		}
+		btnB.addEventListener('click',function(){render(false)});
+		btnA.addEventListener('click',function(){render(true)});
+		render(false);
+	</script>
+</body>
+</html>
